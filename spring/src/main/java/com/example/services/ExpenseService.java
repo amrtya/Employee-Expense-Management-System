@@ -6,6 +6,7 @@ import com.example.repositories.UserModelRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Objects;
@@ -34,60 +35,37 @@ public class ExpenseService {
     public Optional<ExpenseModel> getExpenseById(String expenseId) {
         return expenseModelRepository.findById(expenseId);
     }
+    public ResponseModelListPayload<ExpenseModel> getAllExpenses() {
+        return new ResponseModelListPayload<ExpenseModel>(ResponseModel.SUCCESS, expenseModelRepository.findAll());
+    }
 
-    public ResponseModelListPayload<ExpenseModel> getAllExpenses(String userEmail) {
+    public ResponseModelListPayload<ExpenseModel> getAllExpenses(UserModel userModel) {
 
-        //Check email validity
-        Optional<UserModel> userByEmail = getUserByEmail(userEmail);
-        if (userByEmail.isEmpty())
-            return new ResponseModelListPayload<>(ResponseModel.FAILURE, "Email not found", List.of());
-
-        //If email is valid, return the user's expenses using email
         return new ResponseModelListPayload<ExpenseModel>(
                 ResponseModel.SUCCESS,
-                expenseModelRepository.findAllExpensesByUser(userByEmail.get())
+                expenseModelRepository.findAllExpensesByUser(userModel)
         );
     }
 
-    public ResponseModel addExpense(ExpenseModel expenseModel, String userEmail) {
+    public ResponseModel addExpense(ExpenseModel expenseModel, UserModel userModel) {
 
-        //Check email validity
-        Optional<UserModel> userByEmail = getUserByEmail(userEmail);
-        if (userByEmail.isEmpty())
-            return new ResponseModel(ResponseModel.FAILURE, "Email not found");
-
-        //If the email is valid, get the User Model and set it to the Expense model
-        expenseModel.setClaimedBy(userByEmail.get());
+        expenseModel.setClaimedBy(userModel);
         expenseModelRepository.save(expenseModel);
         return new ResponseModel(ResponseModel.SUCCESS, "Expense Added");
     }
 
-    public ResponseModelSinglePayload<ExpenseModel> getExpense(String expenseId) {
-        // Get the Expense Model by expenseId
-        Optional<ExpenseModel> expenseById = getExpenseById(expenseId);
-        if (expenseById.isEmpty())
-            return new ResponseModelSinglePayload<ExpenseModel>(ResponseModel.FAILURE, "Expense not found", null);
+    public ResponseModelSinglePayload<ExpenseModel> getExpense(ExpenseModel expenseModel) {
 
-        // If expense found, return response
-        return new ResponseModelSinglePayload<ExpenseModel>(ResponseModel.SUCCESS, expenseById.get());
+        return new ResponseModelSinglePayload<ExpenseModel>(ResponseModel.SUCCESS, expenseModel);
     }
 
+    @Transactional
     public ResponseModelSinglePayload<ExpenseModel> updateExpense(
-            String expenseId,
+            ExpenseModel expenseModelCurrent,
             ExpenseModel expenseModelToUpdate
     ) {
 
-        //Find the expense model by Id
-        Optional<ExpenseModel> expenseById = getExpenseById(expenseId);
-
-        //If expense model is not found, return failure
-        if (expenseById.isEmpty()) {
-
-            return new ResponseModelSinglePayload<ExpenseModel>(ResponseModel.FAILURE, "Expense Not found", null);
-        }
-
-        //If expense model is found, update the corresponding fields and respond back the updated details
-        ExpenseModel expenseModel = expenseById.get();
+        ExpenseModel expenseModel = expenseModelCurrent;
 
         if (!Objects.equals(expenseModel.getBillNumber(), expenseModelToUpdate.getBillNumber())) {
             expenseModel.setBillNumber(expenseModelToUpdate.getBillNumber());
@@ -111,5 +89,13 @@ public class ExpenseService {
                 expenseModel
         );
 
+    }
+
+    public ResponseModel deleteExpenseById(ExpenseModel expenseModel) {
+
+
+        // If expense exists, delete it and return success message
+        expenseModelRepository.delete(expenseModel);
+        return new ResponseModel(ResponseModel.SUCCESS, "Deleted Successfully");
     }
 }

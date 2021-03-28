@@ -13,7 +13,7 @@ public class ExpenseModel {
      * This is the Expense Model of the users. The Expenses of the Employees are stored here.
      */
 
-    private static final String REIMBURSED = "REIMBURSED", NOT_REIMBURSED = "NOT_REINBURSED";
+    private static final String REIMBURSED = "REIMBURSED", NOT_REIMBURSED = "NOT_REIMBURSED";
 
     @Id
     @GeneratedValue(generator = "UUID")
