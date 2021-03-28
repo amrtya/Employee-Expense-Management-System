@@ -6,4 +6,7 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface LoginModelRepository extends JpaRepository<LoginModel, String> {
+    /**
+     * This Repository handles all the updates to the Login Model
+     */
 }

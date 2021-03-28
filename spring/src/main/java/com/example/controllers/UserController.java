@@ -1,13 +1,22 @@
 package com.example.controllers;
 
 import com.example.models.ExpenseModel;
+import com.example.models.ResponseModel;
+import com.example.models.ResponseModelListPayload;
+import com.example.models.ResponseModelSinglePayload;
 import com.example.services.ExpenseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
+
 @RestController
 @RequestMapping(path = "expense")
 public class UserController {
+
+    /**
+     * This Controller class gives the endpoints for the users
+     */
 
     private final ExpenseService expenseService;
 
@@ -17,24 +26,25 @@ public class UserController {
     }
 
     @GetMapping
-    public void getAllExpenses(@RequestParam("userEmail") String userEmail ) {
-
+    public ResponseModelListPayload<ExpenseModel> getAllExpenses(@RequestParam("userEmail") String userEmail) {
+        return expenseService.getAllExpenses(userEmail);
     }
 
     @GetMapping(path = "{id}")
-    public void getExpense(@PathVariable("id") String expenseId) {
-
+    public ResponseModelSinglePayload<ExpenseModel> getExpense(@PathVariable("id") String expenseId) {
+        return expenseService.getExpense(expenseId);
     }
 
     @PostMapping
-    public void addExpense(ExpenseModel expenseModel, @RequestParam("userEmail") String userEmail)
-    {
-
+    public ResponseModel addExpense(@RequestBody ExpenseModel expenseModel, @RequestParam("userEmail") String userEmail) {
+        return expenseService.addExpense(expenseModel, userEmail);
     }
 
-//    @PutMapping(path = "{id}")
-//    public void updateExpense(@PathVariable("id") String expenseId)
-//    {
-//
-//    }
+    @PutMapping(path = "{id}")
+    public ResponseModelSinglePayload<ExpenseModel> updateExpense(
+            @PathVariable("id") String expenseId,
+            @RequestBody ExpenseModel expenseModelToUpdate
+    ) {
+        return expenseService.updateExpense(expenseId, expenseModelToUpdate);
+    }
 }

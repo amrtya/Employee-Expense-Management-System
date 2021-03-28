@@ -8,6 +8,10 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping(path = "/admin")
 public class AdminController {
 
+    /**
+     * This Controller class gives the endpoints for the admins
+     */
+
     private final AdminService adminService;
 
     @Autowired

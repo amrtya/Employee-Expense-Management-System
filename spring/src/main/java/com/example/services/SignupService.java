@@ -13,6 +13,10 @@ import java.util.Optional;
 @Service
 public class SignupService {
 
+    /**
+     * This Service class handles the requests of the Signup endpoint
+     */
+
     private final UserModelRepository userModelRepository;
     private final LoginModelRepository loginModelRepository;
 
@@ -23,12 +27,14 @@ public class SignupService {
     }
 
     public ResponseModel saveUser(UserModel userModel) {
+
+        // Check email validity
         Optional<UserModel> userByEmail = userModelRepository.findUserByEmail(userModel.getEmail());
 
         if(userByEmail.isPresent())
             return new ResponseModel(ResponseModel.EMAIL_TAKEN, "This Email is already taken. Try another one.");
 
-
+        // Save user if email is valid
         userModelRepository.save(userModel);
         loginModelRepository.save(new LoginModel(userModel.getEmail(), userModel.getPassword()));
 

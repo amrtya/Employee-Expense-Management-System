@@ -8,6 +8,9 @@ import javax.persistence.Table;
 @Table
 public class LoginModel {
 
+    /**
+     * This is the Login Model. It stores the email and password for all the users: USER, MANAGER , ADMIN
+     */
 
     @Id
     private String email;

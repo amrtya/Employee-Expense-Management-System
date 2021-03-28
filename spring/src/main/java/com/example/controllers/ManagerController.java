@@ -8,6 +8,10 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping(path = "manager")
 public class ManagerController {
 
+    /**
+     * This Controller class provides the endpoints for the manager
+     */
+
     private final ExpenseService expenseService;
 
     @Autowired

@@ -13,6 +13,10 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping(path = "login")
 public class LoginController {
 
+    /**
+     * This Controller class provides the endpoint for Login
+     */
+
     private final LoginService loginService;
 
     @Autowired

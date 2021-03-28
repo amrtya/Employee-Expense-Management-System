@@ -9,6 +9,12 @@ import java.time.LocalDate;
 @Table
 public class ExpenseModel {
 
+    /**
+     * This is the Expense Model of the users. The Expenses of the Employees are stored here.
+     */
+
+    private static final String REIMBURSED = "REIMBURSED", NOT_REIMBURSED = "NOT_REINBURSED";
+
     @Id
     @GeneratedValue(generator = "UUID")
     @GenericGenerator(
@@ -19,9 +25,10 @@ public class ExpenseModel {
     private Integer billNumber;
     private Integer billCost;
     private LocalDate datedOn;
-    private String status;
+    private String status = ExpenseModel.NOT_REIMBURSED;
     private String remark;
-    @ManyToOne(fetch = FetchType.LAZY, optional = true)
+
+    @ManyToOne(optional = true)
     @JoinColumn(referencedColumnName = "email")
     private UserModel claimedBy;
 

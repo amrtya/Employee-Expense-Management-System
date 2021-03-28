@@ -6,6 +6,10 @@ import javax.persistence.*;
 @Table
 public class UserModel {
 
+    /** This is the UserModel. It is used to store three kinds of users : USER, MANAGER, ADMIN
+     *
+     */
+
     public static final String USER = "USER", MANAGER = "MANAGER", ADMIN = "ADMIN";
 
     @Id

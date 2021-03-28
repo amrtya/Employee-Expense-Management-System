@@ -13,6 +13,10 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping(path = "signup")
 public class SignUpController {
 
+    /**
+     * This Controller class provides the Sign up endpoint
+     */
+
     private final SignupService signupService;
 
     @Autowired
