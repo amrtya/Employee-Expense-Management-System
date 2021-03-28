@@ -1,3 +1,17 @@
+<<<<<<< HEAD
+import './App.css';
+import { BrowserRouter } from 'react-router-dom';
+import Layout from './containers/Layout/Layout';
+
+function App() {
+    return (
+      <BrowserRouter>
+        <div className="App">
+            <Layout />
+        </div>
+      </BrowserRouter>
+    );
+=======
 import logo from './logo.svg';
 import './App.css';
 
@@ -20,6 +34,7 @@ function App() {
       </header>
     </div>
   );
+>>>>>>> af1c72483de0ead0f7f4a1839628505d21f7fd72
 }
 
 export default App;
