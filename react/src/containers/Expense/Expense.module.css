@@ -33,29 +33,6 @@
     width: 30%;
     margin: 0 auto;
 }
-.expenseCard {
-    width: 21%;
-    background-color: white;
-    margin: 20px 6%;
-    border-radius: 20px;
-    font-size: 18px;
-    font-weight: bold;
-    text-align: center;
-    height: 230px;
-}
-.expenseCard img {
-    height: 30%;
-    width: 30%;
-    margin: 20px 0px;
-}
-.expenseCard p {
-    margin: 0;
-}
-.expenseCard i {
-    position: relative;
-    left: 40%;
-    font-size: 20px;
-}
 .expenseRight input {
     width: 80%;
     margin: 5px auto;
@@ -73,4 +50,10 @@
     border-radius: 10px;
     outline: none;
     border: 1px solid black;
+    cursor: pointer;
+    background-color: aquamarine;
+    color: black;
+}
+.expenseRight button:hover {
+    background-color: rgb(57, 243, 181);
 }

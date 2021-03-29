@@ -8,16 +8,16 @@ import { createStore, applyMiddleware, compose ,combineReducers } from 'redux';
 import { Provider } from 'react-redux';
 import thunk from 'redux-thunk';
 import userReducer from './store/reducers/user';
+import voucherReducer from './store/reducers/voucher';
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
-// const rootReducer = combineReducers({
-//   order: orderReducer,
-//   burgerBuilder: burgerBuilderReducer,
-//   auth: authReducer
-// });
+const rootReducer = combineReducers({
+  user: userReducer,
+  voucher: voucherReducer
+});
 
-const store = createStore(userReducer, composeEnhancers(applyMiddleware(thunk)));
+const store = createStore(rootReducer, composeEnhancers(applyMiddleware(thunk)));
 
 ReactDOM.render(
   <React.StrictMode>

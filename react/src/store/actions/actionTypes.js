@@ -5,3 +5,7 @@ export const USER_SIGNUP_SUCCESS = "USER_SIGNUP_SUCCESS";
 export const USER_SIGNUP_FAIL = "USER_SIGNUP_FAIL";
 
 export const PAGE_RELOAD = "PAGE_RELOAD";
+
+export const ADD_VOUCHER = "ADD_VOUCHER";
+export const UPDATE_VOUCHER = "UPDATE_VOUCHER";
+export const DEL_VOUCHER = "DEL_VOUCHER";

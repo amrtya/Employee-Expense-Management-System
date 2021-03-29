@@ -42,7 +42,7 @@ class Layout extends Component {
 
 const mapStatetoProps = state => {
     return {
-        auth: state.auth
+        auth: state.user.auth
     }
 }
 

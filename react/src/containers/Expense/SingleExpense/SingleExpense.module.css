@@ -1,0 +1,23 @@
+.SingleExpense {
+    width: 21%;
+    background-color: white;
+    margin: 20px 6%;
+    border-radius: 20px;
+    font-size: 18px;
+    font-weight: bold;
+    text-align: center;
+    height: 230px;
+}
+.SingleExpense img {
+    height: 30%;
+    width: 30%;
+    margin: 20px 0px;
+}
+.SingleExpense p {
+    margin: 0;
+}
+.SingleExpense i {
+    position: relative;
+    left: 40%;
+    font-size: 20px;
+}

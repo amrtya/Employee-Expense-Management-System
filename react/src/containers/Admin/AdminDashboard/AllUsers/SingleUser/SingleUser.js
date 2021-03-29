@@ -9,8 +9,8 @@ const SingleUser = (props) => {
             <p>{props.name}</p>
             <p>{props.email}</p>
             <p>
-                <i class="fa fa-edit"></i>
-                <i class="fa fa-trash"></i>
+                <i className="fa fa-edit"></i>
+                <i className="fa fa-trash"></i>
             </p>
         </div>
     );
