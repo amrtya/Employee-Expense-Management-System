@@ -4,6 +4,8 @@ import com.example.models.UserModel;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
+import com.example.models.*;
+import com.example.repositories.*;
 
 import java.util.Optional;
 
@@ -15,4 +17,11 @@ public interface UserModelRepository extends JpaRepository<UserModel, String> {
 
     @Query("SELECT u FROM UserModel u WHERE u.email=?1")
     Optional<UserModel> findUserByEmail(String email);
+    
+    @Query("SELECT * FROM UserModel u")
+    Optional<UserModel> getAll();
+    
+    @Query("DELETE u FROM UserModel u WHERE u.email=?1")
+    Optional<UserModel> delete(String email);
+    
 }
