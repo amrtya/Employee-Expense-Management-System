@@ -33,7 +33,7 @@ public class AdminController {
     {
     	Optional<UserModel> userByMail = adminService.getUserByMail(email);
     	if(userByMail.isEmpty())
-            return new ResponseModel(ResponseModel.FAILURE, "User Not found");
+            return new ResponseModel(ResponseModel.FAILURE, "User not found");
     	
     	return adminService.updateUser(userByMail.get(), UserModelToUpdate);
     }
@@ -44,7 +44,7 @@ public class AdminController {
     	Optional<UserModel> userByMail = adminService.getUserByMail(email);
     	
     	if(userByMail.isEmpty())
-            return new ResponseModel(ResponseModel.FAILURE, "User Not found");
+            return new ResponseModel(ResponseModel.FAILURE, "User not found");
     	
     	return adminService.delUserByMail(email);
     }

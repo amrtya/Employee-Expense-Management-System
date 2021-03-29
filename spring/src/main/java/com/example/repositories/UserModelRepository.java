@@ -4,6 +4,8 @@ import com.example.models.UserModel;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
+import com.example.models.*;
+import com.example.repositories.*;
 
 import java.util.Optional;
 

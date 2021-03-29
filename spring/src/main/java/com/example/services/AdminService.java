@@ -3,6 +3,8 @@ package com.example.services;
 import com.example.repositories.UserModelRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import com.example.models.*;
+import com.example.repositories.*;
 
 @Service
 public class AdminService {
