@@ -4,10 +4,11 @@ import { Switch, Route } from 'react-router-dom';
 import Login from '../Login/Login';
 import Signup from '../Signup/Signup';
 import User from '../../components/User/User';
+import Admin from '../Admin/Admin';
 
 class Layout extends Component {
     state = {
-        authenticated: true
+        authenticated: false
     }
     render() {
         let main = Login;
@@ -17,6 +18,7 @@ class Layout extends Component {
         return (
             <div>
                 <Switch>
+                    <Route path="/admin" component={Admin} />
                     <Route path="/add-expense" component={main} />
                     <Route path="/signup" exact component={Signup} />
                     <Route path="/" exact component={main} />
