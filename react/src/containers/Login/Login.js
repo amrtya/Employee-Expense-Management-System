@@ -24,6 +24,27 @@ class Login extends Component {
         this.setState({password: val});
         this.checkValidity(this.state.email, val);
     }
+    storeData = () => {
+        this.props.updateAuth();
+        localStorage.setItem('document',JSON.stringify(this.state));
+        localStorage.setItem('auth', true);
+    }
+    componentDidMount(){
+        const newState = JSON.parse(localStorage.getItem('document'));
+        if (localStorage.getItem('document')) {
+            this.setState({
+                email: newState.email,
+                password: newState.password,
+                valid: newState.valid
+            })
+        }else{
+            this.setState({
+                email: "",
+                password: "",
+                valid: false
+            })
+        }
+    }
     render() { 
         return (
             <div>
@@ -39,7 +60,8 @@ class Login extends Component {
                         <input type="password" placeholder="Enter Password"
                                 onChange={this.updatePassword}
                                 value={this.state.password} />
-                        <button disabled={!this.state.valid} type="button">Log In</button>
+                        <button disabled={!this.state.valid} type="button"
+                            onClick={this.storeData}>Log In</button>
                         <p>New User? <Link to="/signup">Sign Up</Link></p>
                     </div>
                 </div>

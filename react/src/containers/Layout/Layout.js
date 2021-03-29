@@ -7,19 +7,38 @@ import User from '../../components/User/User';
 
 class Layout extends Component {
     state = {
-        authenticated: true
+        authenticated: false
+    }
+    updateAuthentication = () => {
+        this.setState(prevState => {
+            return {
+                authenticated: true
+            }
+        });
+    }
+    componentDidMount(){
+        const newState = localStorage.getItem('auth');
+        if (localStorage.getItem('auth')) {
+            this.setState({
+                authenticated: newState
+            });
+        }else{
+            this.setState({
+                authenticated: false
+            });
+        }
     }
     render() {
-        let main = Login;
+        let newMain = <Login updateAuth={() => this.updateAuthentication()} />;
         if(this.state.authenticated){
-            main = User;
+            newMain = <User />;
         }
         return (
             <div>
                 <Switch>
-                    <Route path="/add-expense" component={main} />
-                    <Route path="/signup" exact component={Signup} />
-                    <Route path="/" exact component={main} />
+                    <Route path="/add-expense" render={() => newMain} />
+                    <Route path="/signup" component={Signup} />
+                    <Route path="/" render={() => newMain} />
                 </Switch>
             </div>
         );
