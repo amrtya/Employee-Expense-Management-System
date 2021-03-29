@@ -29,7 +29,7 @@ public class ExpenseModel {
     private String remark;
 
     @ManyToOne(optional = true)
-    @JoinColumn(referencedColumnName = "email")
+    @JoinColumn(referencedColumnName = "userId")
     private UserModel claimedBy;
 
     public ExpenseModel() {

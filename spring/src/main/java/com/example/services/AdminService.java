@@ -5,6 +5,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.example.models.*;
 import com.example.repositories.*;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.util.Objects;
+import java.util.Optional;
 
 @Service
 public class AdminService {
@@ -14,54 +18,94 @@ public class AdminService {
      */
 
     private final UserModelRepository userModelRepository;
+    private final LoginModelRepository loginModelRepository;
 
     @Autowired
-    public AdminService(UserModelRepository userModelRepository) {
+    public AdminService(UserModelRepository userModelRepository, LoginModelRepository loginModelRepository) {
         this.userModelRepository = userModelRepository;
+        this.loginModelRepository = loginModelRepository;
     }
-    
-    public ResponseModelListPayload<UserModel> getAll() {
-        return new ResponseModelListPayload<UserModel>(ResponseModel.SUCCESS, userModelRepository.getAll());
+
+    public Optional<UserModel> getAdminById(String admin_id) {
+        return userModelRepository.findById(admin_id);
     }
-    
-    public Optional<UserModel> getUserByMail(String email) {
-        return UserModelRepository.findUserByEmail(email);
+
+    public ResponseModelListPayload<UserModel> getAllUsers() {
+
+        return new ResponseModelListPayload<UserModel>(ResponseModel.SUCCESS, userModelRepository.findAll());
     }
-    
-    public ResponseModel<UserModel> delUserByMail(String email)
-    {
-    	UserModelRepository.delete(email);
+
+    public ResponseModelSinglePayload<UserReceiverWithId> getUser(String userId) {
+        Optional<UserModel> userById = userModelRepository.findById(userId);
+        if (userById.isEmpty())
+            return new ResponseModelSinglePayload<UserReceiverWithId>(ResponseModel.FAILURE, "User not found.", null);
+
+        UserModel userModel=userById.get();
+        LoginModel loginModel=loginModelRepository.findByEmail(userModel.getEmail()).get();
+        UserReceiverWithId userReceiverWithId=new UserReceiverWithId(
+                userModel.getUserId(),
+                userModel.getEmail(),
+                userModel.getUsername(),
+                userModel.getMobileNumber(),
+                userModel.isActive(),
+                userModel.getRole(),
+                loginModel.getPassword()
+        );
+
+        return new ResponseModelSinglePayload<UserReceiverWithId>(ResponseModel.SUCCESS,userReceiverWithId);
+    }
+
+    public ResponseModel deleteUserById(String userId) {
+        Optional<UserModel> userById = userModelRepository.findById(userId);
+        if (userById.isEmpty())
+            return new ResponseModel(ResponseModel.FAILURE, "User not found.");
+        loginModelRepository.deleteByEmail(userById.get().getEmail());
+        userModelRepository.delete(userById.get());
         return new ResponseModel(ResponseModel.SUCCESS, "Deleted Successfully");
     }
-    
+
     @Transactional
     public ResponseModelSinglePayload<UserModel> updateUser(
-            UserModel userModelCurrent,
-            UserModel userModelToUpdate
+            String userId,
+            UserReceiver userModelToUpdate
     ) {
 
-        UserModel userModel = userModelCurrent;
+        Optional<UserModel> userById = userModelRepository.findById(userId);
 
-        if (!Objects.equals(userModel.getEmail(), userModelToUpdate.getEmail())) {
-            userModel.setEmail(userModelToUpdate.getEmail());
+        if (userById.isEmpty())
+            return new ResponseModelSinglePayload<UserModel>(ResponseModel.FAILURE, "User not found.", null);
+
+        UserModel userModelCurrent = userById.get();
+        Optional<LoginModel> loginByEmail = loginModelRepository.findByEmail(userModelCurrent.getEmail());
+        LoginModel loginDetails = loginByEmail.get();
+
+        if (userModelToUpdate.getEmail() != null && !Objects.equals(userModelCurrent.getEmail(), userModelToUpdate.getEmail())) {
+            Optional<UserModel> emailExists = userModelRepository.findUserByEmail(userModelToUpdate.getEmail());
+            if (emailExists.isPresent())
+                return new ResponseModelSinglePayload<UserModel>(ResponseModel.EMAIL_TAKEN, "This email has already been taken.", null);
+            loginDetails.setEmail(userModelToUpdate.getEmail());
+            userModelCurrent.setEmail(userModelToUpdate.getEmail());
         }
-        if (!Objects.equals(userModel.getUsername(), userModelToUpdate.getUsername())) {
-            userModel.setUsername(userModelToUpdate.getUsername());
+        if (userModelToUpdate.getPassword() != null && !Objects.equals(loginDetails.getPassword(), userModelToUpdate.getPassword())) {
+            loginDetails.setPassword(userModelToUpdate.getPassword());
         }
-        if (!Objects.equals(userModel.getPassword(), userModelToUpdate.getPassword())) {
-            userModel.setPassword(userModelToUpdate.getPassword());
+        if (userModelToUpdate.getUsername() != null && !Objects.equals(userModelCurrent.getUsername(), userModelToUpdate.getUsername())) {
+            userModelCurrent.setUsername(userModelToUpdate.getUsername());
         }
-        if (!Objects.equals(userModel.getMobileNumber(), userModelToUpdate.getMobileNumber())) {
-            userModel.setMobileNumber(userModelToUpdate.getMobileNumber());
+        if (userModelToUpdate.getMobileNumber() != null && !Objects.equals(userModelCurrent.getMobileNumber(), userModelToUpdate.getMobileNumber())) {
+            userModelCurrent.setMobileNumber(userModelToUpdate.getMobileNumber());
         }
-        if (!Objects.equals(userModel.getRole(), userModelToUpdate.getRole())) {
-            userModel.setRole(userModelToUpdate.getRole());
+        if (!Objects.equals(userModelCurrent.isActive(), userModelToUpdate.isActive())) {
+            userModelCurrent.setActive(userModelToUpdate.isActive());
+        }
+        if (userModelToUpdate.getRole() != null && !Objects.equals(userModelCurrent.getRole(), userModelToUpdate.getRole())) {
+            userModelCurrent.setRole(userModelToUpdate.getRole());
         }
 
         // Return Successful with the updated user
         return new ResponseModelSinglePayload<UserModel>(
                 ResponseModel.SUCCESS, "User Updated Successfully",
-                userModel
+                userModelCurrent
         );
 
     }

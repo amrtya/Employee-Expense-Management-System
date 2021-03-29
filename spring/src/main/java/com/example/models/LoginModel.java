@@ -1,6 +1,9 @@
 package com.example.models;
 
+import org.hibernate.annotations.GenericGenerator;
+
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
@@ -13,6 +16,12 @@ public class LoginModel {
      */
 
     @Id
+    @GeneratedValue(generator = "UUID")
+    @GenericGenerator(
+            name = "UUID",
+            strategy = "org.hibernate.id.UUIDGenerator"
+    )
+    private String loginId;
     private String email;
     private String password;
 
@@ -22,6 +31,19 @@ public class LoginModel {
     public LoginModel(String email, String password) {
         this.email = email;
         this.password = password;
+    }
+    public LoginModel(String loginId, String email, String password) {
+        this.loginId=loginId;
+        this.email = email;
+        this.password = password;
+    }
+
+    public String getLoginId() {
+        return loginId;
+    }
+
+    public void setLoginId(String loginId) {
+        this.loginId = loginId;
     }
 
     public String getEmail() {

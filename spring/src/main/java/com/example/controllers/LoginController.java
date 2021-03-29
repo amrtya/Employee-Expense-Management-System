@@ -2,6 +2,8 @@ package com.example.controllers;
 
 import com.example.models.LoginModel;
 import com.example.models.ResponseModel;
+import com.example.models.ResponseModelSinglePayload;
+import com.example.models.UserModel;
 import com.example.services.LoginService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -25,7 +27,7 @@ public class LoginController {
     }
 
     @PostMapping
-    public ResponseModel checkUser(@RequestBody LoginModel loginModel)
+    public ResponseModelSinglePayload<UserModel> checkUser(@RequestBody LoginModel loginModel)
     {
         return loginService.checkUser(loginModel);
     }

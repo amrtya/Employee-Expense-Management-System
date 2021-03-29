@@ -18,10 +18,4 @@ public interface UserModelRepository extends JpaRepository<UserModel, String> {
     @Query("SELECT u FROM UserModel u WHERE u.email=?1")
     Optional<UserModel> findUserByEmail(String email);
     
-    @Query("SELECT * FROM UserModel u")
-    Optional<UserModel> getAll();
-    
-    @Query("DELETE u FROM UserModel u WHERE u.email=?1")
-    Optional<UserModel> delete(String email);
-    
 }

@@ -23,82 +23,63 @@ public class ManagerController {
     }
 
     @GetMapping
-    public ResponseModelListPayload<ExpenseModel> getAllExpenses(@RequestParam("managerEmail") String managerEmail) {
+    public ResponseModelListPayload<ExpenseModel> getAllExpenses(@RequestHeader("manager_id") String managerId) {
 
-        Optional<UserModel> managerByEmail = expenseService.getUserByEmail(managerEmail);
-        if (managerByEmail.isEmpty())
-            return new ResponseModelListPayload<ExpenseModel>(ResponseModel.FAILURE, "Manager does not exist.", null);
+        Optional<UserModel> managerById = expenseService.getUserById(managerId);
+        if (managerById.isEmpty())
+            return new ResponseModelListPayload<ExpenseModel>(ResponseModel.FAILURE, "Manager not found", null);
 
-        if (!managerByEmail.get().getRole().equals(UserModel.MANAGER))
+        if (!managerById.get().getRole().equals(UserModel.MANAGER))
             return new ResponseModelListPayload<ExpenseModel>(ResponseModel.ROLE_CHANGED, "Your role has changed. Please login again", null);
 
-        ResponseModelListPayload<ExpenseModel> allExpenses = expenseService.getAllExpenses();
-
-        return allExpenses;
+        return expenseService.getAllExpenses();
     }
 
     @GetMapping("/expense/{id}")
-    public ResponseModelSinglePayload<ExpenseModel> getExpense(@PathVariable("id") String expenseId, @RequestParam("managerEmail") String managerEmail) {
+    public ResponseModelSinglePayload<ExpenseModel> getExpense(@PathVariable("id") String expenseId, @RequestHeader("manager_id") String managerId) {
 
-        Optional<UserModel> managerByEmail = expenseService.getUserByEmail(managerEmail);
-        if (managerByEmail.isEmpty())
-            return new ResponseModelSinglePayload<ExpenseModel>(ResponseModel.FAILURE, "Manager does not exist.", null);
+        Optional<UserModel> managerById = expenseService.getUserById(managerId);
+        if (managerById.isEmpty())
+            return new ResponseModelSinglePayload<ExpenseModel>(ResponseModel.FAILURE, "Manager not found", null);
 
         // Check role validity
-        if (!managerByEmail.get().getRole().equals(UserModel.MANAGER))
+        if (!managerById.get().getRole().equals(UserModel.MANAGER))
             return new ResponseModelSinglePayload<ExpenseModel>(ResponseModel.ROLE_CHANGED, "Your role has changed. Please login again", null);
 
-        Optional<ExpenseModel> expenseById = expenseService.getExpenseById(expenseId);
-        if (expenseById.isEmpty())
-            return new ResponseModelSinglePayload<ExpenseModel>(ResponseModel.FAILURE, "Expense not found", null);
-
         // If everything is valid, get expense
-        return expenseService.getExpense(expenseById.get());
+        return expenseService.getExpense(expenseId);
     }
 
     @PutMapping(path = "expense/{expenseId}")
     public ResponseModelSinglePayload<ExpenseModel> updateExpenses(
             @PathVariable("expenseId") String expenseId,
             @RequestBody ExpenseModel expenseModelToUpdate,
-            @RequestParam("managerEmail") String managerEmail
+            @RequestHeader("manager_id") String managerId
     ) {
 
-        Optional<UserModel> managerByEmail = expenseService.getUserByEmail(managerEmail);
-        if (managerByEmail.isEmpty())
-            return new ResponseModelSinglePayload<ExpenseModel>(ResponseModel.FAILURE, "Manager does not exist.", null);
+        Optional<UserModel> managerById = expenseService.getUserById(managerId);
+        if (managerById.isEmpty())
+            return new ResponseModelSinglePayload<ExpenseModel>(ResponseModel.FAILURE, "Manager not found.", null);
 
         // Check role validity
-        if (!managerByEmail.get().getRole().equals(UserModel.MANAGER))
+        if (!managerById.get().getRole().equals(UserModel.MANAGER))
             return new ResponseModelSinglePayload<ExpenseModel>(ResponseModel.ROLE_CHANGED, "Your role has changed. Please login again", null);
 
-        //Find the expense model by Id
-        Optional<ExpenseModel> expenseById = expenseService.getExpenseById(expenseId);
-
-        //If expense model is not found, return failure
-        if (expenseById.isEmpty()) {
-            return new ResponseModelSinglePayload<ExpenseModel>(ResponseModel.FAILURE, "Expense Not found", null);
-        }
-
         // If everything checks out, update the expense
-        return expenseService.updateExpense(expenseById.get(), expenseModelToUpdate);
+        return expenseService.updateExpense(expenseId, expenseModelToUpdate);
     }
 
     @DeleteMapping(path = "/expense/{id}")
-    public ResponseModel deleteExpense(@PathVariable("id") String expenseId, @RequestParam("managerEmail") String managerEmail) {
+    public ResponseModel deleteExpense(@PathVariable("id") String expenseId, @RequestHeader("manager_id") String managerId) {
 
-        Optional<UserModel> managerByEmail = expenseService.getUserByEmail(managerEmail);
-        if (managerByEmail.isEmpty())
-            return new ResponseModel(ResponseModel.FAILURE, "Manager does not exist.");
+        Optional<UserModel> managerById = expenseService.getUserById(managerId);
+        if (managerById.isEmpty())
+            return new ResponseModel(ResponseModel.FAILURE, "Manager not found.");
 
-        if (!managerByEmail.get().getRole().equals(UserModel.MANAGER))
+        if (!managerById.get().getRole().equals(UserModel.MANAGER))
             return new ResponseModel(ResponseModel.ROLE_CHANGED, "Your role has changed. Please login again.");
 
-        // Check if expense exists
-        Optional<ExpenseModel> expenseById = expenseService.getExpenseById(expenseId);
-        if (expenseById.isEmpty())
-            return new ResponseModel(ResponseModel.FAILURE, "Expense Not found");
-
         // If everything is valid, delete expense
-        return expenseService.deleteExpenseById(expenseById.get());
+        return expenseService.deleteExpenseById(expenseId);
     }
 }
