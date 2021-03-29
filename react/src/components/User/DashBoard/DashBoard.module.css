@@ -1,0 +1,26 @@
+.DashBoard {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    justify-content: space-around;
+    background-color: rgb(177, 174, 174);
+    height: 90vh;
+    padding-top: 10vh;
+}
+
+.details {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    justify-content: center;
+}
+
+.detailsCard {
+    background-color: white;
+    font-weight: bold;
+    width: 20vw;
+    padding: 30px 0px;
+    margin: 0 30px;
+    font-size: 20px;
+    border-radius: 10px;
+}
