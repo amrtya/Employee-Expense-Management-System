@@ -6,7 +6,6 @@
     "@testing-library/jest-dom": "^5.11.9",
     "@testing-library/react": "^11.2.5",
     "@testing-library/user-event": "^12.8.3",
-<<<<<<< HEAD
     "bootstrap": "^4.6.0",
     "enzyme": "^3.11.0",
     "enzyme-adapter-react-16": "^1.15.6",
@@ -15,12 +14,8 @@
     "react-dom": "^16.14.0",
     "react-router": "^5.2.0",
     "react-router-dom": "^5.2.0",
-=======
     "enzyme": "^3.11.0",
     "enzyme-adapter-react-16": "^1.15.6",
-    "react": "^16.14.0",
-    "react-dom": "^16.14.0",
->>>>>>> af1c72483de0ead0f7f4a1839628505d21f7fd72
     "react-scripts": "4.0.3",
     "react-test-renderer": "^17.0.1",
     "web-vitals": "^1.1.1"
