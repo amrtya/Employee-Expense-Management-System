@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import classes from './Login.module.css';
 import {Link} from 'react-router-dom';
+import { connect } from 'react-redux';
+import * as actions from '../../store/actions/index';
 
 class Login extends Component {
     state = {
@@ -24,26 +26,12 @@ class Login extends Component {
         this.setState({password: val});
         this.checkValidity(this.state.email, val);
     }
-    storeData = () => {
-        this.props.updateAuth();
-        localStorage.setItem('document',JSON.stringify(this.state));
-        localStorage.setItem('auth', true);
-    }
-    componentDidMount(){
-        const newState = JSON.parse(localStorage.getItem('document'));
-        if (localStorage.getItem('document')) {
-            this.setState({
-                email: newState.email,
-                password: newState.password,
-                valid: newState.valid
-            })
-        }else{
-            this.setState({
-                email: "",
-                password: "",
-                valid: false
-            })
+    loginHandler = () => {
+        const logindata = {
+            email: this.state.email,
+            password: this.state.password
         }
+        this.props.onLogin(logindata);
     }
     render() { 
         return (
@@ -61,7 +49,7 @@ class Login extends Component {
                                 onChange={this.updatePassword}
                                 value={this.state.password} />
                         <button disabled={!this.state.valid} type="button"
-                            onClick={this.storeData}>Log In</button>
+                            onClick={this.loginHandler}>Log In</button>
                         <p>New User? <Link to="/signup">Sign Up</Link></p>
                     </div>
                 </div>
@@ -69,5 +57,11 @@ class Login extends Component {
         );
     }
 }
+
+const mapDispatchtoProps = dispatch => {
+    return {
+        onLogin: (logindata) => dispatch(actions.onLogin(logindata))
+    }
+}
  
-export default Login;
+export default connect(null, mapDispatchtoProps)(Login);

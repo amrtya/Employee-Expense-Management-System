@@ -5,33 +5,26 @@ import Login from '../Login/Login';
 import Signup from '../Signup/Signup';
 import User from '../../components/User/User';
 import Admin from '../Admin/Admin';
+import {connect} from 'react-redux';
+import * as actions from '../../store/actions/index';
 
 class Layout extends Component {
-    state = {
-        authenticated: false
-    }
-    updateAuthentication = () => {
-        this.setState(prevState => {
-            return {
-                authenticated: true
-            }
-        });
-    }
     componentDidMount(){
-        const newState = localStorage.getItem('auth');
         if (localStorage.getItem('auth')) {
-            this.setState({
-                authenticated: newState
-            });
+            const auth = localStorage.getItem('auth');
+            const email = localStorage.getItem('email');
+            const role = localStorage.getItem('role');
+            this.props.pageReload(auth, email, role);
         }else{
-            this.setState({
-                authenticated: false
-            });
+            const auth = false;
+            const email = "";
+            const role = "";
+            this.props.pageReload(auth, email, role);
         }
     }
     render() {
-        let newMain = <Login updateAuth={() => this.updateAuthentication()} />;
-        if(this.state.authenticated){
+        let newMain = <Login />;
+        if(this.props.auth){
             newMain = <User />;
         }
         return (
@@ -46,5 +39,17 @@ class Layout extends Component {
         );
     }
 }
+
+const mapStatetoProps = state => {
+    return {
+        auth: state.auth
+    }
+}
+
+const mapDispatchtoProps = dispatch => {
+    return {
+        pageReload: (auth, email, role) => dispatch(actions.onPageReload(auth, email, role))
+    }
+}
  
-export default Layout;
+export default connect(mapStatetoProps, mapDispatchtoProps)(Layout);

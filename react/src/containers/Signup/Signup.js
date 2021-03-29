@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import classes from './Signup.module.css';
 import {Link} from 'react-router-dom';
+import { connect } from 'react-redux';
+import * as actions from '../../store/actions/index';
 
 class Signup extends Component {
     state = {
@@ -9,6 +11,8 @@ class Signup extends Component {
         mobileNumber: "",
         password: "",
         conPassword: "",
+        role: "USER",
+        active: true,
         valid: false
     }
     checkValidity = (email, username, mobileNumber, password, conPassword) => {
@@ -45,6 +49,17 @@ class Signup extends Component {
         this.setState({conPassword: val});
         this.checkValidity(this.state.email, this.state.username, this.state.mobileNumber, this.state.password, val);
     }
+    signUpHandler = () => {
+        const signupdata = {
+            email: this.state.email,
+            password: this.state.password,
+            username: this.state.username,
+            mobileNumber: this.state.mobileNumber,
+            active: true,
+            role: "USER"
+        }
+        this.props.onSignUp(signupdata);
+    }
     render() { 
         return (
             <div>
@@ -69,8 +84,9 @@ class Signup extends Component {
                         <input type="password" placeholder="Confirm Password"
                                 onChange={this.updateConpassword}
                                 value={this.state.conPassword} />
-                        <Link to="/user">
-                            <button disabled={!this.state.valid} type="button">Sign Up</button>
+                        <Link to="/">
+                            <button disabled={!this.state.valid} type="button"
+                                    onClick={this.signUpHandler}>Sign Up</button>
                         </Link>
                         <p>Already a User?<Link to="/">Log In</Link></p>
                     </div>
@@ -79,5 +95,11 @@ class Signup extends Component {
         );
     }
 }
+
+const mapDispatchtoProps = dispatch => {
+    return {
+        onSignUp: (signupdata) => dispatch(actions.onSignUp(signupdata))
+    }
+}
  
-export default Signup;
+export default connect(null, mapDispatchtoProps)(Signup);
