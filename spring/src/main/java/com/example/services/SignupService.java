@@ -1,8 +1,6 @@
 package com.example.services;
 
-import com.example.models.LoginModel;
-import com.example.models.ResponseModel;
-import com.example.models.UserModel;
+import com.example.models.*;
 import com.example.repositories.LoginModelRepository;
 import com.example.repositories.UserModelRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,18 +24,18 @@ public class SignupService {
         this.loginModelRepository = loginModelRepository;
     }
 
-    public ResponseModel saveUser(UserModel userModel) {
+    public ResponseModelSinglePayload<UserModel> saveUser(UserReceiver userReceiver) {
 
         // Check email validity
-        Optional<UserModel> userByEmail = userModelRepository.findUserByEmail(userModel.getEmail());
+        Optional<UserModel> userByEmail = userModelRepository.findUserByEmail(userReceiver.getEmail());
 
         if(userByEmail.isPresent())
-            return new ResponseModel(ResponseModel.EMAIL_TAKEN, "This Email is already taken. Try another one.");
-
+            return new ResponseModelSinglePayload<>(ResponseModel.EMAIL_TAKEN, "This email is already taken. Try another One.",null);
         // Save user if email is valid
+        UserModel userModel=userReceiver.getUserModel();
         userModelRepository.save(userModel);
-        loginModelRepository.save(new LoginModel(userModel.getEmail(), userModel.getPassword()));
+        loginModelRepository.save(new LoginModel(userReceiver.getEmail(), userReceiver.getPassword()));
 
-        return new ResponseModel(ResponseModel.SUCCESS, "User Added Successfully");
+        return new ResponseModelSinglePayload<UserModel>(ResponseModel.SUCCESS, "User Added Successfully", userModel);
     }
 }

@@ -5,8 +5,9 @@ import com.example.repositories.ExpenseModelRepository;
 import com.example.repositories.UserModelRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import javax.transaction.Transactional;
+import java.nio.charset.StandardCharsets;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Objects;
@@ -28,13 +29,14 @@ public class ExpenseService {
         this.expenseModelRepository = expenseModelRepository;
     }
 
-    public Optional<UserModel> getUserByEmail(String userEmail) {
-        return userModelRepository.findUserByEmail(userEmail);
+    public Optional<UserModel> getUserById(String userId) {
+        return userModelRepository.findById(userId);
     }
 
     public Optional<ExpenseModel> getExpenseById(String expenseId) {
         return expenseModelRepository.findById(expenseId);
     }
+
     public ResponseModelListPayload<ExpenseModel> getAllExpenses() {
         return new ResponseModelListPayload<ExpenseModel>(ResponseModel.SUCCESS, expenseModelRepository.findAll());
     }
@@ -54,32 +56,43 @@ public class ExpenseService {
         return new ResponseModel(ResponseModel.SUCCESS, "Expense Added");
     }
 
-    public ResponseModelSinglePayload<ExpenseModel> getExpense(ExpenseModel expenseModel) {
+    public ResponseModelSinglePayload<ExpenseModel> getExpense(String expenseId) {
+        // Get the Expense Model by expenseId
+        Optional<ExpenseModel> expenseById = getExpenseById(expenseId);
+        if (expenseById.isEmpty())
+            return new ResponseModelSinglePayload<ExpenseModel>(ResponseModel.FAILURE, "Expense not found", null);
 
-        return new ResponseModelSinglePayload<ExpenseModel>(ResponseModel.SUCCESS, expenseModel);
+        return new ResponseModelSinglePayload<ExpenseModel>(ResponseModel.SUCCESS, expenseById.get());
     }
 
     @Transactional
     public ResponseModelSinglePayload<ExpenseModel> updateExpense(
-            ExpenseModel expenseModelCurrent,
+            String expenseId,
             ExpenseModel expenseModelToUpdate
     ) {
+        //Find the expense model by Id
+        Optional<ExpenseModel> expenseById = getExpenseById(expenseId);
 
-        ExpenseModel expenseModel = expenseModelCurrent;
+        //If expense model is not found, return failure
+        if (expenseById.isEmpty()) {
+            return new ResponseModelSinglePayload<ExpenseModel>(ResponseModel.FAILURE, "Expense Not found", null);
+        }
 
-        if (!Objects.equals(expenseModel.getBillNumber(), expenseModelToUpdate.getBillNumber())) {
+        ExpenseModel expenseModel = expenseById.get();
+
+        if (expenseModelToUpdate.getBillNumber()!=null && !Objects.equals(expenseModel.getBillNumber(), expenseModelToUpdate.getBillNumber())) {
             expenseModel.setBillNumber(expenseModelToUpdate.getBillNumber());
         }
-        if (!Objects.equals(expenseModel.getBillCost(), expenseModelToUpdate.getBillCost())) {
+        if (expenseModelToUpdate.getBillCost()!=null && !Objects.equals(expenseModel.getBillCost(), expenseModelToUpdate.getBillCost())) {
             expenseModel.setBillCost(expenseModelToUpdate.getBillCost());
         }
-        if (!Objects.equals(expenseModel.getDatedOn(), expenseModelToUpdate.getDatedOn())) {
+        if (expenseModelToUpdate.getDatedOn()!=null && !Objects.equals(expenseModel.getDatedOn(), expenseModelToUpdate.getDatedOn())) {
             expenseModel.setDatedOn(expenseModelToUpdate.getDatedOn());
         }
-        if (!Objects.equals(expenseModel.getStatus(), expenseModelToUpdate.getStatus())) {
+        if (expenseModelToUpdate.getStatus()!=null && !Objects.equals(expenseModel.getStatus(), expenseModelToUpdate.getStatus())) {
             expenseModel.setStatus(expenseModelToUpdate.getStatus());
         }
-        if (!Objects.equals(expenseModel.getRemark(), expenseModelToUpdate.getRemark())) {
+        if (expenseModelToUpdate.getRemark()!=null && !Objects.equals(expenseModel.getRemark(), expenseModelToUpdate.getRemark())) {
             expenseModel.setRemark(expenseModelToUpdate.getRemark());
         }
 
@@ -91,11 +104,15 @@ public class ExpenseService {
 
     }
 
-    public ResponseModel deleteExpenseById(ExpenseModel expenseModel) {
+    public ResponseModel deleteExpenseById(String expenseId) {
 
+        // Check if expense exists
+        Optional<ExpenseModel> expenseById = getExpenseById(expenseId);
+        if (expenseById.isEmpty())
+            return new ResponseModel(ResponseModel.FAILURE, "Expense Not found");
 
         // If expense exists, delete it and return success message
-        expenseModelRepository.delete(expenseModel);
+        expenseModelRepository.deleteById(expenseId);
         return new ResponseModel(ResponseModel.SUCCESS, "Deleted Successfully");
     }
 }

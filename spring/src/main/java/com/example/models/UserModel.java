@@ -1,21 +1,27 @@
 package com.example.models;
 
+import org.hibernate.annotations.GenericGenerator;
+
 import javax.persistence.*;
 
 @Entity
 @Table
 public class UserModel {
 
-    /** This is the UserModel. It is used to store three kinds of users : USER, MANAGER, ADMIN
-     *
+    /**
+     * This is the UserModel. It is used to store three kinds of users : USER, MANAGER, ADMIN
      */
 
     public static final String USER = "USER", MANAGER = "MANAGER", ADMIN = "ADMIN";
 
     @Id
+    @GeneratedValue(generator = "UUID")
+    @GenericGenerator(
+            name = "UUID",
+            strategy = "org.hibernate.id.UUIDGenerator"
+    )
+    private String userId;
     private String email;
-
-    private String password;
     private String username;
     private String mobileNumber;
     private boolean active;
@@ -24,13 +30,29 @@ public class UserModel {
     public UserModel() {
     }
 
-    public UserModel(String email, String password, String username, String mobileNumber, boolean active, String role) {
+    public UserModel(String email, String username, String mobileNumber, boolean active, String role) {
         this.email = email;
-        this.password = password;
         this.username = username;
         this.mobileNumber = mobileNumber;
         this.active = active;
         this.role = role;
+    }
+
+    public UserModel(String userId, String email, String username, String mobileNumber, boolean active, String role) {
+        this.userId = userId;
+        this.email = email;
+        this.username = username;
+        this.mobileNumber = mobileNumber;
+        this.active = active;
+        this.role = role;
+    }
+
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 
     public String getEmail() {
@@ -39,14 +61,6 @@ public class UserModel {
 
     public void setEmail(String email) {
         this.email = email;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
     }
 
     public String getUsername() {
@@ -80,14 +94,6 @@ public class UserModel {
     public void setRole(String role) {
         this.role = role;
     }
-
-//    public List<ExpenseModel> getExpenseModelList() {
-//        return expenseModelList;
-//    }
-//
-//    public void setExpenseModelList(List<ExpenseModel> expenseModelList) {
-//        this.expenseModelList = expenseModelList;
-//    }
 
     @Override
     public String toString() {
