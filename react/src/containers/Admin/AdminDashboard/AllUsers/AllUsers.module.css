@@ -1,0 +1,45 @@
+.tableHeader {
+    position: fixed;
+    z-index: 200;
+    top: 150px;
+    display: flex;
+    flex-direction: row;
+    width: 60vw;
+    margin-left: 20px;
+    background-color: white;
+}
+
+.tableHeader p {
+    padding: 10px;
+    font-size: 18px;
+    border-right: 1px solid black;
+}
+
+.tableHeader p:nth-child(1) {
+    width: 15%;
+    white-space: nowrap;
+}
+.tableHeader p:nth-child(2) {
+    width: 30%;
+}
+.tableHeader p:nth-child(3) {
+    width: 35%;
+}
+.tableHeader p:nth-child(4) {
+    width: 20%;
+    border: none;
+}
+
+.divider {
+    position: fixed;
+    top: 220px;
+    height: 1px;
+    background-color: black;
+    width: 62vw;
+    z-index: 300;
+}
+
+.tableUsers {
+    display: flex;
+    flex-direction: column;
+}

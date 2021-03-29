@@ -1,0 +1,43 @@
+.AddUser {
+    width: 30vw;
+    margin: 0 auto;
+    position: fixed;
+    z-index: 200;
+    height: 73vh;
+    right: 3vw;
+    top: 25vh;
+    background-color: bisque;
+    border-radius: 15px;
+    display: flex;
+    flex-direction: column;
+}
+.AddUser h2 {
+    font-size: 28px;
+}
+.AddUserInput {
+    padding: 10px;
+    font-size: 18px;
+    width: 80%;
+    margin: 10px auto;
+}
+.AddUser select {
+    padding: 10px;
+    font-size: 18px;
+    width: 86%;
+    margin: 10px auto;
+}
+.radioGroup {
+    font-size: 18px;
+    margin: 20px 0px;
+}
+.radioGroup input {
+    padding: 0px 5px;
+}
+.AddUser button {
+    padding: 10px 25px;
+    font-size: 18px;
+    margin: 10px 5px;
+    border-radius: 5px;
+    outline: none;
+    border: 2px solid black;
+}

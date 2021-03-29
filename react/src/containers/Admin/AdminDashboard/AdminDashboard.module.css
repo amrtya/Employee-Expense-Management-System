@@ -9,6 +9,12 @@
     flex-direction: row;
     justify-content: center;
     padding: 20px 0px;
+    position: fixed;
+    z-index: 200;
+    width: 100%;
+    background-color: white;
+    /* left: 50%;
+    transform: translateX(-50%); */
 }
 
 .dashHead input {
@@ -33,4 +39,14 @@
     outline-color: rgba(255, 255, 255, 0);
     outline-offset: 15px;
     text-shadow: 1px 1px 2px #427388; 
+}
+
+.dashTail {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+}
+.userTable {
+    width: 70%;
+    border: 1px solid blue;
 }

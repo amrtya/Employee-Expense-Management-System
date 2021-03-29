@@ -2,6 +2,11 @@ import React from 'react';
 
 import classes from './AdminHeader.module.css';
 
+const delAuth = () => {
+    localStorage.clear();
+    window.location.href = "/";
+}
+
 const AdminHeader = () => {
     return (
         <div className={classes.Header}>
@@ -10,7 +15,7 @@ const AdminHeader = () => {
             </div>
             <div className={classes.HeaderRight}>
                 <p>Home</p>
-                <p>Logout</p>
+                <p onClick={delAuth}>Logout</p>
             </div>
         </div>
     );
