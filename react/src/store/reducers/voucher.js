@@ -7,6 +7,10 @@ const initialState = {
 
 const reducer = (state=initialState, action) => {
     switch(action.type){
+        case actionTypes.GET_VOUCHER:
+            return updateObject(state, {
+                vouchers: action.vouchers
+            })
         case actionTypes.ADD_VOUCHER:
             const newVoucher = updateObject(action.voucherData, {expenseID: action.id});
             console.log(newVoucher);

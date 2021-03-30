@@ -11,7 +11,7 @@
     font-size: 40px;
 }
 .Login {
-    height: 90vh;
+    height: 590px;
     width: 100%;
     margin: 0;
     padding: 0;
@@ -21,8 +21,8 @@
 .logincard {
     display: flex;
     flex-direction: column;
-    width: 30vw;
-    height: 60vh;
+    width: 400px;
+    /* height: 60vh; */
     margin: auto;
     position: relative;
     top: 50%;
@@ -47,4 +47,10 @@
     padding: 10px;
     font-size: 18px;
     outline: none;
+}
+
+@media (max-width: 450px) {
+    .logincard {
+        width: 80%;
+    }
 }

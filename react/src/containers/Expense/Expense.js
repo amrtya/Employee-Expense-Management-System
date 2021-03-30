@@ -55,7 +55,10 @@ class AddExpense extends Component {
             description: "",
             valid: false
         })
-        this.props.onAddVoucher(expenseData);
+        this.props.onAddVoucher(expenseData, this.props.userID);
+    }
+    componentDidMount(){
+        this.props.getVouchers(this.props.userID);
     }
     render() { 
         return (
@@ -67,25 +70,6 @@ class AddExpense extends Component {
                             date={voucher.datedOn}
                             key={voucher.expenseID} />
                     ))}
-                    <SingleExpense id="1234" amt="500" date="18-05-2000" />
-                    <SingleExpense id="1234" amt="500" date="18-05-2000" />
-                    <SingleExpense id="1234" amt="500" date="18-05-2000" />
-                    <SingleExpense id="1234" amt="500" date="18-05-2000" />
-                    <SingleExpense id="1234" amt="500" date="18-05-2000" />
-                    <SingleExpense id="1234" amt="500" date="18-05-2000" />
-                    <SingleExpense id="1234" amt="500" date="18-05-2000" />
-                    <SingleExpense id="1234" amt="500" date="18-05-2000" />
-                    <SingleExpense id="1234" amt="500" date="18-05-2000" />
-                    <SingleExpense id="1234" amt="500" date="18-05-2000" />
-                    <SingleExpense id="1234" amt="500" date="18-05-2000" />
-                    <SingleExpense id="1234" amt="500" date="18-05-2000" />
-                    <SingleExpense id="1234" amt="500" date="18-05-2000" />
-                    <SingleExpense id="1234" amt="500" date="18-05-2000" />
-                    <SingleExpense id="1234" amt="500" date="18-05-2000" />
-                    <SingleExpense id="1234" amt="500" date="18-05-2000" />
-                    <SingleExpense id="1234" amt="500" date="18-05-2000" />
-                    <SingleExpense id="1234" amt="500" date="18-05-2000" />
-                    <SingleExpense id="1234" amt="500" date="18-05-2000" />
                 </div>
                 <div className={classes.expenseRight}>
                     <div className={classes.addExpense}>
@@ -114,13 +98,15 @@ class AddExpense extends Component {
 
 const mapStatetoProps = state => {
     return {
-        vouchers: state.voucher.vouchers
+        vouchers: state.voucher.vouchers,
+        userID: state.user.id
     }
 }
 
 const mapDispatchtoProps = dispatch => {
     return {
-        onAddVoucher: (voucherData) => dispatch(actions.addVoucher(voucherData))
+        getVouchers: (userID) => dispatch(actions.getVoucher(userID)),
+        onAddVoucher: (voucherData, userID) => dispatch(actions.addVoucher(voucherData, userID))
     }
 }
  

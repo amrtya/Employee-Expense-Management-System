@@ -1,13 +1,13 @@
 import * as actionTypes from './actionTypes';
 import axios from 'axios';
 
-const signUpSuccess = (email) => {
+const signUpSuccess = (id) => {
     localStorage.setItem('auth', true);
-    localStorage.setItem('email', email);
+    localStorage.setItem('id', id);
     localStorage.setItem('role', "USER");
     return {
         type: actionTypes.USER_SIGNUP_SUCCESS,
-        email: email
+        id: id
     }
 }
 
@@ -15,31 +15,34 @@ export const onSignUp = (signupdata) => {
     return dispatch => {
         axios.post('http://localhost:8080/signup', signupdata)
             .then(response => {
-                console.log(response);
-                dispatch(signUpSuccess(signupdata.email));
+                console.log(response.data);
+                if(response.data.responseType === "SUCCESS"){
+                    dispatch(signUpSuccess(response.data.result.userId));
+                }else{
+                    console.log(response.data.message);
+                }
             }).catch(err => {
                 console.log(err);
-                dispatch(signUpSuccess(signupdata.email));
             })
     }
 }
 
-export const onPageReload = (auth, email, role) => {
+export const onPageReload = (auth, id, role) => {
     return {
         type: actionTypes.PAGE_RELOAD,
         auth: auth,
-        email: email,
+        id: id,
         role: role
     }
 }
 
-const loginSuccess = (email, role) => {
+const loginSuccess = (id, role) => {
     localStorage.setItem('auth', true);
-    localStorage.setItem('email', email);
+    localStorage.setItem('id', id);
     localStorage.setItem('role', role);
     return {
         type: actionTypes.USER_LOGIN_SUCCESS,
-        email: email,
+        id: id,
         role: role
     }
 }
@@ -47,11 +50,14 @@ export const onLogin = (logindata) => {
     return dispatch => {
         axios.post('http://localhost:8080/login', logindata)
             .then(response => {
-                console.log(response);
-                dispatch(loginSuccess(logindata.email, "USER"));  //get the role from response
+                console.log(response.data);
+                if(response.data.responseType === "SUCCESS"){
+                    dispatch(loginSuccess(response.data.result.userId, response.data.result.role));
+                }else{
+                    console.log(response.data.message);
+                }
             }).catch(err => {
                 console.log(err);
-                dispatch(loginSuccess(logindata.email, "USER"));
             })
     }
 }

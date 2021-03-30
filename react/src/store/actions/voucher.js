@@ -9,14 +9,41 @@ const addVoucherSuccess = (id, voucherData) => {
     }
 }
 
-export const addVoucher = (voucherData) => {
+export const addVoucher = (voucherData, userID) => {
     return dispatch => {
-        axios.post('http://localhost:8080/expense', voucherData)
+        axios.post('http://localhost:8080/expense', voucherData, {headers: {user_id: userID}})
             .then(response => {
-                dispatch(addVoucherSuccess(12345, voucherData)); //get 12345 id from response body
+                console.log(response.data, userID);
+                if(response.data.responseType === "SUCCESS"){
+                    dispatch(addVoucherSuccess("response.data.result.expenseId", voucherData));
+                }else{
+                    console.log(response.data.message);
+                }
             }).catch(err => {
                 console.log(err);
-                dispatch(addVoucherSuccess(12345, voucherData));
+            })
+    }
+}
+
+const getVoucherInStore = (vouchers) => {
+    return {
+        type: actionTypes.GET_VOUCHER,
+        vouchers: vouchers
+    }
+}
+
+export const getVoucher = (userID) => {
+    return dispatch => {
+        axios.get('http://localhost:8080/expense', {headers: {user_id: userID}})
+            .then(response => {
+                if(response.data.responseType === "SUCCESS"){
+                    dispatch(getVoucherInStore(response.data.results));
+                }else{
+                    console.log(response.data.message);
+                }
+                
+            }).catch(err => {
+                console.log(err);
             })
     }
 }
