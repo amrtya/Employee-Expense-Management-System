@@ -11,7 +11,7 @@
     font-size: 40px;
 }
 .Signup {
-    height: 90vh;
+    height: 590px;
     width: 100%;
     margin: 0;
     padding: 0;
@@ -22,7 +22,7 @@
     display: flex;
     flex-direction: column;
     width: 30vw;
-    height: 75vh;
+    /* height: 75vh; */
     margin: auto;
     position: relative;
     top: 50%;
