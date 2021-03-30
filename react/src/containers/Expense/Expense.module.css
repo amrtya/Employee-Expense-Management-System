@@ -2,7 +2,8 @@
     display: flex;
     flex-direction: row;
     min-height: 90vh;
-    background-color: rgb(177, 174, 174);
+    background: rgb(51,8,100);
+    background: linear-gradient(180deg, rgba(51,8,100,1) 0%, rgba(74,9,121,1) 32%, rgba(88,0,255,1) 100%);
     padding-top: 10vh;
 }
 .expenseLeft {

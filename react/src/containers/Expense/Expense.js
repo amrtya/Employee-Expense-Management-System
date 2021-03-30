@@ -67,6 +67,25 @@ class AddExpense extends Component {
                             date={voucher.datedOn}
                             key={voucher.expenseID} />
                     ))}
+                    <SingleExpense id="1234" amt="500" date="18-05-2000" />
+                    <SingleExpense id="1234" amt="500" date="18-05-2000" />
+                    <SingleExpense id="1234" amt="500" date="18-05-2000" />
+                    <SingleExpense id="1234" amt="500" date="18-05-2000" />
+                    <SingleExpense id="1234" amt="500" date="18-05-2000" />
+                    <SingleExpense id="1234" amt="500" date="18-05-2000" />
+                    <SingleExpense id="1234" amt="500" date="18-05-2000" />
+                    <SingleExpense id="1234" amt="500" date="18-05-2000" />
+                    <SingleExpense id="1234" amt="500" date="18-05-2000" />
+                    <SingleExpense id="1234" amt="500" date="18-05-2000" />
+                    <SingleExpense id="1234" amt="500" date="18-05-2000" />
+                    <SingleExpense id="1234" amt="500" date="18-05-2000" />
+                    <SingleExpense id="1234" amt="500" date="18-05-2000" />
+                    <SingleExpense id="1234" amt="500" date="18-05-2000" />
+                    <SingleExpense id="1234" amt="500" date="18-05-2000" />
+                    <SingleExpense id="1234" amt="500" date="18-05-2000" />
+                    <SingleExpense id="1234" amt="500" date="18-05-2000" />
+                    <SingleExpense id="1234" amt="500" date="18-05-2000" />
+                    <SingleExpense id="1234" amt="500" date="18-05-2000" />
                 </div>
                 <div className={classes.expenseRight}>
                     <div className={classes.addExpense}>

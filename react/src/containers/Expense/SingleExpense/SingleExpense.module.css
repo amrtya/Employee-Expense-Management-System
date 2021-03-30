@@ -9,9 +9,9 @@
     height: 230px;
 }
 .SingleExpense img {
-    height: 30%;
-    width: 30%;
-    margin: 20px 0px;
+    height: 40%;
+    width: 40%;
+    margin: 20px 0px 0px 0px;
 }
 .SingleExpense p {
     margin: 0;
@@ -20,4 +20,5 @@
     position: relative;
     left: 40%;
     font-size: 20px;
+    cursor: pointer;
 }
