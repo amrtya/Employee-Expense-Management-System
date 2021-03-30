@@ -78,13 +78,13 @@ class AddExpense extends Component {
                         <input type="date" placeholder="Select Date"
                                 onChange={this.onDateChange}
                                 value={this.state.date} />
-                        <input type="text" placeholder="Expense ID"
+                        <input type="text" placeholder="Bill Number"
                                 onChange={this.onIdChange}
                                 value={this.state.eid} />
-                        <input type="text" placeholder="Amount"
+                        <input type="text" placeholder="Bill Cost"
                                 onChange={this.onAmountChange}
                                 value={this.state.amount} />
-                        <input type="text" placeholder="Description"
+                        <input type="text" placeholder="Remarks"
                                 onChange={this.onDescChange}
                                 value={this.state.description} />
                         <button type="button" disabled={!this.state.valid}

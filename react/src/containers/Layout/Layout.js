@@ -30,10 +30,12 @@ class Layout extends Component {
         if(this.props.role === "ADMIN"){
             newMain = <Admin />
         }
+        if(this.props.role === "MANAGER"){
+            
+        }
         return (
             <div>
                 <Switch>
-                    <Route path="/admin" component={Admin} />
                     <Route path="/add-expense" render={() => newMain} />
                     <Route path="/signup" component={Signup} />
                     <Route path="/" render={() => newMain} />

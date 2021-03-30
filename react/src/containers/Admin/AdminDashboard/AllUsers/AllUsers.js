@@ -1,26 +1,7 @@
 import React from 'react';
 import classes from './AllUsers.module.css';
 import SingleUser from './SingleUser/SingleUser';
-
-const users = [
-    {
-        count: 1,
-        name: "Pratik",
-        email: "pratik@gmail.com"
-    },{
-        count: 1,
-        name: "Pratak",
-        email: "pratik@gmail.com"
-    },{
-        count: 1,
-        name: "Ptatik",
-        email: "pratik@gmail.com"
-    },{
-        count: 1,
-        name: "NONE",
-        email: "pratik@gmail.com"
-    },
-]
+import {connect} from 'react-redux';
 
 const AllUsers = (props) => {
     return (
@@ -29,22 +10,29 @@ const AllUsers = (props) => {
                 <p>Sl.No.</p>
                 <p>Name</p>
                 <p>Email</p>
+                <p>Role</p>
                 <p>Option</p>
             </div>
             <div className={classes.divider}></div>
             <div className={classes.tableUsers}>
-                {users.map(user => {
+                {props.users.map(user => {
                     return (
-                        user.name.includes(props.query)?<SingleUser count={user.count} name={user.name} email={user.email} />:null
+                        user.username.includes(props.query)?
+                        (<SingleUser count="1" 
+                        name={user.username} email={user.email}
+                        key={user.userId} role={user.role}
+                        id={user.userId} />):null
                     )
                 })}
-                {/* <SingleUser count="1" name="Pratik" email="pratik@gmail.com" />
-                <SingleUser count="1" name="Pratiksha" email="pratik@gmail.com" />
-                <SingleUser count="1" name="Ptatik" email="pratik@gmail.com" />
-                <SingleUser count="1" name="Sourav" email="pratik@gmail.com" /> */}
             </div>
         </div>
     );
 }
+
+const mapStatetoProps = state => {
+    return {
+        users: state.admin.users
+    }
+}
  
-export default AllUsers;
+export default connect(mapStatetoProps)(AllUsers);

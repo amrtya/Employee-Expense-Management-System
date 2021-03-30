@@ -15,7 +15,7 @@ export const addVoucher = (voucherData, userID) => {
             .then(response => {
                 console.log(response.data, userID);
                 if(response.data.responseType === "SUCCESS"){
-                    dispatch(addVoucherSuccess("response.data.result.expenseId", voucherData));
+                    dispatch(addVoucherSuccess(response.data.result.expenseId, voucherData));
                 }else{
                     console.log(response.data.message);
                 }

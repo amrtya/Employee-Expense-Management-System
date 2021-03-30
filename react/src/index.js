@@ -9,12 +9,14 @@ import { Provider } from 'react-redux';
 import thunk from 'redux-thunk';
 import userReducer from './store/reducers/user';
 import voucherReducer from './store/reducers/voucher';
+import adminReducer from './store/reducers/admin';
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
 const rootReducer = combineReducers({
   user: userReducer,
-  voucher: voucherReducer
+  voucher: voucherReducer,
+  admin: adminReducer
 });
 
 const store = createStore(rootReducer, composeEnhancers(applyMiddleware(thunk)));
