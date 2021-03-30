@@ -34,9 +34,23 @@ public class UserController {
         if(!userById.get().getRole().equals(UserModel.USER))
             return new ResponseModelListPayload<>(ResponseModel.ROLE_CHANGED, "Your role has changed. Please Login again.", null);
 
-        System.out.println(userById.get());
         // If everything is valid, get expenses
         return expenseService.getAllExpenses(userById.get());
+    }
+
+    @GetMapping(path = "dashboard/{month}")
+    public ResponseModelSinglePayload<UserDashboardModel> getUserDashboard(@PathVariable("month") String month, @RequestHeader("user_id") String userId)
+    {
+        //Check user validity
+        Optional<UserModel> userById = expenseService.getUserById(userId);
+        if (userById.isEmpty())
+            return new ResponseModelSinglePayload<>(ResponseModel.FAILURE, "User not found", null);
+
+        // Check role validity
+        if(!userById.get().getRole().equals(UserModel.USER))
+            return new ResponseModelSinglePayload<>(ResponseModel.ROLE_CHANGED, "Your role has changed. Please Login again.", null);
+
+        return expenseService.getUserDashboardModel(month, userById.get());
     }
 
     @GetMapping(path = "{expense_id}")
@@ -56,16 +70,16 @@ public class UserController {
     }
 
     @PostMapping
-    public ResponseModel addExpense(@RequestBody ExpenseModel expenseModel, @RequestHeader("user_id") String userId) {
+    public ResponseModelSinglePayload<ExpenseModel> addExpense(@RequestBody ExpenseModel expenseModel, @RequestHeader("user_id") String userId) {
 
         //Check user validity
         Optional<UserModel> userById = expenseService.getUserById(userId);
         if (userById.isEmpty())
-            return new ResponseModel(ResponseModel.FAILURE, "User not found");
+            return new ResponseModelSinglePayload<>(ResponseModel.FAILURE, "User not found", null);
 
         // Check role validity
         if(!userById.get().getRole().equals(UserModel.USER))
-            return new ResponseModel(ResponseModel.ROLE_CHANGED, "Your role has changed. Please login again.");
+            return new ResponseModelSinglePayload<>(ResponseModel.ROLE_CHANGED, "Your role has changed. Please login again.", null);
 
         // If everything is valid, add expense
         return expenseService.addExpense(expenseModel, userById.get());
