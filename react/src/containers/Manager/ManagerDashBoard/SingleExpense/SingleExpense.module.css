@@ -18,7 +18,8 @@
 }
 .SingleExpense i {
     position: relative;
-    left: 40%;
+    left: 30%;
+    padding: 0px 3px;
     font-size: 20px;
     cursor: pointer;
 }

@@ -11,6 +11,7 @@ const SingleExpense = (props) => {
             <p>{props.date}</p>
             <p>₹ {props.amt}</p>
             <i className="fa fa-edit"></i>
+            <i className="fa fa-trash"></i>
         </div>
     );
 }

@@ -68,7 +68,7 @@ class AddExpense extends Component {
                         <SingleExpense id={voucher.billNumber}
                             amt={voucher.billCost}
                             date={voucher.datedOn}
-                            key={voucher.expenseID} />
+                            key={'_' + Math.random().toString(36).substr(2, 9)} />
                     ))}
                 </div>
                 <div className={classes.expenseRight}>

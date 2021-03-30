@@ -5,15 +5,15 @@ import classes from './ManagerDashBoard.module.css';
 
 class ManagerDashBoard extends Component {
     state = {  }
-    render() { 
+    render() {
         return (
-            <div>
+            <div className={classes.Expense}>
                 <div className={classes.expenseLeft}>
                     {this.props.vouchers.map(voucher => (
                         <SingleExpense id={voucher.billNumber}
                             amt={voucher.billCost}
                             date={voucher.datedOn}
-                            key={voucher.expenseID} />
+                            key={'_' + Math.random().toString(36).substr(2, 9)} />
                     ))}
                 </div>
             </div>
