@@ -21,7 +21,7 @@
 .signupcard {
     display: flex;
     flex-direction: column;
-    width: 30vw;
+    width: 400px;
     /* height: 75vh; */
     margin: auto;
     position: relative;
@@ -47,4 +47,10 @@
     padding: 10px;
     font-size: 18px;
     outline: none;
+}
+
+@media (max-width: 450px) {
+    .signupcard {
+        width: 80%;
+    }
 }

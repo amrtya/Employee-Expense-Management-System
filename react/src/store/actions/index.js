@@ -5,5 +5,6 @@ export {
 } from './user';
 
 export {
-    addVoucher
+    addVoucher,
+    getVoucher
 } from './voucher';

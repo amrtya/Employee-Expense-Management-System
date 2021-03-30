@@ -10,22 +10,25 @@ import * as actions from '../../store/actions/index';
 
 class Layout extends Component {
     componentDidMount(){
-        if (localStorage.getItem('auth')) {
+        if (localStorage.getItem('id')) {
             const auth = localStorage.getItem('auth');
-            const email = localStorage.getItem('email');
+            const id = localStorage.getItem('id');
             const role = localStorage.getItem('role');
-            this.props.pageReload(auth, email, role);
+            this.props.pageReload(auth, id, role);
         }else{
             const auth = false;
-            const email = "";
+            const id = "";
             const role = "";
-            this.props.pageReload(auth, email, role);
+            this.props.pageReload(auth, id, role);
         }
     }
     render() {
         let newMain = <Login />;
         if(this.props.auth){
             newMain = <User />;
+        }
+        if(this.props.role === "ADMIN"){
+            newMain = <Admin />
         }
         return (
             <div>
@@ -42,13 +45,14 @@ class Layout extends Component {
 
 const mapStatetoProps = state => {
     return {
-        auth: state.user.auth
+        auth: state.user.auth,
+        role: state.user.role
     }
 }
 
 const mapDispatchtoProps = dispatch => {
     return {
-        pageReload: (auth, email, role) => dispatch(actions.onPageReload(auth, email, role))
+        pageReload: (auth, id, role) => dispatch(actions.onPageReload(auth, id, role))
     }
 }
  

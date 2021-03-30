@@ -21,7 +21,7 @@
 .logincard {
     display: flex;
     flex-direction: column;
-    width: 30vw;
+    width: 400px;
     /* height: 60vh; */
     margin: auto;
     position: relative;
@@ -47,4 +47,10 @@
     padding: 10px;
     font-size: 18px;
     outline: none;
+}
+
+@media (max-width: 450px) {
+    .logincard {
+        width: 80%;
+    }
 }
