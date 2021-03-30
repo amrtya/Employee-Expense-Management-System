@@ -10,13 +10,15 @@ import thunk from 'redux-thunk';
 import userReducer from './store/reducers/user';
 import voucherReducer from './store/reducers/voucher';
 import adminReducer from './store/reducers/admin';
+import managerReducer from './store/reducers/manager';
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
 const rootReducer = combineReducers({
   user: userReducer,
   voucher: voucherReducer,
-  admin: adminReducer
+  admin: adminReducer,
+  manager: managerReducer
 });
 
 const store = createStore(rootReducer, composeEnhancers(applyMiddleware(thunk)));

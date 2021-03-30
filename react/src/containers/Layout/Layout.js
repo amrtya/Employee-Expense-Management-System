@@ -7,6 +7,7 @@ import User from '../../components/User/User';
 import Admin from '../Admin/Admin';
 import {connect} from 'react-redux';
 import * as actions from '../../store/actions/index';
+import Manager from '../Manager/Manager';
 
 class Layout extends Component {
     componentDidMount(){
@@ -31,7 +32,7 @@ class Layout extends Component {
             newMain = <Admin />
         }
         if(this.props.role === "MANAGER"){
-            
+            newMain = <Manager />
         }
         return (
             <div>

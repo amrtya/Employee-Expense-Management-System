@@ -14,3 +14,7 @@ export {
     deleteUser,
     updateUser
 } from './admin';
+
+export {
+    getAllVouchers
+} from './manager';

@@ -10,6 +10,7 @@ export const ADD_VOUCHER = "ADD_VOUCHER";
 export const UPDATE_VOUCHER = "UPDATE_VOUCHER";
 export const DEL_VOUCHER = "DEL_VOUCHER";
 export const GET_VOUCHER = "GET_VOUCHER";
+export const GET_ALL_VOUCHER = "GET_ALL_VOUCHER";
 
 export const GET_ALL_USERS = "GET_ALL_USERS";
 export const DELETE_USER = "DELETE_USER";
