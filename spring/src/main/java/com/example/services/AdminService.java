@@ -19,11 +19,13 @@ public class AdminService {
 
     private final UserModelRepository userModelRepository;
     private final LoginModelRepository loginModelRepository;
+    private final ExpenseModelRepository expenseModelRepository;
 
     @Autowired
-    public AdminService(UserModelRepository userModelRepository, LoginModelRepository loginModelRepository) {
+    public AdminService(UserModelRepository userModelRepository, LoginModelRepository loginModelRepository, ExpenseModelRepository expenseModelRepository) {
         this.userModelRepository = userModelRepository;
         this.loginModelRepository = loginModelRepository;
+        this.expenseModelRepository = expenseModelRepository;
     }
 
     public Optional<UserModel> getAdminById(String admin_id) {
@@ -59,6 +61,7 @@ public class AdminService {
         Optional<UserModel> userById = userModelRepository.findById(userId);
         if (userById.isEmpty())
             return new ResponseModel(ResponseModel.FAILURE, "User not found.");
+        expenseModelRepository.deleteAllByUserId(userById.get());
         loginModelRepository.deleteByEmail(userById.get().getEmail());
         userModelRepository.delete(userById.get());
         return new ResponseModel(ResponseModel.SUCCESS, "Deleted Successfully");
