@@ -4,6 +4,7 @@ import SingleUser from './SingleUser/SingleUser';
 import {connect} from 'react-redux';
 
 const AllUsers = (props) => {
+    const newUsers = props.users.filter(user => user.userId!==props.id);
     return (
         <div className={classes.AllUser}>
             <div className={classes.tableHeader}>
@@ -15,7 +16,7 @@ const AllUsers = (props) => {
             </div>
             <div className={classes.divider}></div>
             <div className={classes.tableUsers}>
-                {props.users.map(user => {
+                {newUsers.map(user => {
                     return (
                         user.username.includes(props.query)?
                         (<SingleUser count="1" 
@@ -31,7 +32,8 @@ const AllUsers = (props) => {
 
 const mapStatetoProps = state => {
     return {
-        users: state.admin.users
+        users: state.admin.users,
+        id: state.user.id
     }
 }
  

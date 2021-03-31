@@ -56,7 +56,8 @@ class ManagerDashBoard extends Component {
                             date={voucher.datedOn}
                             key={'_' + Math.random().toString(36).substr(2, 9)}
                             voucherID={voucher.expenseId}
-                            updateV={this.updateState} />
+                            updateV={this.updateState}
+                            stat={voucher.status} />
                     ))}
                 </div>
                 <div className={classes.expenseRight} style={{display: this.props.editValid}}>

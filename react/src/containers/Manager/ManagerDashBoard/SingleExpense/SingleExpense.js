@@ -17,9 +17,13 @@ class SingleExpense extends Component {
         this.props.onEdit();
         this.props.updateV(sV);
     }
-    render() { 
+    render() {
+        let colr = {backgroundColor: "white"};
+        if(this.props.stat === "REIMBURSED"){
+            colr = {backgroundColor: "lightgreen"}
+        } 
         return (
-            <div className={classes.SingleExpense}>
+            <div className={classes.SingleExpense} style={colr}>
                 <img alt="profile" src="https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg" />
                 <p>{this.props.billN}</p>
                 <p>{this.props.date}</p>

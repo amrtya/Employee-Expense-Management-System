@@ -92,9 +92,9 @@ class AddUser extends Component {
                 <select name="role" 
                     value={this.props.user.role}
                     onChange={(event) => this.props.updateRole(event.target.value)} >
-                    <option value="null">Select Role...</option>
                     <option value="USER">User</option>
                     <option value="MANAGER">Manager</option>
+                    <option value="ADMIN">Admin</option>
                 </select>
                 <span className={classes.radioGroup}>
                     Active? 
