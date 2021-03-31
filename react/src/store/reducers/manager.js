@@ -11,6 +11,10 @@ const reducer = (state=initialState, action) => {
             return updateObject(state, {
                 vouchers: action.vouchers
             })
+        case actionTypes.DEL_VOUCHER:
+            return updateObject(state, {
+                vouchers: state.vouchers.filter(voucher => voucher.expenseId!==action.expenseID)
+            })
         default:
             return state;
     }

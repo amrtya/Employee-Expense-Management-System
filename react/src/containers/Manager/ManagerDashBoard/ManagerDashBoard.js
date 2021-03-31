@@ -10,10 +10,11 @@ class ManagerDashBoard extends Component {
             <div className={classes.Expense}>
                 <div className={classes.expenseLeft}>
                     {this.props.vouchers.map(voucher => (
-                        <SingleExpense id={voucher.billNumber}
+                        <SingleExpense billN={voucher.billNumber}
                             amt={voucher.billCost}
                             date={voucher.datedOn}
-                            key={'_' + Math.random().toString(36).substr(2, 9)} />
+                            key={'_' + Math.random().toString(36).substr(2, 9)}
+                            voucherID={voucher.expenseId} />
                     ))}
                 </div>
             </div>

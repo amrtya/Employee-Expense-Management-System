@@ -17,5 +17,6 @@ export {
 } from './admin';
 
 export {
-    getAllVouchers
+    getAllVouchers,
+    deleteVoucher
 } from './manager';

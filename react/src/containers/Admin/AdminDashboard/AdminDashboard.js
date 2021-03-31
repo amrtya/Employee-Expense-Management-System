@@ -18,7 +18,7 @@ class AdminDashboard extends Component {
                     <input type="text" placeholder="Type here to search"
                             onChange={this.onSearchUpdate}
                             value={this.state.search} />
-                    <button type="button">Search</button>
+                    {/* <button type="button">Search</button> */}
                 </div>
                 <div className={classes.dashTail}>
                     <div className={classes.usertable}><AllUsers query={this.state.search} /></div>

@@ -19,7 +19,6 @@ export const onSignUp = (signupdata) => {
                 if(response.data.responseType === "SUCCESS"){
                     dispatch(signUpSuccess(response.data.result.userId));
                 }else{
-                    console.log(response.data.message);
                     alert(response.data.message);
                 }
             }).catch(err => {
@@ -55,7 +54,6 @@ export const onLogin = (logindata) => {
                 if(response.data.responseType === "SUCCESS"){
                     dispatch(loginSuccess(response.data.result.userId, response.data.result.role));
                 }else{
-                    console.log(response.data.message);
                     alert(response.data.message);
                 }
             }).catch(err => {

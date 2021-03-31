@@ -56,7 +56,7 @@ class Signup extends Component {
             username: this.state.username,
             mobileNumber: this.state.mobileNumber,
             active: true,
-            role: "ADMIN"
+            role: "USER"
         }
         this.props.onSignUp(signupdata);
     }

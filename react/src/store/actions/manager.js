@@ -15,9 +15,31 @@ export const getAllVouchers = (managerID) => {
                 if(response.data.responseType === "SUCCESS"){
                     dispatch(getVoucherInStore(response.data.results));
                 }else{
-                    console.log(response.data.message);
+                    alert(response.data.message);
                 }
                 
+            }).catch(err => {
+                console.log(err);
+            })
+    }
+}
+
+const delVoucher = (expenseID) => {
+    return {
+        type: actionTypes.DEL_VOUCHER,
+        expenseID: expenseID
+    }
+}
+
+export const deleteVoucher = (managerID, expenseID) => {
+    return dispatch => {
+        axios.delete("http://localhost:8080/manager/expense/"+expenseID, {headers: {manager_id: managerID}})
+            .then(response => {
+                if(response.data.responseType === "SUCCESS"){
+                    dispatch(delVoucher(expenseID));
+                }else{
+                    alert(response.data.message);
+                }
             }).catch(err => {
                 console.log(err);
             })
