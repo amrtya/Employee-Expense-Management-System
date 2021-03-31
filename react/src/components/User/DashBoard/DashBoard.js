@@ -34,7 +34,7 @@ class userDashboard extends Component {
         return (
             <div className={classes.DashBoard}>
                 <div className={classes.monthHeader}>
-                    <h1 style={{color: "white", fontSize: "36px"}}>DASHBOARD</h1>
+                    <h1>DASHBOARD</h1>
                     <select name="month"
                         value={this.state.month}
                         onChange={this.monthChangeHandler}>

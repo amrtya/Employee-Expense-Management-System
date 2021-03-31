@@ -3,6 +3,9 @@ import React, { Component } from 'react';
 import * as actions from '../../store/actions/index';
 import { connect } from 'react-redux';
 import SingleExpense from './SingleExpense/SingleExpense';
+import Modal from '../UI/Modal/Modal';
+import { thisExpression } from '../../../node_modules/@babel/types';
+import BackDrop from '../UI/BackDrop/BackDrop';
 
 class AddExpense extends Component {
     state = {
@@ -13,7 +16,9 @@ class AddExpense extends Component {
         amount: "",
         description: "",
         valid: false,
-        formState: true       //true: add voucher || false: edit voucher
+        formState: true,     //true: add voucher || false: edit voucher
+        modal: false,
+        modalID: null
     }
     clearForm = () => {
         this.setState({
@@ -24,7 +29,9 @@ class AddExpense extends Component {
             valid: false,
             formState: true,
             expenseID: null,
-            status: null
+            status: null,
+            modal: false,
+            modalID: null
         })
     }
     checkValidity = (date, eid, amount, desc) => {
@@ -69,7 +76,8 @@ class AddExpense extends Component {
     componentDidMount(){
         this.props.getVouchers(this.props.userID);
     }
-    editVoucherHandler = (voucherID) => {
+    editVoucherHandler = (event, voucherID) => {
+        event.stopPropagation();
         const newVoucher = this.props.vouchers.filter(voucher => 
                                 voucher.expenseId===voucherID)[0];
         this.setState({
@@ -102,9 +110,21 @@ class AddExpense extends Component {
             this.updateVoucherHandler();
         }
     }
-    render() { 
+    updateModal = (expenseId) => {
+        this.setState({modal: true, modalID: expenseId});
+    }
+    modalClose = () => {
+        this.setState({modal: false, modalID: null});
+    }
+    render() {
+        let modalView = {display: "none"};
+        if(this.state.modal && this.state.modalID){
+            modalView = {display: "flex"};
+        }
         return (
             <div className={classes.Expense}>
+                {this.state.modalID ? <Modal style={modalView} close={this.modalClose} vid={this.state.modalID} />:null}
+                {this.state.modalID ? <BackDrop clicked={this.modalClose} />:null}
                 <div className={classes.expenseLeft}>
                     {this.props.vouchers.map(voucher => (
                         <SingleExpense id={voucher.billNumber}
@@ -112,7 +132,8 @@ class AddExpense extends Component {
                             date={voucher.datedOn}
                             key={'_' + Math.random().toString(36).substr(2, 9)}
                             stat={voucher.status}
-                            clicked={() => this.editVoucherHandler(voucher.expenseId)} />
+                            clicked={(event) => this.editVoucherHandler(event, voucher.expenseId)}
+                            clik={() => this.updateModal(voucher.expenseId)} />
                     ))}
                 </div>
                 <div className={classes.expenseRight}>

@@ -7,6 +7,7 @@
     font-weight: bold;
     text-align: center;
     height: 230px;
+    cursor: pointer;
 }
 .SingleExpense img {
     height: 40%;

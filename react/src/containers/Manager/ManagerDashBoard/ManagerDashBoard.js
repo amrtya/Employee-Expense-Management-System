@@ -3,6 +3,8 @@ import SingleExpense from './SingleExpense/SingleExpense';
 import {connect} from 'react-redux';
 import classes from './ManagerDashBoard.module.css';
 import * as actions from '../../../store/actions/index';
+import Modal from '../../UI/Modal/Modal';
+import BackDrop from '../../UI/BackDrop/BackDrop';
 
 class ManagerDashBoard extends Component {
     state = {
@@ -10,7 +12,9 @@ class ManagerDashBoard extends Component {
         billNumber: "",
         billCost: "",
         remarks: "",
-        status: ""
+        status: "",
+        modal: false,
+        modalID: null
     }
     // onDateChange = (event) => {
     //     this.setState({date: event.target.value});
@@ -46,9 +50,21 @@ class ManagerDashBoard extends Component {
         }
         this.props.updateVoucher(this.props.id, newVoucher);
     }
+    updateModal = (expenseId) => {
+        this.setState({modal: true, modalID: expenseId});
+    }
+    modalClose = () => {
+        this.setState({modal: false, modalID: null});
+    }
     render() {
+        let modalView = {display: "none"};
+        if(this.state.modal && this.state.modalID){
+            modalView = {display: "flex"};
+        }
         return (
             <div className={classes.Expense}>
+                {this.state.modalID ? <Modal style={modalView} close={this.modalClose} vid={this.state.modalID} />:null}
+                {this.state.modalID ? <BackDrop clicked={this.modalClose} />:null}
                 <div className={classes.expenseLeft}>
                     {this.props.vouchers.map(voucher => (
                         <SingleExpense billN={voucher.billNumber}
@@ -57,7 +73,8 @@ class ManagerDashBoard extends Component {
                             key={'_' + Math.random().toString(36).substr(2, 9)}
                             voucherID={voucher.expenseId}
                             updateV={this.updateState}
-                            stat={voucher.status} />
+                            stat={voucher.status}
+                            clik={() => this.updateModal(voucher.expenseId)} />
                     ))}
                 </div>
                 <div className={classes.expenseRight} style={{display: this.props.editValid}}>

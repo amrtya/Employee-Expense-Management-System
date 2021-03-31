@@ -1,0 +1,17 @@
+.Modal {
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    width: 70vw;
+    height: 70%;
+    transform: translate(-50%, -50%);
+    background-color: white;
+    z-index: 500;
+}
+
+.Modal button {
+    width: 80px;
+    margin: 0 auto;
+}

@@ -4,7 +4,7 @@
     flex-direction: row;
     justify-content: space-between;
     background-color: #330864;
-    height: 10vh;
+    height: 70px;
     vertical-align: center;
     color: white;
     position: fixed;
@@ -44,5 +44,17 @@
     }
     to {
         -webkit-mask-position: -50%;
+    }
+}
+
+@media (max-width: 500px) {
+    .HeaderLeft h2 {
+        margin: 15px 0px;
+        font-size: 18px;
+    }
+    .HeaderRight p {
+        padding: 0px;
+        font-size: 16px;
+        margin: auto 0px;
     }
 }
