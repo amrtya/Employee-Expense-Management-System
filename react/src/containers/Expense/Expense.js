@@ -6,11 +6,26 @@ import SingleExpense from './SingleExpense/SingleExpense';
 
 class AddExpense extends Component {
     state = {
+        expenseID: null,
+        status: null,
         date: "",
         eid: "",
         amount: "",
         description: "",
-        valid: false
+        valid: false,
+        formState: true       //true: add voucher || false: edit voucher
+    }
+    clearForm = () => {
+        this.setState({
+            date: "",
+            eid: "",
+            amount: "",
+            description: "",
+            valid: false,
+            formState: true,
+            expenseID: null,
+            status: null
+        })
     }
     checkValidity = (date, eid, amount, desc) => {
         let isValid = true;
@@ -48,17 +63,44 @@ class AddExpense extends Component {
             status: "NOT_REIMBURSED",
             remark: this.state.description
         }
-        this.setState({
-            date: "",
-            eid: "",
-            amount: "",
-            description: "",
-            valid: false
-        })
+        this.clearForm();
         this.props.onAddVoucher(expenseData, this.props.userID);
     }
     componentDidMount(){
         this.props.getVouchers(this.props.userID);
+    }
+    editVoucherHandler = (voucherID) => {
+        const newVoucher = this.props.vouchers.filter(voucher => 
+                                voucher.expenseId===voucherID)[0];
+        this.setState({
+            expenseID: voucherID,
+            status: newVoucher.status,
+            date: newVoucher.datedOn,
+            eid: newVoucher.billNumber,
+            amount: newVoucher.billCost,
+            description: newVoucher.remark,
+            valid: true,
+            formState: false
+        })
+    }
+    updateVoucherHandler = () => {
+        const data = {
+            billCost: this.state.amount,
+            billNumber: this.state.eid,
+            datedOn: this.state.date,
+            remark: this.state.description,
+            status: this.state.status
+        }
+        const expID = this.state.expenseID;
+        this.clearForm();
+        this.props.updateVoucher(this.props.userID, expID, data);
+    }
+    clickHandler = () => {
+        if(this.state.formState){
+            this.addVoucherHandler();
+        }else{
+            this.updateVoucherHandler();
+        }
     }
     render() { 
         return (
@@ -68,7 +110,9 @@ class AddExpense extends Component {
                         <SingleExpense id={voucher.billNumber}
                             amt={voucher.billCost}
                             date={voucher.datedOn}
-                            key={'_' + Math.random().toString(36).substr(2, 9)} />
+                            key={'_' + Math.random().toString(36).substr(2, 9)}
+                            stat={voucher.status}
+                            clicked={() => this.editVoucherHandler(voucher.expenseId)} />
                     ))}
                 </div>
                 <div className={classes.expenseRight}>
@@ -88,7 +132,7 @@ class AddExpense extends Component {
                                 onChange={this.onDescChange}
                                 value={this.state.description} />
                         <button type="button" disabled={!this.state.valid}
-                                onClick={this.addVoucherHandler}>Submit</button>
+                                onClick={this.clickHandler}>Submit</button>
                     </div>
                 </div>
             </div>
@@ -106,7 +150,8 @@ const mapStatetoProps = state => {
 const mapDispatchtoProps = dispatch => {
     return {
         getVouchers: (userID) => dispatch(actions.getVoucher(userID)),
-        onAddVoucher: (voucherData, userID) => dispatch(actions.addVoucher(voucherData, userID))
+        onAddVoucher: (voucherData, userID) => dispatch(actions.addVoucher(voucherData, userID)),
+        updateVoucher: (uid, eid, data) => dispatch(actions.userUpdateVoucher(uid, eid, data))
     }
 }
  

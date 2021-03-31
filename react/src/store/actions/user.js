@@ -1,5 +1,6 @@
 import * as actionTypes from './actionTypes';
 import axios from 'axios';
+import * as actions from './index';
 
 const signUpSuccess = (id) => {
     localStorage.setItem('auth', true);
@@ -53,6 +54,21 @@ export const onLogin = (logindata) => {
                 console.log(response.data);
                 if(response.data.responseType === "SUCCESS"){
                     dispatch(loginSuccess(response.data.result.userId, response.data.result.role));
+                }else{
+                    alert(response.data.message);
+                }
+            }).catch(err => {
+                console.log(err);
+            })
+    }
+}
+
+export const userUpdateVoucher = (uid, eid, data) => {
+    return dispatch => {
+        axios.put("http://localhost:8080/expense/"+eid, data, {headers: {user_id: uid}})
+            .then(response => {
+                if(response.data.responseType === "SUCCESS"){
+                    dispatch(actions.getVoucher(uid));
                 }else{
                     alert(response.data.message);
                 }

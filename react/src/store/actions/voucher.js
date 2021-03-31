@@ -16,7 +16,7 @@ export const addVoucher = (voucherData, userID) => {
                 if(response.data.responseType === "SUCCESS"){
                     dispatch(addVoucherSuccess(response.data.result.expenseId, voucherData));
                 }else{
-                    console.log(response.data.message);
+                    alert(response.data.message);
                 }
             }).catch(err => {
                 console.log(err);
@@ -38,7 +38,7 @@ export const getVoucher = (userID) => {
                 if(response.data.responseType === "SUCCESS"){
                     dispatch(getVoucherInStore(response.data.results));
                 }else{
-                    console.log(response.data.message);
+                    alert(response.data.message);
                 }
                 
             }).catch(err => {

@@ -1,7 +1,8 @@
 export {
     onSignUp,
     onLogin,
-    onPageReload
+    onPageReload,
+    userUpdateVoucher
 } from './user';
 
 export {
