@@ -66,7 +66,7 @@ public class ManagerController {
             return new ResponseModelSinglePayload<ExpenseModel>(ResponseModel.ROLE_CHANGED, "Your role has changed. Please login again", null);
 
         // If everything checks out, update the expense
-        return expenseService.updateExpense(expenseId, expenseModelToUpdate);
+        return expenseService.updateExpense(expenseId, expenseModelToUpdate, false);
     }
 
     @DeleteMapping(path = "/expense/{id}")

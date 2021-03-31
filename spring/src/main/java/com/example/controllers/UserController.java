@@ -102,6 +102,6 @@ public class UserController {
             return new ResponseModelSinglePayload<ExpenseModel>(ResponseModel.ROLE_CHANGED, "Your role has changed. Please login again", null);
 
 
-        return expenseService.updateExpense(expenseId, expenseModelToUpdate);
+        return expenseService.updateExpense(expenseId, expenseModelToUpdate, true);
     }
 }
