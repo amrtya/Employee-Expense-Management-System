@@ -18,5 +18,6 @@ export {
 
 export {
     getAllVouchers,
-    deleteVoucher
+    deleteVoucher,
+    managerUpdateVoucher
 } from './manager';

@@ -3,10 +3,19 @@ import React, {Component} from 'react';
 import classes from './SingleExpense.module.css';
 import {connect} from 'react-redux';
 import * as actions from '../../../../store/actions/index';
+import * as actionTypes from '../../../../store/actions/actionTypes';
 
 class SingleExpense extends Component {
     deleteVoucherHandler = () => {
         this.props.onDelVoucher(this.props.id, this.props.voucherID);
+    }
+
+    updateVoucherHandler = () => {
+        const vid = this.props.voucherID;
+        const sV = this.props.vouchers.filter(voucher => voucher.expenseId===vid)[0];
+        this.props.onManagerVoucherUpdate(sV);
+        this.props.onEdit();
+        this.props.updateV(sV);
     }
     render() { 
         return (
@@ -15,8 +24,8 @@ class SingleExpense extends Component {
                 <p>{this.props.billN}</p>
                 <p>{this.props.date}</p>
                 <p>₹ {this.props.amt}</p>
-                <i className="fa fa-edit"></i>
-                <i className="fa fa-trash" onClick={this.deleteVoucherHandler}></i>
+                <i className="fa fa-edit" onClick={this.updateVoucherHandler}></i>
+                <i className="fa fa-trash" onClick={() => this.deleteVoucherHandler()}></i>
             </div>
         );
     }
@@ -24,13 +33,16 @@ class SingleExpense extends Component {
 
 const mapStatetoProps = state => {
     return {
-        id: state.user.id
+        id: state.user.id,
+        vouchers: state.manager.vouchers
     }
 }
 
 const mapDispatchtoProps = dispatch => {
     return {
-        onDelVoucher: (mid, eid) => dispatch(actions.deleteVoucher(mid, eid))
+        onDelVoucher: (mid, eid) => dispatch(actions.deleteVoucher(mid, eid)),
+        onEdit: () => dispatch({type: actionTypes.UPDATE_EDIT}),
+        onManagerVoucherUpdate: (data) => dispatch({type: actionTypes.MANAGER_UPDATE_VOUCHER, data:data})
     }
 }
  

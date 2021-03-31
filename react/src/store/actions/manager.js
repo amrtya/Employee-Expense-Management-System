@@ -45,3 +45,20 @@ export const deleteVoucher = (managerID, expenseID) => {
             })
     }
 }
+
+export const managerUpdateVoucher = (mid, data) => {
+    return dispatch => {
+        console.log("http://localhost:8080/manager/expense/"+data.expenseId);
+        console.log(mid);
+        axios.put("http://localhost:8080/manager/expense/"+data.expenseId, data, {headers: {manager_id: mid}})
+            .then(response => {
+                if(response.data.responseType === "SUCCESS"){
+                    dispatch(getAllVouchers(mid));
+                }else{
+                    alert(response.data.message);
+                }
+            }).catch(err => {
+                console.log(err);
+            })
+    }
+}

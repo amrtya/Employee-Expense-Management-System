@@ -43,6 +43,15 @@
     outline: none;
     border: 1px solid black;
 }
+.expenseRight select {
+    width: 87%;
+    margin: 5px auto;
+    padding: 10px;
+    font-size: 18px;
+    border-radius: 10px;
+    outline: none;
+    border: 1px solid black;
+}
 .expenseRight button {
     width: 50%;
     margin: 15px auto;
