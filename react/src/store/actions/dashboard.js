@@ -11,10 +11,9 @@ const getDetails = (data) => {
 
 export const getMonthDetails = (month, uid) => {
     return dispatch => {
-        console.log("http://localhost:8080/dashboard/"+month);
-        console.log(uid);
-        axios.get("http://localhost:8080/dashboard/"+month, {headers: {user_id: uid}})
+        axios.get("http://localhost:8080/expense/dashboard/"+month, {headers: {user_id: uid}})
             .then(response => {
+                console.log(response.data);
                 if(response.data.responseType === "SUCCESS"){
                     dispatch(getDetails(response.data.result));
                 }else{

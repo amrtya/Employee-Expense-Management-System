@@ -68,8 +68,8 @@ class userDashboard extends Component {
                 </div>
                 <div className={classes.details}>
                     <div className={classes.detailsCard}>
-                        <p>Total Employee</p>
-                        <p>570</p>
+                        <p>Number of Expenses</p>
+                        <p>{this.props.num}</p>
                     </div>
                 </div>
             </div>
@@ -82,7 +82,8 @@ const mapStatetoProps = state => {
         id: state.user.id,
         total: state.dashboard.totalExpense,
         approved: state.dashboard.approvedExpense,
-        pending: state.dashboard.pendingExpense
+        pending: state.dashboard.pendingExpense,
+        num: state.dashboard.numberofExpenses
     }
 }
 

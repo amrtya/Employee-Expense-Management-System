@@ -5,7 +5,8 @@ import {updateObject} from '../utility';
 const initialState = {
     totalExpense: "",
     pendingExpense: "",
-    approvedExpense: ""
+    approvedExpense: "",
+    numberofExpenses: ""
 }
 
 const reducer = (state=initialState, action) => {
@@ -14,7 +15,8 @@ const reducer = (state=initialState, action) => {
             return updateObject(state, {
                 totalExpense: action.data.totalExpense,
                 pendingExpense: action.data.pendingExpense,
-                approvedExpense: action.data.approvedExpense
+                approvedExpense: action.data.approvedExpense,
+                numberofExpenses: action.data.numberExpenses
             })
         default:
             return state;
