@@ -22,3 +22,7 @@ export {
     deleteVoucher,
     managerUpdateVoucher
 } from './manager';
+
+export {
+    getMonthDetails
+} from './dashboard';

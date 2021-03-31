@@ -27,3 +27,5 @@ export const UPDATE_ROLE = "UPDATE_ROLE";
 export const UPDATE_ACTIVE = "UPDATE_ACTIVE";
 
 export const UPDATE_EDIT = "UPDATE_EDIT";
+
+export const GET_MONTH_DETAILS = "GET_MONTH_DETAILS";

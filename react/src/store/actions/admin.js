@@ -15,7 +15,7 @@ export const getUsers = (adminID) => {
                 if(response.data.responseType==="SUCCESS"){
                     dispatch(storeUsers(response.data.results))
                 }else{
-                    console.log(response.data.message);
+                    alert(response.data.message);
                 }
             }).catch(err => {
                 console.log(err);
@@ -34,8 +34,11 @@ export const deleteUser = (adminID, userID) => {
     return dispatch => {
         axios.delete("http://localhost:8080/admin/user/"+userID, {headers: {admin_id: adminID}})
             .then(response => {
-                dispatch(delUser(userID));
-                console.log(response.data.message);
+                if(response.data.responseType === "SUCCESS"){
+                    dispatch(delUser(userID));
+                }else{
+                    alert(response.data.message);
+                }
             }).catch(err => {
                 console.log(err);
             })
@@ -46,8 +49,11 @@ export const updateUser = (adminID, userID, userData) => {
     return dispatch => {
         axios.put("http://localhost:8080/admin/user/"+userID, userData, {headers: {admin_id: adminID}})
             .then(response => {
-                dispatch(getUsers(adminID));
-                console.log(response.data.message);
+                if(response.data.responseType === "SUCCESS"){
+                    dispatch(getUsers(adminID));
+                }else{
+                    alert(response.data.message);
+                }
             }).catch(err => {
                 console.log(err);
             })
@@ -65,7 +71,6 @@ export const addUser = (adminID, userData) => {
     return dispatch => {
         axios.post("http://localhost:8080/admin/user", userData, {headers: {admin_id: adminID}})
             .then(response => {
-                console.log(response);
                 if(response.data.responseType === "SUCCESS"){
                     const newUser = {
                         ...userData,

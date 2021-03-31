@@ -11,6 +11,7 @@ import userReducer from './store/reducers/user';
 import voucherReducer from './store/reducers/voucher';
 import adminReducer from './store/reducers/admin';
 import managerReducer from './store/reducers/manager';
+import dashboardReducer from './store/reducers/dashboard';
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
@@ -18,7 +19,8 @@ const rootReducer = combineReducers({
   user: userReducer,
   voucher: voucherReducer,
   admin: adminReducer,
-  manager: managerReducer
+  manager: managerReducer,
+  dashboard: dashboardReducer
 });
 
 const store = createStore(rootReducer, composeEnhancers(applyMiddleware(thunk)));
