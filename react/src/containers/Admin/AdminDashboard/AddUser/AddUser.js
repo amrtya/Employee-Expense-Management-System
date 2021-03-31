@@ -34,6 +34,12 @@ class AddUser extends Component {
     //     const val = event.target.value;
     //     this.props.user.role = val;
     // }
+    clearForm = () => {
+        this.props.updateEmail("");
+        this.props.updateMobileNumber("");
+        this.props.updateRole("");
+        this.props.updateUserName("");
+    }
     updateUser = () => {
         let act = true;
         if(this.props.user.active === "no"){
@@ -46,6 +52,22 @@ class AddUser extends Component {
             role: this.props.user.role,
             active: act
         });
+        this.clearForm();
+    }
+    addUser = () => {
+        let act = true;
+        if(this.props.user.active === "no"){
+            act = false;
+        }
+        this.props.addUser(this.props.id, {
+            username: this.props.user.username,
+            email: this.props.user.email,
+            mobileNumber: this.props.user.mobileNumber,
+            role: this.props.user.role,
+            active: act,
+            password: "password123"
+        });
+        this.clearForm();
     }
     render() { 
         return (
@@ -83,7 +105,7 @@ class AddUser extends Component {
                 </span>
                 <span>
                     <button type="button" onClick={this.updateUser}>Update</button>
-                    <button type="button">Clear</button>
+                    <button type="button" onClick={this.addUser}>Add</button>
                 </span>
             </div>
         );
@@ -105,7 +127,8 @@ const mapDispatchtoProps = dispatch => {
         updateRole: (role) => dispatch({type: actionTypes.UPDATE_ROLE, role: role}),
         // updatePassword: (password) => dispatch({type: actionTypes.UPDATE_PASSWORD, password: password}),
         updateActive: (active) => dispatch({type: actionTypes.UPDATE_ACTIVE, active: active}),
-        updateUser: (aid, uid, data) => dispatch(actions.updateUser(aid, uid, data))
+        updateUser: (aid, uid, data) => dispatch(actions.updateUser(aid, uid, data)),
+        addUser: (aid, data) => dispatch(actions.addUser(aid, data))
     }
 }
  

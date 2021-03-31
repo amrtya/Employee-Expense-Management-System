@@ -24,6 +24,10 @@ const reducer = (state=initialState, action) => {
             return updateObject(state, {
                 users: state.users.filter(user => user.userId!==action.id)
             })
+        case actionTypes.ADD_USER:
+            return updateObject(state, {
+                users: state.users.concat(action.userData)
+            })
 
         case actionTypes.UPDATE_ADMIN_ENTRY:
             let act = "yes";

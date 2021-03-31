@@ -20,6 +20,7 @@ export const onSignUp = (signupdata) => {
                     dispatch(signUpSuccess(response.data.result.userId));
                 }else{
                     console.log(response.data.message);
+                    alert(response.data.message);
                 }
             }).catch(err => {
                 console.log(err);
@@ -55,6 +56,7 @@ export const onLogin = (logindata) => {
                     dispatch(loginSuccess(response.data.result.userId, response.data.result.role));
                 }else{
                     console.log(response.data.message);
+                    alert(response.data.message);
                 }
             }).catch(err => {
                 console.log(err);

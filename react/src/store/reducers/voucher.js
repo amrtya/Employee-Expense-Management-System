@@ -13,7 +13,6 @@ const reducer = (state=initialState, action) => {
             })
         case actionTypes.ADD_VOUCHER:
             const newVoucher = updateObject(action.voucherData, {expenseID: action.id});
-            console.log(newVoucher);
             return updateObject(state, {
                 vouchers: state.vouchers.concat(newVoucher)
             });

@@ -44,13 +44,37 @@ export const deleteUser = (adminID, userID) => {
 
 export const updateUser = (adminID, userID, userData) => {
     return dispatch => {
-        // console.log("http://localhost:8080/admin/user/"+userID);
-        // console.log(userData);
-        // console.log(adminID);
         axios.put("http://localhost:8080/admin/user/"+userID, userData, {headers: {admin_id: adminID}})
             .then(response => {
                 dispatch(getUsers(adminID));
                 console.log(response.data.message);
+            }).catch(err => {
+                console.log(err);
+            })
+    }
+}
+
+const addUsertoStore = (userData) => {
+    return {
+        type: actionTypes.ADD_USER,
+        userData: userData
+    }
+}
+
+export const addUser = (adminID, userData) => {
+    return dispatch => {
+        axios.post("http://localhost:8080/admin/user", userData, {headers: {admin_id: adminID}})
+            .then(response => {
+                console.log(response);
+                if(response.data.responseType === "SUCCESS"){
+                    const newUser = {
+                        ...userData,
+                        userId: response.data.result.userId
+                    };
+                    dispatch(addUsertoStore(newUser));
+                }else{
+                    alert(response.data.message);
+                }
             }).catch(err => {
                 console.log(err);
             })

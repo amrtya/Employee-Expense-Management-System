@@ -5,7 +5,7 @@ import {connect} from 'react-redux';
 
 const AllUsers = (props) => {
     return (
-        <div>
+        <div className={classes.AllUser}>
             <div className={classes.tableHeader}>
                 <p>Sl.No.</p>
                 <p>Name</p>

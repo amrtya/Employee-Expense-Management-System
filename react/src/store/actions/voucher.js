@@ -13,7 +13,6 @@ export const addVoucher = (voucherData, userID) => {
     return dispatch => {
         axios.post('http://localhost:8080/expense', voucherData, {headers: {user_id: userID}})
             .then(response => {
-                console.log(response.data, userID);
                 if(response.data.responseType === "SUCCESS"){
                     dispatch(addVoucherSuccess(response.data.result.expenseId, voucherData));
                 }else{

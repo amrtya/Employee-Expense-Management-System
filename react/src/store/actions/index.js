@@ -12,7 +12,8 @@ export {
 export {
     getUsers,
     deleteUser,
-    updateUser
+    updateUser,
+    addUser
 } from './admin';
 
 export {

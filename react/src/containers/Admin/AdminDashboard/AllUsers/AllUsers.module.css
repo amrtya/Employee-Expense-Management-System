@@ -4,7 +4,7 @@
     top: 150px;
     display: flex;
     flex-direction: row;
-    width: 60vw;
+    width: 64vw;
     margin-left: 20px;
     background-color: white;
 }
@@ -38,11 +38,15 @@
     top: 220px;
     height: 1px;
     background-color: black;
-    width: 62vw;
+    width: 64vw;
     z-index: 300;
 }
 
 .tableUsers {
     display: flex;
     flex-direction: column;
+}
+
+.Alluser {
+    padding-bottom: 20px;
 }
