@@ -89,7 +89,8 @@ public class ExpenseService {
     @Transactional
     public ResponseModelSinglePayload<ExpenseModel> updateExpense(
             String expenseId,
-            ExpenseModel expenseModelToUpdate
+            ExpenseModel expenseModelToUpdate,
+            boolean user
     ) {
         //Find the expense model by Id
         Optional<ExpenseModel> expenseById = getExpenseById(expenseId);
@@ -107,16 +108,21 @@ public class ExpenseService {
         );
         Integer totalExpense = expenseModelToUpdate.getBillCost();
         for (ExpenseModel expenseModel1 : allExpensesByMonth) {
-            totalExpense += expenseModel1.getBillCost();
+            if (!expenseModel.getExpenseId().equals(expenseModel1.getExpenseId()))
+                totalExpense += expenseModel1.getBillCost();
         }
         if (totalExpense > 5000)
             return new ResponseModelSinglePayload<>(ResponseModel.FAILURE, "Expense Not added as it is exceeding limit: Rs. 5000", null);
 
+        if (expenseModelToUpdate.getBillCost() != null && !Objects.equals(expenseModel.getBillCost(), expenseModelToUpdate.getBillCost())) {
+            if (user) {
+                if (expenseModel.getStatus().equals(ExpenseModel.REIMBURSED))
+                    return new ResponseModelSinglePayload<>(ResponseModel.FAILURE, "This expense has already been Reimbursed. You cannot change the cost.", null);
+            }
+            expenseModel.setBillCost(expenseModelToUpdate.getBillCost());
+        }
         if (expenseModelToUpdate.getBillNumber() != null && !Objects.equals(expenseModel.getBillNumber(), expenseModelToUpdate.getBillNumber())) {
             expenseModel.setBillNumber(expenseModelToUpdate.getBillNumber());
-        }
-        if (expenseModelToUpdate.getBillCost() != null && !Objects.equals(expenseModel.getBillCost(), expenseModelToUpdate.getBillCost())) {
-            expenseModel.setBillCost(expenseModelToUpdate.getBillCost());
         }
         if (expenseModelToUpdate.getDatedOn() != null && !Objects.equals(expenseModel.getDatedOn(), expenseModelToUpdate.getDatedOn())) {
             expenseModel.setDatedOn(expenseModelToUpdate.getDatedOn());
@@ -158,7 +164,13 @@ public class ExpenseService {
             if (expenseModel.getStatus().equals(ExpenseModel.REIMBURSED))
                 approvedExpense += expenseModel.getBillCost();
         }
-        UserDashboardModel userDashboardModel = new UserDashboardModel(totalExpense, totalExpense - approvedExpense, approvedExpense, month);
+        UserDashboardModel userDashboardModel = new UserDashboardModel(
+                totalExpense,
+                totalExpense - approvedExpense,
+                approvedExpense,
+                allExpensesByMonth.size(),
+                month
+        );
         return new ResponseModelSinglePayload<>(ResponseModel.SUCCESS, "", userDashboardModel);
 
     }
