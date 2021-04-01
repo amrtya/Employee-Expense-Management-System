@@ -55,7 +55,7 @@ class Signup extends Component {
     signUpHandler = () => {
         const signupdata = {
             email: this.state.email,
-            password: md5(this.state.password),
+            password: md5(this.state.password).toString(),
             username: this.state.username,
             mobileNumber: this.state.mobileNumber,
             active: true,
