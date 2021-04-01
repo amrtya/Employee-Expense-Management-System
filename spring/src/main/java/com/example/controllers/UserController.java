@@ -35,6 +35,8 @@ public class UserController {
         if(!userById.get().getRole().equals(UserModel.USER))
             return new ResponseModelListPayload<>(ResponseModel.ROLE_CHANGED, "Your role has changed. Please Login again.", null);
 
+        if(!userById.get().isActive())
+            return new ResponseModelListPayload<>(ResponseModel.INACTIVE, "Your account is currently suspended.", null);
         // If everything is valid, get expenses
         return expenseService.getAllExpenses(userById.get());
     }
@@ -51,6 +53,9 @@ public class UserController {
         if(!userById.get().getRole().equals(UserModel.USER))
             return new ResponseModelSinglePayload<>(ResponseModel.ROLE_CHANGED, "Your role has changed. Please Login again.", null);
 
+        if(!userById.get().isActive())
+            return new ResponseModelSinglePayload<>(ResponseModel.INACTIVE, "Your account is currently suspended.", null);
+
         return expenseService.getUserDashboardModel(month, userById.get());
     }
 
@@ -65,6 +70,9 @@ public class UserController {
         // Check role validity
         if(!userById.get().getRole().equals(UserModel.USER))
             return new ResponseModelSinglePayload<ExpenseModel>(ResponseModel.ROLE_CHANGED, "Your role has changed. Please login again", null);
+
+        if(!userById.get().isActive())
+            return new ResponseModelSinglePayload<>(ResponseModel.INACTIVE, "Your account is currently suspended.", null);
 
         // If everything is valid, get expense
         return expenseService.getExpense(expenseId);
@@ -82,6 +90,8 @@ public class UserController {
         if(!userById.get().getRole().equals(UserModel.USER))
             return new ResponseModelSinglePayload<>(ResponseModel.ROLE_CHANGED, "Your role has changed. Please login again.", null);
 
+        if(!userById.get().isActive())
+            return new ResponseModelSinglePayload<>(ResponseModel.INACTIVE, "Your account is currently suspended.", null);
         // If everything is valid, add expense
         return expenseService.addExpense(expenseModel, userById.get());
     }
@@ -102,6 +112,8 @@ public class UserController {
         if(!userById.get().getRole().equals(UserModel.USER))
             return new ResponseModelSinglePayload<ExpenseModel>(ResponseModel.ROLE_CHANGED, "Your role has changed. Please login again", null);
 
+        if(!userById.get().isActive())
+            return new ResponseModelSinglePayload<>(ResponseModel.INACTIVE, "Your account is currently suspended.", null);
 
         return expenseService.updateExpense(expenseId, expenseModelToUpdate, true);
     }
@@ -118,6 +130,8 @@ public class UserController {
         if(!userById.get().getRole().equals(UserModel.USER))
             return new ResponseModel(ResponseModel.ROLE_CHANGED, "Your role has changed. Please login again");
 
+        if(!userById.get().isActive())
+            return new ResponseModel(ResponseModel.INACTIVE, "Your account is currently suspended.");
         try {
             expenseService.storeReceiptImage(receiptImage, expenseId);
         } catch (IOException e) {
