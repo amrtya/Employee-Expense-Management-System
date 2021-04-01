@@ -72,20 +72,17 @@ class ManagerDashBoard extends Component {
             <div className={classes.Expense}>
                 {this.state.modalID ? <Modal style={modalView} close={this.modalClose} vid={this.state.modalID} />:null}
                 {this.state.modalID ? <BackDrop clicked={this.modalClose} />:null}
-                <div>
-                    <h1 style={{color: "white"}}>Hi {this.props.username}</h1>
-                    <div className={classes.expenseLeft}>
-                        {this.props.vouchers.map(voucher => (
-                            <SingleExpense billN={voucher.billNumber}
-                                amt={voucher.billCost}
-                                date={voucher.datedOn}
-                                key={'_' + Math.random().toString(36).substr(2, 9)}
-                                voucherID={voucher.expenseId}
-                                updateV={this.updateState}
-                                stat={voucher.status}
-                                clik={() => this.updateModal(voucher.expenseId)} />
-                        ))}
-                    </div>
+                <div className={classes.expenseLeft}>
+                    {this.props.vouchers.map(voucher => (
+                        <SingleExpense billN={voucher.billNumber}
+                            amt={voucher.billCost}
+                            date={voucher.datedOn}
+                            key={'_' + Math.random().toString(36).substr(2, 9)}
+                            voucherID={voucher.expenseId}
+                            updateV={this.updateState}
+                            stat={voucher.status}
+                            clik={() => this.updateModal(voucher.expenseId)} />
+                    ))}
                 </div>
                 <div className={classes.expenseRight} style={{display: this.props.editValid}}>
                     <div className={classes.addExpense}>
