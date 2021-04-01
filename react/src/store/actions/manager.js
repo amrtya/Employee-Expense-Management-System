@@ -48,12 +48,31 @@ export const deleteVoucher = (managerID, expenseID) => {
     }
 }
 
-export const managerUpdateVoucher = (mid, data) => {
+const uploadImage = (eid, uid, image, mid) => {
+    return dispatch => {
+        let data = new FormData();
+        data.append("receipt_image", image);
+
+        axios.post('http://localhost:8080/expense/upload/'+eid, data, {headers: {user_id: uid}})
+            .then(response => {
+                if(response.data.responseType === "SUCCESS"){
+                    dispatch(getAllVouchers(mid));
+                }else{
+                    toast.error(response.data.message);
+                }
+            }).catch(err => {
+                console.log(err);
+            })
+    }
+}
+
+export const managerUpdateVoucher = (mid, data, image) => {
     return dispatch => {
         axios.put("http://localhost:8080/manager/expense/"+data.expenseId, data, {headers: {manager_id: mid}})
             .then(response => {
                 if(response.data.responseType === "SUCCESS"){
-                    dispatch(getAllVouchers(mid));
+                    //dispatch(getAllVouchers(mid));
+                    dispatch(uploadImage(data.expenseId, data.claimedBy.userId, image, mid));
                     toast.success(response.data.message);
                 }else{
                     toast.error(response.data.message);

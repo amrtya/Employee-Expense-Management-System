@@ -17,12 +17,12 @@
     position: fixed;
     right: 0;
     width: 30%;
-    height: 90vh;
+    height: 630px;
 }
 .addExpense {
-    height: 80vh;
+    height: 560px;
     background-color: white;
-    margin: 5vh auto;
+    margin: 15px auto;
     width: 80%;
     display: flex;
     flex-direction: column;

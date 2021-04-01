@@ -14,7 +14,9 @@ class ManagerDashBoard extends Component {
         remarks: "",
         status: "",
         modal: false,
-        modalID: null
+        modalID: null,
+        image: null,
+        imageName: ""
     }
     // onDateChange = (event) => {
     //     this.setState({date: event.target.value});
@@ -37,7 +39,9 @@ class ManagerDashBoard extends Component {
             billNumber: data.billNumber,
             billCost: data.billCost,
             remarks: data.remark,
-            status: data.status
+            status: data.status,
+            image: data.receiptImage,
+            imageName: "chosen"
         })
     }
     updateExpense = () => {
@@ -48,7 +52,10 @@ class ManagerDashBoard extends Component {
             remark: this.state.remarks,
             status: this.state.status
         }
-        this.props.updateVoucher(this.props.id, newVoucher);
+        this.props.updateVoucher(this.props.id, newVoucher, this.state.image);
+    }
+    onImageChange = (event) => {
+        this.setState({image: event.target.files[0], imageName: event.target.value});
     }
     updateModal = (expenseId) => {
         this.setState({modal: true, modalID: expenseId});
@@ -102,6 +109,9 @@ class ManagerDashBoard extends Component {
                                 title="Remarks"
                                 onChange={this.onRemarksChange}
                                 value={this.state.remarks} />
+                        <input type="file" style={{border: "none"}}
+                                onChange={this.onImageChange}
+                                value={this.state.imageName} />
                         <button type="button" onClick={this.updateExpense}>Update</button>
                     </div>
                 </div>
@@ -121,7 +131,7 @@ const mapStatetoProps = state => {
 
 const mapDispatchtoProps = dispatch => {
     return {
-        updateVoucher: (mid, data) => dispatch(actions.managerUpdateVoucher(mid, data))
+        updateVoucher: (mid, data, img) => dispatch(actions.managerUpdateVoucher(mid, data, img))
     }
 }
  

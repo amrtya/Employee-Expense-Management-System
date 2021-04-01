@@ -17,8 +17,8 @@ class AddExpense extends Component {
         eid: "",
         amount: "",
         description: "",
-        imageFile: null,
         image: null,
+        imageName: "",
         valid: false,
         formState: true,     //true: add voucher || false: edit voucher
         modal: false,
@@ -30,8 +30,8 @@ class AddExpense extends Component {
             eid: "",
             amount: "",
             description: "",
-            imageFile: null,
             image: null,
+            imageName: "",
             valid: false,
             formState: true,
             expenseID: null,
@@ -69,7 +69,7 @@ class AddExpense extends Component {
         this.checkValidity(this.state.date, this.state.eid, this.state.amount, val);
     }
     onImageChange = (event) => {
-        this.setState({imageFile: event.target.files[0], image: event.target.value});
+        this.setState({image: event.target.files[0], imageName: event.target.value});
     }
     addVoucherHandler = () => {
         const expenseData = {
@@ -80,7 +80,7 @@ class AddExpense extends Component {
             remark: this.state.description
         }
         this.clearForm();
-        this.props.onAddVoucher(expenseData, this.props.userID, this.state.imageFile);
+        this.props.onAddVoucher(expenseData, this.props.userID, this.state.image);
     }
     componentDidMount(){
         this.props.getVouchers(this.props.userID);
@@ -167,7 +167,7 @@ class AddExpense extends Component {
                                 value={this.state.description} />
                         <input type="file" style={{border: "none"}}
                                 onChange={this.onImageChange}
-                                value={this.state.image} />
+                                value={this.state.imageName} />
                         <button type="button" disabled={!this.state.valid}
                                 onClick={this.clickHandler}>Submit</button>
                     </div>
