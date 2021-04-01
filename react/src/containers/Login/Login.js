@@ -4,6 +4,7 @@ import {Link} from 'react-router-dom';
 import { connect } from 'react-redux';
 import * as actions from '../../store/actions/index';
 import 'react-toastify/dist/ReactToastify.css';
+import md5 from 'crypto-js/md5';
 
 class Login extends Component {
     state = {
@@ -30,7 +31,7 @@ class Login extends Component {
     loginHandler = () => {
         const logindata = {
             email: this.state.email,
-            password: this.state.password
+            password: md5(this.state.password)
         }
         this.props.onLogin(logindata);
     }

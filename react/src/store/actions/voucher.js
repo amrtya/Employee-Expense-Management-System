@@ -2,34 +2,41 @@ import * as actionTypes from './actionTypes';
 import axios from 'axios';
 import { toast } from '../../../node_modules/react-toastify';
 
-// const addVoucherSuccess = (id, voucherData) => {
-//     return {
-//         type: actionTypes.ADD_VOUCHER,
-//         id: id,
-//         voucherData: voucherData
-//     }
-// }
+const addVoucherSuccess = (id, voucherData) => {
+    return {
+        type: actionTypes.ADD_VOUCHER,
+        id: id,
+        voucherData: voucherData
+    }
+}
 
-export const uploadImage = (eid, uid, image) => {
+export const uploadImage = (eid, uid, image, voucherData=null) => {
     return dispatch => {
         let data = new FormData();
         data.append("receipt_image", image);
 
-        axios.post('http://localhost:8080/expense/upload/'+eid, data, {
-                headers: {
-                    user_id: uid,
-                },
-            } 
-            // {headers: {user_id: uid, "Content-Type": "multipart/form-data"}}
-        )
+        axios.post('/expense/upload/'+eid, data, {headers: {user_id: uid}})
             .then(response => {
                 if(response.data.responseType === "SUCCESS"){
-                    //dispatch(addVoucherSuccess(response.data.result.expenseId, voucherData));
-                    dispatch(getVoucher(uid));
+                    if(voucherData){
+                        dispatch(addVoucherSuccess(eid, voucherData));
+                    }else{
+                        dispatch(getVoucher(uid));
+                    }
                 }else{
+                    if(voucherData){
+                        dispatch(addVoucherSuccess(eid, voucherData));
+                    }else{
+                        dispatch(getVoucher(uid));
+                    }
                     toast.error(response.data.message);
                 }
             }).catch(err => {
+                if(voucherData){
+                    dispatch(addVoucherSuccess(eid, voucherData));
+                }else{
+                    dispatch(getVoucher(uid));
+                }
                 console.log(err);
                 // toast.error("Unknown Error occured.")
             })
@@ -38,11 +45,10 @@ export const uploadImage = (eid, uid, image) => {
 
 export const addVoucher = (voucherData, userID, image) => {
     return dispatch => {
-        axios.post('http://localhost:8080/expense', voucherData, {headers: {user_id: userID}})
+        axios.post('/expense', voucherData, {headers: {user_id: userID}})
             .then(response => {
                 if(response.data.responseType === "SUCCESS"){
-                    //dispatch(addVoucherSuccess(response.data.result.expenseId, voucherData));
-                    dispatch(uploadImage(response.data.result.expenseId, userID, image));
+                    dispatch(uploadImage(response.data.result.expenseId, userID, image, voucherData));
                     toast.success(response.data.message);
                 }else{
                     toast.error(response.data.message);
@@ -63,7 +69,7 @@ const getVoucherInStore = (vouchers) => {
 
 export const getVoucher = (userID) => {
     return dispatch => {
-        axios.get('http://localhost:8080/expense', {headers: {user_id: userID}})
+        axios.get('/expense', {headers: {user_id: userID}})
             .then(response => {
                 if(response.data.responseType === "SUCCESS"){
                     dispatch(getVoucherInStore(response.data.results));

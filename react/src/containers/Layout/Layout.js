@@ -18,12 +18,13 @@ class Layout extends Component {
             const auth = localStorage.getItem('auth');
             const id = localStorage.getItem('id');
             const role = localStorage.getItem('role');
-            this.props.pageReload(auth, id, role);
+            const username = localStorage.getItem('username');
+            this.props.pageReload(auth, id, role, username);
         }else{
             const auth = false;
             const id = "";
             const role = "";
-            this.props.pageReload(auth, id, role);
+            this.props.pageReload(auth, id, role, "");
         }
     }
     render() {
@@ -63,7 +64,7 @@ const mapStatetoProps = state => {
 
 const mapDispatchtoProps = dispatch => {
     return {
-        pageReload: (auth, id, role) => dispatch(actions.onPageReload(auth, id, role))
+        pageReload: (auth, id, role, username) => dispatch(actions.onPageReload(auth, id, role, username))
     }
 }
  

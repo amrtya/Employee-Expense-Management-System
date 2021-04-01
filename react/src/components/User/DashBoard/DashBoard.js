@@ -34,6 +34,7 @@ class userDashboard extends Component {
         return (
             <div className={classes.DashBoard}>
                 <div className={classes.monthHeader}>
+                    <h1>Hi {this.props.username}</h1>
                     <h1>DASHBOARD</h1>
                     <select name="month"
                         value={this.state.month}
@@ -83,7 +84,8 @@ const mapStatetoProps = state => {
         total: state.dashboard.totalExpense,
         approved: state.dashboard.approvedExpense,
         pending: state.dashboard.pendingExpense,
-        num: state.dashboard.numberofExpenses
+        num: state.dashboard.numberofExpenses,
+        username: state.user.username
     }
 }
 

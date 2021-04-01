@@ -10,7 +10,7 @@ const reducer = (state=initialState, action) => {
         case actionTypes.GET_VOUCHER:
             return updateObject(state, {
                 vouchers: action.vouchers
-            })
+            });
         case actionTypes.ADD_VOUCHER:
             const newVoucher = updateObject(action.voucherData, {expenseID: action.id});
             return updateObject(state, {

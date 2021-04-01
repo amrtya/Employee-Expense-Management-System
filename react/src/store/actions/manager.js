@@ -11,7 +11,7 @@ const getVoucherInStore = (vouchers) => {
 
 export const getAllVouchers = (managerID) => {
     return dispatch => {
-        axios.get('http://localhost:8080/manager', {headers: {manager_id: managerID}})
+        axios.get('/manager', {headers: {manager_id: managerID}})
             .then(response => {
                 if(response.data.responseType === "SUCCESS"){
                     dispatch(getVoucherInStore(response.data.results));
@@ -35,7 +35,7 @@ const delVoucher = (expenseID) => {
 
 export const deleteVoucher = (managerID, expenseID) => {
     return dispatch => {
-        axios.delete("http://localhost:8080/manager/expense/"+expenseID, {headers: {manager_id: managerID}})
+        axios.delete("/manager/expense/"+expenseID, {headers: {manager_id: managerID}})
             .then(response => {
                 if(response.data.responseType === "SUCCESS"){
                     dispatch(delVoucher(expenseID));
@@ -55,14 +55,16 @@ const uploadImage = (eid, uid, image, mid) => {
         let data = new FormData();
         data.append("receipt_image", image);
 
-        axios.post('http://localhost:8080/expense/upload/'+eid, data, {headers: {user_id: uid}})
+        axios.post('/expense/upload/'+eid, data, {headers: {user_id: uid}})
             .then(response => {
                 if(response.data.responseType === "SUCCESS"){
                     dispatch(getAllVouchers(mid));
                 }else{
+                    dispatch(getAllVouchers(mid));
                     toast.error(response.data.message);
                 }
             }).catch(err => {
+                dispatch(getAllVouchers(mid));
                 console.log(err);
                 // toast.error("Unknown Error occured.")
             })
@@ -71,7 +73,7 @@ const uploadImage = (eid, uid, image, mid) => {
 
 export const managerUpdateVoucher = (mid, data, image) => {
     return dispatch => {
-        axios.put("http://localhost:8080/manager/expense/"+data.expenseId, data, {headers: {manager_id: mid}})
+        axios.put("/manager/expense/"+data.expenseId, data, {headers: {manager_id: mid}})
             .then(response => {
                 if(response.data.responseType === "SUCCESS"){
                     //dispatch(getAllVouchers(mid));
