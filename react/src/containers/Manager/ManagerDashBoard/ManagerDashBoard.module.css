@@ -1,10 +1,10 @@
 .Expense {
     display: flex;
     flex-direction: row;
-    min-height: 90vh;
+    min-height: 630px;
     background: rgb(51,8,100);
     background: linear-gradient(180deg, rgba(51,8,100,1) 0%, rgba(74,9,121,1) 32%, rgba(88,0,255,1) 100%);
-    padding-top: 10vh;
+    padding-top: 70px;
 }
 .expenseLeft {
     width: 70%;
@@ -17,12 +17,12 @@
     position: fixed;
     right: 0;
     width: 30%;
-    height: 90vh;
+    height: 630px;
 }
 .addExpense {
-    height: 80vh;
+    height: 540px;
     background-color: white;
-    margin: 5vh auto;
+    margin: 20px auto;
     width: 80%;
     display: flex;
     flex-direction: column;

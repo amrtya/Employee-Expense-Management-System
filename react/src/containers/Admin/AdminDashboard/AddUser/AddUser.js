@@ -41,6 +41,7 @@ class AddUser extends Component {
         this.props.updateMobileNumber("");
         this.props.updateRole("");
         this.props.updateUserName("");
+        this.props.updateActive("yes");
         this.props.clicked();
     }
     checkValidity = () => {
@@ -99,7 +100,7 @@ class AddUser extends Component {
             this.updateUser();
         }
     }
-    render() { 
+    render() {
         return (
             <div className={classes.AddUser}>
                 <h2>Add/Edit Details</h2>
@@ -128,9 +129,9 @@ class AddUser extends Component {
                 </select>
                 <span className={classes.radioGroup}>
                     Active? 
-                    <input type="radio" name="active" value="yes"
+                    <input type="radio" name="active" value="yes" checked={this.props.user.active==="yes"}
                         onChange={(event) => this.props.updateActive(event.target.value)}  />Yes
-                    <input type="radio" name="active" value="no"
+                    <input type="radio" name="active" value="no" checked={this.props.user.active==="no"}
                         onChange={(event) => this.props.updateActive(event.target.value)} />No
                 </span>
                 <span>

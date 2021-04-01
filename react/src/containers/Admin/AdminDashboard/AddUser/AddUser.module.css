@@ -3,9 +3,9 @@
     margin: 0 auto;
     position: fixed;
     z-index: 200;
-    height: 73vh;
+    height: 510px;
     right: 2vw;
-    top: 25vh;
+    top: 175px;
     background-color: bisque;
     border-radius: 15px;
     display: flex;

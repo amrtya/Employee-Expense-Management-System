@@ -7,6 +7,7 @@ import Modal from '../UI/Modal/Modal';
 import BackDrop from '../UI/BackDrop/BackDrop';
 import {ToastContainer} from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css';
+import  { Redirect } from 'react-router-dom';
 
 class AddExpense extends Component {
     state = {
@@ -128,6 +129,9 @@ class AddExpense extends Component {
         if(this.state.modal && this.state.modalID){
             modalView = {display: "flex"};
         }
+        if(!this.props.auth || this.props.role!=="USER"){
+            return <Redirect to='/signup' />;
+        }
         return (
             <div className={classes.Expense}>
                 {this.state.modalID ? <Modal style={modalView} close={this.modalClose} vid={this.state.modalID} />:null}
@@ -175,7 +179,9 @@ class AddExpense extends Component {
 const mapStatetoProps = state => {
     return {
         vouchers: state.voucher.vouchers,
-        userID: state.user.id
+        userID: state.user.id,
+        role: state.user.role,
+        auth: state.user.auth
     }
 }
 

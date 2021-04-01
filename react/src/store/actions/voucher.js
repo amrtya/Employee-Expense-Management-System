@@ -2,13 +2,13 @@ import * as actionTypes from './actionTypes';
 import axios from 'axios';
 import { toast } from '../../../node_modules/react-toastify';
 
-const addVoucherSuccess = (id, voucherData) => {
-    return {
-        type: actionTypes.ADD_VOUCHER,
-        id: id,
-        voucherData: voucherData
-    }
-}
+// const addVoucherSuccess = (id, voucherData) => {
+//     return {
+//         type: actionTypes.ADD_VOUCHER,
+//         id: id,
+//         voucherData: voucherData
+//     }
+// }
 
 export const uploadImage = (eid, uid, image) => {
     return dispatch => {

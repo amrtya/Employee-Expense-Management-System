@@ -4,6 +4,9 @@ export const USER_LOGIN_FAIL = "USER_LOGIN_FAIL";
 export const USER_SIGNUP_SUCCESS = "USER_SIGNUP_SUCCESS";
 export const USER_SIGNUP_FAIL = "USER_SIGNUP_FAIL";
 
+export const STARTLOADING = "STARTLOADING";
+export const ENDLOADING = "ENDLOADING";
+
 export const PAGE_RELOAD = "PAGE_RELOAD";
 
 export const ADD_VOUCHER = "ADD_VOUCHER";

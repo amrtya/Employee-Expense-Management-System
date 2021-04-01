@@ -29,7 +29,7 @@ class Modal extends Component {
                 <h2>Bill Number: {voucher.billNumber}</h2>
                 {this.state.email ? <p className={classes.modalp}>{this.state.email}</p> : null}
                 {this.state.username ? <p className={classes.modalp}>{this.state.username}</p> : null}
-                {voucher.receiptImage ? <img src={`data:image/png;base64,${voucher.receiptImage}`}/>: null}
+                {voucher.receiptImage ? <img alt="receipt" src={`data:image/png;base64,${voucher.receiptImage}`}/>: null}
                 {/* <div className={classes.line}></div> */}
                 <div className={classes.modalGroup}>
                     <div className={classes.modalField}>

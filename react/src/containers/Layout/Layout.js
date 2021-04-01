@@ -10,6 +10,7 @@ import * as actions from '../../store/actions/index';
 import Manager from '../Manager/Manager';
 import {ToastContainer} from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css';
+import Spinner from '../UI/Spinner/Spinner';
 
 class Layout extends Component {
     componentDidMount(){
@@ -27,6 +28,9 @@ class Layout extends Component {
     }
     render() {
         let newMain = <Login />;
+        if(this.props.loading){
+            newMain = <Spinner />
+        }
         if(this.props.auth){
             if(this.props.role === "USER"){
                 newMain = <User />;
@@ -52,7 +56,8 @@ class Layout extends Component {
 const mapStatetoProps = state => {
     return {
         auth: state.user.auth,
-        role: state.user.role
+        role: state.user.role,
+        loading: state.user.loading
     }
 }
 

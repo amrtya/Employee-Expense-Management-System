@@ -13,8 +13,20 @@ const signUpSuccess = (id) => {
     }
 }
 
+const signupstart = () => {
+    return {
+        type: actionTypes.STARTLOADING
+    }
+}
+const endloading = () => {
+    return {
+        type: actionTypes.ENDLOADING
+    }
+}
+
 export const onSignUp = (signupdata) => {
     return dispatch => {
+        dispatch(signupstart());
         axios.post('http://localhost:8080/signup', signupdata)
             .then(response => {
                 console.log(response.data);
@@ -25,6 +37,7 @@ export const onSignUp = (signupdata) => {
                     toast.error(response.data.message);
                 }
             }).catch(err => {
+                dispatch(endloading());
                 console.log(err);
             })
     }
@@ -51,6 +64,7 @@ const loginSuccess = (id, role) => {
 }
 export const onLogin = (logindata) => {
     return dispatch => {
+        dispatch(signupstart());
         axios.post('http://localhost:8080/login', logindata)
             .then(response => {
                 if(response.data.responseType === "SUCCESS"){
@@ -60,6 +74,7 @@ export const onLogin = (logindata) => {
                     toast.error(response.data.message);
                 }
             }).catch(err => {
+                dispatch(endloading());
                 console.log(err);
             })
     }
