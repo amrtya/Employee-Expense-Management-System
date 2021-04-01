@@ -85,9 +85,11 @@ class ManagerDashBoard extends Component {
                                 onChange={this.onDateChange}
                                 value={this.state.date} /> */}
                         <input type="text" placeholder="Bill Number"
+                                title="Bill Number"
                                 onChange={this.onBillChange}
                                 value={this.state.billNumber} />
                         <input type="text" placeholder="Bill Cost"
+                                title="Bill Cost"
                                 onChange={this.onCostChange}
                                 value={this.state.billCost} />
                         <select name="status" 
@@ -97,6 +99,7 @@ class ManagerDashBoard extends Component {
                             <option value="REIMBURSED">REIMBURSED</option>
                         </select>
                         <input type="text" placeholder="Remarks"
+                                title="Remarks"
                                 onChange={this.onRemarksChange}
                                 value={this.state.remarks} />
                         <button type="button" onClick={this.updateExpense}>Update</button>

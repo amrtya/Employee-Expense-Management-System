@@ -26,13 +26,13 @@ class Layout extends Component {
     render() {
         let newMain = <Login />;
         if(this.props.auth){
-            newMain = <User />;
-        }
-        if(this.props.role === "ADMIN"){
-            newMain = <Admin />
-        }
-        if(this.props.role === "MANAGER"){
-            newMain = <Manager />
+            if(this.props.role === "USER"){
+                newMain = <User />;
+            }else if(this.props.role === "ADMIN"){
+                newMain = <Admin />;
+            }else{
+                newMain = <Manager />
+            }
         }
         return (
             <div>
