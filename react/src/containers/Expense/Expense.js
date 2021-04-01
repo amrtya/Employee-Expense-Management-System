@@ -5,8 +5,6 @@ import { connect } from 'react-redux';
 import SingleExpense from './SingleExpense/SingleExpense';
 import Modal from '../UI/Modal/Modal';
 import BackDrop from '../UI/BackDrop/BackDrop';
-import {ToastContainer} from 'react-toastify'
-import 'react-toastify/dist/ReactToastify.css';
 import  { Redirect } from 'react-router-dom';
 
 class AddExpense extends Component {
@@ -172,7 +170,6 @@ class AddExpense extends Component {
                                 onClick={this.clickHandler}>Submit</button>
                     </div>
                 </div>
-                <ToastContainer />
             </div>
         );
     }

@@ -4,6 +4,8 @@ import classes from './AddUser.module.css';
 import * as actions from '../../../../store/actions/index';
 import {connect} from 'react-redux';
 import * as actionTypes from '../../../../store/actions/actionTypes';
+import {toast} from 'react-toastify';
+import md5 from 'crypto-js/md5';
 
 class AddUser extends Component {
     state = {
@@ -66,12 +68,12 @@ class AddUser extends Component {
                 email: this.props.user.email,
                 mobileNumber: this.props.user.mobileNumber,
                 role: this.props.user.role,
-                password: this.props.user.password,
+                password: md5(this.props.user.password),
                 active: act
             });
             this.clearForm();
         }else{
-            alert("One of more fields are empty. Fill them and try again")
+            toast.error("One of more fields are empty. Fill them and try again")
         }
     }
     addUser = () => {
@@ -86,11 +88,11 @@ class AddUser extends Component {
                 mobileNumber: this.props.user.mobileNumber,
                 role: this.props.user.role,
                 active: act,
-                password: this.props.user.password
+                password: md5(this.props.user.password)
             });
             this.clearForm();
         }else{
-            alert("One of more fields are empty. Fill them and try again")
+            toast.error("One of more fields are empty. Fill them and try again")
         }
     }
     clickHandler = () => {

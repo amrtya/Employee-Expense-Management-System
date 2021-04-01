@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import * as actions from '../../store/actions/index';
 import {ToastContainer} from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css';
+import md5 from 'crypto-js/md5';
 
 class Signup extends Component {
     state = {
@@ -54,7 +55,7 @@ class Signup extends Component {
     signUpHandler = () => {
         const signupdata = {
             email: this.state.email,
-            password: this.state.password,
+            password: md5(this.state.password),
             username: this.state.username,
             mobileNumber: this.state.mobileNumber,
             active: true,

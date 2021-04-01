@@ -12,6 +12,9 @@ import voucherReducer from './store/reducers/voucher';
 import adminReducer from './store/reducers/admin';
 import managerReducer from './store/reducers/manager';
 import dashboardReducer from './store/reducers/dashboard';
+import axios from 'axios';
+
+axios.defaults.baseURL = "http://localhost:8080";
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 

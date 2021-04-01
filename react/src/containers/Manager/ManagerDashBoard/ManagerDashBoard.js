@@ -35,13 +35,13 @@ class ManagerDashBoard extends Component {
     }
     updateState = (data) => {
         this.setState({
-            // data: data.datedOn,
+            // date: data.datedOn,
             billNumber: data.billNumber,
             billCost: data.billCost,
             remarks: data.remark,
             status: data.status,
             image: data.receiptImage,
-            imageName: "chosen"
+            imageName: ""
         })
     }
     updateExpense = () => {
@@ -72,17 +72,20 @@ class ManagerDashBoard extends Component {
             <div className={classes.Expense}>
                 {this.state.modalID ? <Modal style={modalView} close={this.modalClose} vid={this.state.modalID} />:null}
                 {this.state.modalID ? <BackDrop clicked={this.modalClose} />:null}
-                <div className={classes.expenseLeft}>
-                    {this.props.vouchers.map(voucher => (
-                        <SingleExpense billN={voucher.billNumber}
-                            amt={voucher.billCost}
-                            date={voucher.datedOn}
-                            key={'_' + Math.random().toString(36).substr(2, 9)}
-                            voucherID={voucher.expenseId}
-                            updateV={this.updateState}
-                            stat={voucher.status}
-                            clik={() => this.updateModal(voucher.expenseId)} />
-                    ))}
+                <div>
+                    <h1 style={{color: "white"}}>Hi {this.props.username}</h1>
+                    <div className={classes.expenseLeft}>
+                        {this.props.vouchers.map(voucher => (
+                            <SingleExpense billN={voucher.billNumber}
+                                amt={voucher.billCost}
+                                date={voucher.datedOn}
+                                key={'_' + Math.random().toString(36).substr(2, 9)}
+                                voucherID={voucher.expenseId}
+                                updateV={this.updateState}
+                                stat={voucher.status}
+                                clik={() => this.updateModal(voucher.expenseId)} />
+                        ))}
+                    </div>
                 </div>
                 <div className={classes.expenseRight} style={{display: this.props.editValid}}>
                     <div className={classes.addExpense}>
@@ -125,7 +128,8 @@ const mapStatetoProps = state => {
         id: state.user.id,
         vouchers: state.manager.vouchers,
         editValid: state.manager.editValid,
-        singleVoucher: state.manager.singleVoucher
+        singleVoucher: state.manager.singleVoucher,
+        username: state.user.username
     }
 }
 
