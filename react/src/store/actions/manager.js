@@ -21,6 +21,7 @@ export const getAllVouchers = (managerID) => {
                 
             }).catch(err => {
                 console.log(err);
+                toast.error("Unknown Error occured.")
             })
     }
 }
@@ -44,6 +45,7 @@ export const deleteVoucher = (managerID, expenseID) => {
                 }
             }).catch(err => {
                 console.log(err);
+                toast.error("Unknown Error occured.")
             })
     }
 }
@@ -62,6 +64,7 @@ const uploadImage = (eid, uid, image, mid) => {
                 }
             }).catch(err => {
                 console.log(err);
+                toast.error("Unknown Error occured.")
             })
     }
 }
@@ -79,6 +82,7 @@ export const managerUpdateVoucher = (mid, data, image) => {
                 }
             }).catch(err => {
                 console.log(err);
+                toast.error("Unknown Error occured.")
             })
     }
 }

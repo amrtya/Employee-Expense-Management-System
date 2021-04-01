@@ -31,6 +31,7 @@ export const uploadImage = (eid, uid, image) => {
                 }
             }).catch(err => {
                 console.log(err);
+                toast.error("Unknown Error occured.")
             })
     }
 }
@@ -48,6 +49,7 @@ export const addVoucher = (voucherData, userID, image) => {
                 }
             }).catch(err => {
                 console.log(err);
+                toast.error("Unknown Error occured.")
             })
     }
 }
@@ -70,7 +72,8 @@ export const getVoucher = (userID) => {
                 }
                 
             }).catch(err => {
-                console.log(err);
+                console.log(err);                
+                toast.error("Unknown Error occured.")
             })
     }
 }
