@@ -149,7 +149,7 @@ class AddExpense extends Component {
                 </div>
                 <div className={classes.expenseRight}>
                     <div className={classes.addExpense}>
-                        <h2>Add Expense</h2>
+                        <h2> {this.state.formState? "Add": "Edit"} Expense</h2>
                         <img alt="profile" src="https://t4.ftcdn.net/jpg/03/46/93/61/360_F_346936114_RaxE6OQogebgAWTalE1myseY1Hbb5qPM.jpg" />
                         <input type="date" placeholder="Select Date"
                                 onChange={this.onDateChange}

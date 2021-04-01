@@ -42,6 +42,7 @@ export const onSignUp = (signupdata) => {
             }).catch(err => {
                 dispatch(endloading());
                 console.log(err);
+                toast.error("Unknown Error occured.")
             })
     }
 }
@@ -83,6 +84,7 @@ export const onLogin = (logindata) => {
             }).catch(err => {
                 dispatch(endloading());
                 console.log(err);
+                toast.error("Unknown Error occured.")
             })
     }
 }
@@ -99,6 +101,7 @@ export const userUpdateVoucher = (uid, eid, data, image) => {
                 }
             }).catch(err => {
                 console.log(err);
+                toast.error("Unknown Error occured.")
             })
     }
 }

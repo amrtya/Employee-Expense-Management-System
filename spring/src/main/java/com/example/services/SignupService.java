@@ -30,7 +30,7 @@ public class SignupService {
         Optional<UserModel> userByEmail = userModelRepository.findUserByEmail(userReceiver.getEmail());
 
         if(userByEmail.isPresent())
-            return new ResponseModelSinglePayload<>(ResponseModel.EMAIL_TAKEN, "This email is already taken. Try another One.",null);
+            return new ResponseModelSinglePayload<>(ResponseModel.EMAIL_TAKEN, "This email is already taken. Try another one.",null);
         // Save user if email is valid
         UserModel userModel=userReceiver.getUserModel();
         userModelRepository.save(userModel);

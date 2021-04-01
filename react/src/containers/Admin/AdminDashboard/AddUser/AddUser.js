@@ -4,8 +4,12 @@ import classes from './AddUser.module.css';
 import * as actions from '../../../../store/actions/index';
 import {connect} from 'react-redux';
 import * as actionTypes from '../../../../store/actions/actionTypes';
+<<<<<<< HEAD
 import {toast} from 'react-toastify';
 import md5 from 'crypto-js/md5';
+=======
+import { toast } from "react-toastify";
+>>>>>>> abc829844726492105f2258a30b98fbbb028c6c8
 
 class AddUser extends Component {
     state = {
@@ -92,7 +96,11 @@ class AddUser extends Component {
             });
             this.clearForm();
         }else{
+<<<<<<< HEAD
             toast.error("One of more fields are empty. Fill them and try again")
+=======
+            toast.error("One or more fields are empty. Fill them and try again")
+>>>>>>> abc829844726492105f2258a30b98fbbb028c6c8
         }
     }
     clickHandler = () => {
@@ -125,7 +133,7 @@ class AddUser extends Component {
                 <select name="role" 
                     value={this.props.user.role}
                     onChange={(event) => this.props.updateRole(event.target.value)} >
-                    <option value="USER">User</option>
+                    <option value="USER" selected={true}>User</option>
                     <option value="MANAGER">Manager</option>
                     <option value="ADMIN">Admin</option>
                 </select>

@@ -21,6 +21,7 @@ export const getMonthDetails = (month, uid) => {
                 }
             }).catch(err => {
                 console.log(err);
+                toast.error("Unknown Error occured.")
             })
     }
 }
