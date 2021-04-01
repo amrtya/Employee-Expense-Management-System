@@ -4,8 +4,9 @@ import * as actions from '../../store/actions/index';
 import { connect } from 'react-redux';
 import SingleExpense from './SingleExpense/SingleExpense';
 import Modal from '../UI/Modal/Modal';
-import { thisExpression } from '../../../node_modules/@babel/types';
 import BackDrop from '../UI/BackDrop/BackDrop';
+import {ToastContainer} from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css';
 
 class AddExpense extends Component {
     state = {
@@ -15,6 +16,7 @@ class AddExpense extends Component {
         eid: "",
         amount: "",
         description: "",
+        image: null,
         valid: false,
         formState: true,     //true: add voucher || false: edit voucher
         modal: false,
@@ -26,6 +28,7 @@ class AddExpense extends Component {
             eid: "",
             amount: "",
             description: "",
+            image: null,
             valid: false,
             formState: true,
             expenseID: null,
@@ -62,6 +65,9 @@ class AddExpense extends Component {
         this.setState({description: val});
         this.checkValidity(this.state.date, this.state.eid, this.state.amount, val);
     }
+    onImageChange = (event) => {
+        this.setState({image: event.target.value});
+    }
     addVoucherHandler = () => {
         const expenseData = {
             billNumber: this.state.eid,
@@ -71,7 +77,7 @@ class AddExpense extends Component {
             remark: this.state.description
         }
         this.clearForm();
-        this.props.onAddVoucher(expenseData, this.props.userID);
+        this.props.onAddVoucher(expenseData, this.props.userID, this.state.image);
     }
     componentDidMount(){
         this.props.getVouchers(this.props.userID);
@@ -87,6 +93,7 @@ class AddExpense extends Component {
             eid: newVoucher.billNumber,
             amount: newVoucher.billCost,
             description: newVoucher.remark,
+            image: newVoucher.receiptImage,
             valid: true,
             formState: false
         })
@@ -100,8 +107,8 @@ class AddExpense extends Component {
             status: this.state.status
         }
         const expID = this.state.expenseID;
+        this.props.updateVoucher(this.props.userID, expID, data, this.state.image);
         this.clearForm();
-        this.props.updateVoucher(this.props.userID, expID, data);
     }
     clickHandler = () => {
         if(this.state.formState){
@@ -152,10 +159,14 @@ class AddExpense extends Component {
                         <input type="text" placeholder="Remarks"
                                 onChange={this.onDescChange}
                                 value={this.state.description} />
+                        <input type="file" style={{border: "none"}}
+                                onChange={this.onImageChange}
+                                value={this.state.image} />
                         <button type="button" disabled={!this.state.valid}
                                 onClick={this.clickHandler}>Submit</button>
                     </div>
                 </div>
+                <ToastContainer />
             </div>
         );
     }
@@ -171,8 +182,8 @@ const mapStatetoProps = state => {
 const mapDispatchtoProps = dispatch => {
     return {
         getVouchers: (userID) => dispatch(actions.getVoucher(userID)),
-        onAddVoucher: (voucherData, userID) => dispatch(actions.addVoucher(voucherData, userID)),
-        updateVoucher: (uid, eid, data) => dispatch(actions.userUpdateVoucher(uid, eid, data))
+        onAddVoucher: (voucherData, userID, img) => dispatch(actions.addVoucher(voucherData, userID, img)),
+        updateVoucher: (uid, eid, data, image) => dispatch(actions.userUpdateVoucher(uid, eid, data, image))
     }
 }
  

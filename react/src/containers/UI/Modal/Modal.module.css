@@ -12,6 +12,12 @@
 }
 .Modal h2 {
     font-size: 30px;
+    margin-bottom: 10px;
+}
+.modalp {
+    margin: 0;
+    font-size: 18px;
+    font-weight: bold;
 }
 .line {
     height: 2px;

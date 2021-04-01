@@ -1,5 +1,6 @@
 import * as actionTypes from './actionTypes';
 import axios from 'axios';
+import { toast } from '../../../node_modules/react-toastify';
 
 const getVoucherInStore = (vouchers) => {
     return {
@@ -15,7 +16,7 @@ export const getAllVouchers = (managerID) => {
                 if(response.data.responseType === "SUCCESS"){
                     dispatch(getVoucherInStore(response.data.results));
                 }else{
-                    alert(response.data.message);
+                    toast.error(response.data.message);
                 }
                 
             }).catch(err => {
@@ -37,8 +38,9 @@ export const deleteVoucher = (managerID, expenseID) => {
             .then(response => {
                 if(response.data.responseType === "SUCCESS"){
                     dispatch(delVoucher(expenseID));
+                    toast.success(response.data.message);
                 }else{
-                    alert(response.data.message);
+                    toast.error(response.data.message);
                 }
             }).catch(err => {
                 console.log(err);
@@ -52,8 +54,9 @@ export const managerUpdateVoucher = (mid, data) => {
             .then(response => {
                 if(response.data.responseType === "SUCCESS"){
                     dispatch(getAllVouchers(mid));
+                    toast.success(response.data.message);
                 }else{
-                    alert(response.data.message);
+                    toast.error(response.data.message);
                 }
             }).catch(err => {
                 console.log(err);

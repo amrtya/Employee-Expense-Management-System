@@ -31,7 +31,7 @@ class SingleExpense extends Component {
                 <p>{this.props.date}</p>
                 <p>₹ {this.props.amt}</p>
                 <i className="fa fa-edit" onClick={this.updateVoucherHandler}></i>
-                <i className="fa fa-trash" onClick={() => this.deleteVoucherHandler()}></i>
+                <i className="fa fa-trash" onClick={(event) => this.deleteVoucherHandler(event)}></i>
             </div>
         );
     }

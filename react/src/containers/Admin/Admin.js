@@ -3,8 +3,13 @@ import AdminDashboard from './AdminDashboard/AdminDashboard';
 import AdminHeader from './AdminHeader/AdminHeader';
 import * as actions from '../../store/actions/index';
 import {connect} from 'react-redux';
+import {ToastContainer} from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css';
 
 class Admin extends Component {
+    state = {
+        check: false
+    }
     componentDidMount(){
         this.props.getUsers(this.props.id);
     }
@@ -13,6 +18,7 @@ class Admin extends Component {
             <div>
                 <AdminHeader />
                 <AdminDashboard />
+                <ToastContainer />
             </div>
         );
     }

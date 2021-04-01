@@ -8,6 +8,8 @@ import Admin from '../Admin/Admin';
 import {connect} from 'react-redux';
 import * as actions from '../../store/actions/index';
 import Manager from '../Manager/Manager';
+import {ToastContainer} from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css';
 
 class Layout extends Component {
     componentDidMount(){
@@ -41,6 +43,7 @@ class Layout extends Component {
                     <Route path="/signup" component={Signup} />
                     <Route path="/" render={() => newMain} />
                 </Switch>
+                <ToastContainer />
             </div>
         );
     }

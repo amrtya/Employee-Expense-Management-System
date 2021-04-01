@@ -9,7 +9,7 @@ class userDashboard extends Component {
     }
     componentDidMount(){
         const d = new Date();
-        let months = new Array();
+        let months = [];
         months[0] = "JANUARY";
         months[1] = "FEBRUARY";
         months[2] = "MARCH";

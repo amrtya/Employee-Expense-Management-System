@@ -1,6 +1,7 @@
 import * as actionTypes from './actionTypes';
 import axios from 'axios';
-import * as actions from './index';
+// import * as actions from './index';
+import {toast} from 'react-toastify';
 
 const getDetails = (data) => {
     return {
@@ -16,7 +17,7 @@ export const getMonthDetails = (month, uid) => {
                 if(response.data.responseType === "SUCCESS"){
                     dispatch(getDetails(response.data.result));
                 }else{
-                    alert(response.data.message);
+                    toast.error(response.data.message);
                 }
             }).catch(err => {
                 console.log(err);

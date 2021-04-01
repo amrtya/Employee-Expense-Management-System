@@ -3,6 +3,8 @@ import classes from './Signup.module.css';
 import {Link} from 'react-router-dom';
 import { connect } from 'react-redux';
 import * as actions from '../../store/actions/index';
+import {ToastContainer} from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css';
 
 class Signup extends Component {
     state = {
@@ -91,6 +93,7 @@ class Signup extends Component {
                         <p>Already a User?<Link to="/">Log In</Link></p>
                     </div>
                 </div>
+                <ToastContainer />
             </div>
         );
     }

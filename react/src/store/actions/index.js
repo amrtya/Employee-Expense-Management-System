@@ -7,7 +7,8 @@ export {
 
 export {
     addVoucher,
-    getVoucher
+    getVoucher,
+    uploadImage
 } from './voucher';
 
 export {

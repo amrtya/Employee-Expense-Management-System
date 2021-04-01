@@ -1,6 +1,7 @@
 import * as actionTypes from './actionTypes';
 import axios from 'axios';
 import * as actions from './index';
+import {toast} from 'react-toastify';
 
 const signUpSuccess = (id) => {
     localStorage.setItem('auth', true);
@@ -19,8 +20,9 @@ export const onSignUp = (signupdata) => {
                 console.log(response.data);
                 if(response.data.responseType === "SUCCESS"){
                     dispatch(signUpSuccess(response.data.result.userId));
+                    toast.success(response.data.message);
                 }else{
-                    alert(response.data.message);
+                    toast.error(response.data.message);
                 }
             }).catch(err => {
                 console.log(err);
@@ -51,11 +53,11 @@ export const onLogin = (logindata) => {
     return dispatch => {
         axios.post('http://localhost:8080/login', logindata)
             .then(response => {
-                console.log(response.data);
                 if(response.data.responseType === "SUCCESS"){
                     dispatch(loginSuccess(response.data.result.userId, response.data.result.role));
+                    toast.success(response.data.message);
                 }else{
-                    alert(response.data.message);
+                    toast.error(response.data.message);
                 }
             }).catch(err => {
                 console.log(err);
@@ -63,14 +65,15 @@ export const onLogin = (logindata) => {
     }
 }
 
-export const userUpdateVoucher = (uid, eid, data) => {
+export const userUpdateVoucher = (uid, eid, data, image) => {
     return dispatch => {
         axios.put("http://localhost:8080/expense/"+eid, data, {headers: {user_id: uid}})
             .then(response => {
                 if(response.data.responseType === "SUCCESS"){
-                    dispatch(actions.getVoucher(uid));
+                    dispatch(actions.uploadImage(eid, uid, image));
+                    toast.success(response.data.message);
                 }else{
-                    alert(response.data.message);
+                    toast.error(response.data.message);
                 }
             }).catch(err => {
                 console.log(err);

@@ -3,6 +3,8 @@ import classes from './Login.module.css';
 import {Link} from 'react-router-dom';
 import { connect } from 'react-redux';
 import * as actions from '../../store/actions/index';
+import {ToastContainer, toast} from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 class Login extends Component {
     state = {

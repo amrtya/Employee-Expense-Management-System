@@ -3,12 +3,22 @@ import classes from './Modal.module.css';
 import {connect} from 'react-redux';
 
 class Modal extends Component {
+    state = {
+        email: null,
+        username: null
+    }
     render() {
         let voucher = null;
         if(this.props.role === "USER"){
             voucher = this.props.userVouchers.filter(voucher => voucher.expenseId===this.props.vid)[0];
+            if(this.state.email){
+                this.setState({email: null, username: null});
+            }
         }else{
             voucher = this.props.managerVouchers.filter(voucher => voucher.expenseId===this.props.vid)[0];
+            if(!this.state.email){
+                this.setState({email: voucher.claimedBy.email, username: voucher.claimedBy.username});
+            }
         }
         let colr = classes.red;
         if(voucher.status === "REIMBURSED"){
@@ -17,6 +27,9 @@ class Modal extends Component {
         return (
             <div style={this.props.style} className={classes.Modal}>
                 <h2>Bill Number: {voucher.billNumber}</h2>
+                {this.state.email ? <p className={classes.modalp}>{this.state.email}</p> : null}
+                {this.state.username ? <p className={classes.modalp}>{this.state.username}</p> : null}
+                {voucher.receiptImage ? <img src={`data:image/png;base64,${voucher.receiptImage}`}/>: null}
                 {/* <div className={classes.line}></div> */}
                 <div className={classes.modalGroup}>
                     <div className={classes.modalField}>

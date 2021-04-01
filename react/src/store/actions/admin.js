@@ -1,5 +1,6 @@
 import * as actionTypes from './actionTypes';
 import axios from 'axios';
+import {toast} from 'react-toastify';
 
 const storeUsers = (users) => {
     return {
@@ -13,9 +14,10 @@ export const getUsers = (adminID) => {
         axios.get("http://localhost:8080/admin", {headers: {admin_id: adminID}})
             .then(response => {
                 if(response.data.responseType==="SUCCESS"){
-                    dispatch(storeUsers(response.data.results))
+                    dispatch(storeUsers(response.data.results));
+                    toast.success(response.data.message);
                 }else{
-                    alert(response.data.message);
+                    toast.error(response.data.message);
                 }
             }).catch(err => {
                 console.log(err);
@@ -36,8 +38,9 @@ export const deleteUser = (adminID, userID) => {
             .then(response => {
                 if(response.data.responseType === "SUCCESS"){
                     dispatch(delUser(userID));
+                    toast.success(response.data.message);
                 }else{
-                    alert(response.data.message);
+                    toast.error(response.data.message);
                 }
             }).catch(err => {
                 console.log(err);
@@ -51,8 +54,9 @@ export const updateUser = (adminID, userID, userData) => {
             .then(response => {
                 if(response.data.responseType === "SUCCESS"){
                     dispatch(getUsers(adminID));
+                    toast.success(response.data.message);
                 }else{
-                    alert(response.data.message);
+                    toast.error(response.data.message);
                 }
             }).catch(err => {
                 console.log(err);
@@ -77,8 +81,9 @@ export const addUser = (adminID, userData) => {
                         userId: response.data.result.userId
                     };
                     dispatch(addUsertoStore(newUser));
+                    toast.success(response.data.message);
                 }else{
-                    alert(response.data.message);
+                    toast.error(response.data.message);
                 }
             }).catch(err => {
                 console.log(err);
