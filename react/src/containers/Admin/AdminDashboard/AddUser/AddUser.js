@@ -6,14 +6,16 @@ import {connect} from 'react-redux';
 import * as actionTypes from '../../../../store/actions/actionTypes';
 
 class AddUser extends Component {
-    // state = {
-    //     username: "",
-    //     email: "",
-    //     mobileNumber: "",
-    //     password: "",
-    //     role: "",
-    //     active: ""
-    // }
+    state = {
+        // username: "",
+        // email: "",
+        // mobileNumber: "",
+        // password: "",
+        // role: "",
+        // active: ""
+        addState: true      //false denotes updateState
+        // valid: false
+    }
     // updateEmail = (event) => {
     //     const val = event.target.value;
     //     this.setState({email: val});
@@ -39,35 +41,60 @@ class AddUser extends Component {
         this.props.updateMobileNumber("");
         this.props.updateRole("");
         this.props.updateUserName("");
+        this.props.clicked();
+    }
+    checkValidity = () => {
+        let isValid = true;
+        isValid = isValid && this.props.user.username!=="";
+        isValid = isValid && this.props.user.email!=="";
+        isValid = isValid && this.props.user.role!=="";
+        isValid = isValid && this.props.user.username!=="";
+        return isValid;
     }
     updateUser = () => {
         let act = true;
         if(this.props.user.active === "no"){
             act = false;
         }
-        this.props.updateUser(this.props.id, this.props.user.id, {
-            username: this.props.user.username,
-            email: this.props.user.email,
-            mobileNumber: this.props.user.mobileNumber,
-            role: this.props.user.role,
-            active: act
-        });
-        this.clearForm();
+        if(this.checkValidity()){
+            this.props.updateUser(this.props.id, this.props.user.id, {
+                username: this.props.user.username,
+                email: this.props.user.email,
+                mobileNumber: this.props.user.mobileNumber,
+                role: this.props.user.role,
+                password: this.props.user.password,
+                active: act
+            });
+            this.clearForm();
+        }else{
+            alert("One of more fields are empty. Fill them and try again")
+        }
     }
     addUser = () => {
         let act = true;
         if(this.props.user.active === "no"){
             act = false;
         }
-        this.props.addUser(this.props.id, {
-            username: this.props.user.username,
-            email: this.props.user.email,
-            mobileNumber: this.props.user.mobileNumber,
-            role: this.props.user.role,
-            active: act,
-            password: "password123"
-        });
-        this.clearForm();
+        if(this.checkValidity()){
+            this.props.addUser(this.props.id, {
+                username: this.props.user.username,
+                email: this.props.user.email,
+                mobileNumber: this.props.user.mobileNumber,
+                role: this.props.user.role,
+                active: act,
+                password: this.props.user.password
+            });
+            this.clearForm();
+        }else{
+            alert("One of more fields are empty. Fill them and try again")
+        }
+    }
+    clickHandler = () => {
+        if(this.props.formState){
+            this.addUser();
+        }else{
+            this.updateUser();
+        }
     }
     render() { 
         return (
@@ -81,10 +108,10 @@ class AddUser extends Component {
                     type="email" placeholder="Email"
                     value={this.props.user.email}
                     onChange={(event) => this.props.updateEmail(event.target.value)} />
-                {/* <input className={classes.AddUserInput} 
+                {this.props.formState? <input className={classes.AddUserInput} 
                     type="password" placeholder="Password"
                     value={this.props.user.password}
-                    onChange={(event) => this.props.updatePassword(event.target.value)} /> */}
+                    onChange={(event) => this.props.updatePassword(event.target.value)} /> : null}
                 <input className={classes.AddUserInput} 
                     type="tel" placeholder="Mobile Number"
                     value={this.props.user.mobileNumber}
@@ -104,8 +131,8 @@ class AddUser extends Component {
                         onChange={(event) => this.props.updateActive(event.target.value)} />No
                 </span>
                 <span>
-                    <button type="button" onClick={this.updateUser}>Update</button>
-                    <button type="button" onClick={this.addUser}>Add</button>
+                    <button type="button" onClick={this.clickHandler}>{this.props.formState?"Add":"Update"}</button>
+                    <button type="button" onClick={this.clearForm}>Clear</button>
                 </span>
             </div>
         );
@@ -125,7 +152,7 @@ const mapDispatchtoProps = dispatch => {
         updateUserName: (username) => dispatch({type: actionTypes.UPDATE_USERNAME, username: username}),
         updateMobileNumber: (mn) => dispatch({type: actionTypes.UPDATE_MOBILE, mobileNumber: mn}),
         updateRole: (role) => dispatch({type: actionTypes.UPDATE_ROLE, role: role}),
-        // updatePassword: (password) => dispatch({type: actionTypes.UPDATE_PASSWORD, password: password}),
+        updatePassword: (password) => dispatch({type: actionTypes.UPDATE_PASSWORD, password: password}),
         updateActive: (active) => dispatch({type: actionTypes.UPDATE_ACTIVE, active: active}),
         updateUser: (aid, uid, data) => dispatch(actions.updateUser(aid, uid, data)),
         addUser: (aid, data) => dispatch(actions.addUser(aid, data))

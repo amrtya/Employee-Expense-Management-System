@@ -16,13 +16,14 @@ const AllUsers = (props) => {
             </div>
             <div className={classes.divider}></div>
             <div className={classes.tableUsers}>
-                {newUsers.map(user => {
+                {newUsers.map((user, index) => {
                     return (
                         user.username.includes(props.query)?
-                        (<SingleUser count="1" 
+                        (<SingleUser count={index+1} 
                         name={user.username} email={user.email}
                         key={user.userId} role={user.role}
-                        id={user.userId} />):null
+                        id={user.userId}
+                        clicked={props.clicked} />):null
                     )
                 })}
             </div>

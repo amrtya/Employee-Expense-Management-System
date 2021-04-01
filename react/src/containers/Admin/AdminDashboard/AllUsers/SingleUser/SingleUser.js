@@ -8,6 +8,7 @@ import * as actionTypes from '../../../../../store/actions/actionTypes';
 
 class SingleUser extends Component {
     updateUser = (user_id) => {
+        this.props.clicked();
         const sUser = this.props.users.filter(user => user.userId===user_id)[0];
         this.props.updateAdminEntry(sUser);
     }

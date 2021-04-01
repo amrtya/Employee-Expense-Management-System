@@ -5,11 +5,18 @@ import AddUser from './AddUser/AddUser';
 
 class AdminDashboard extends Component {
     state = {
-        search: ""
+        search: "",
+        addState: true
     }
     onSearchUpdate = (event) => {
         const val = event.target.value;
         this.setState({search: val});
+    }
+    formUpdateState = () => {
+        this.setState({addState: false});
+    }
+    formAddState = () => {
+        this.setState({addState: true});
     }
     render() { 
         return (
@@ -21,8 +28,8 @@ class AdminDashboard extends Component {
                     {/* <button type="button">Search</button> */}
                 </div>
                 <div className={classes.dashTail}>
-                    <div className={classes.usertable}><AllUsers query={this.state.search} /></div>
-                    <AddUser />
+                    <div className={classes.usertable}><AllUsers clicked={this.formUpdateState} query={this.state.search} /></div>
+                    <AddUser clicked={this.formAddState} formState={this.state.addState} />
                 </div>
             </div>
         );
