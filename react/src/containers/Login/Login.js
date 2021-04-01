@@ -31,7 +31,7 @@ class Login extends Component {
     loginHandler = () => {
         const logindata = {
             email: this.state.email,
-            password: md5(this.state.password)
+            password: md5(this.state.password).toString()
         }
         this.props.onLogin(logindata);
     }

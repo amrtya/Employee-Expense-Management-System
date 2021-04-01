@@ -66,7 +66,7 @@ const uploadImage = (eid, uid, image, mid) => {
             }).catch(err => {
                 dispatch(getAllVouchers(mid));
                 console.log(err);
-                toast.error("Unknown Error occured.")
+                // toast.error("Unknown Error occured.")
             })
     }
 }

@@ -65,7 +65,7 @@ export const uploadImage = (eid, uid, image, voucherData=null) => {
                     dispatch(getVoucher(uid));
                 }
                 console.log(err);
-                toast.error("Unknown Error occured.")
+                // toast.error("Unknown Error occured.")
             })
     }
 }
