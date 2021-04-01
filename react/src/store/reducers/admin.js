@@ -8,7 +8,7 @@ const initialState = {
         username: "",
         email: "",
         mobileNumber: "",
-        // password: "",
+        password: "",
         role: "",
         active: "yes"
     }
@@ -41,7 +41,7 @@ const reducer = (state=initialState, action) => {
                     email: action.det.email,
                     username: action.det.username,
                     mobileNumber: action.det.mobileNumber,
-                    // password: action.det.password,
+                    password: action.det.password,
                     role: action.det.role,
                     active: act
                 }
@@ -60,28 +60,28 @@ const reducer = (state=initialState, action) => {
                     username: action.username
                 }
             })
-            case actionTypes.UPDATE_MOBILE:
+        case actionTypes.UPDATE_MOBILE:
             return updateObject(state, {
                 singleUser: {
                     ...state.singleUser,
                     mobileNumber: action.mobileNumber
                 }
             })
-            // case actionTypes.UPDATE_PASSWORD:
-            // return updateObject(state, {
-            //     singleUser: {
-            //         ...state.singleUser,
-            //         password: action.password 
-            //     }
-            // })
-            case actionTypes.UPDATE_ROLE:
+        case actionTypes.UPDATE_PASSWORD:
+            return updateObject(state, {
+                singleUser: {
+                    ...state.singleUser,
+                    password: action.password 
+                }
+            })
+        case actionTypes.UPDATE_ROLE:
             return updateObject(state, {
                 singleUser: {
                     ...state.singleUser,
                     role: action.role
                 }
             })
-            case actionTypes.UPDATE_ACTIVE:
+        case actionTypes.UPDATE_ACTIVE:
             return updateObject(state, {
                 singleUser: {
                     ...state.singleUser,
