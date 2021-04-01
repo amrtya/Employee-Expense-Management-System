@@ -118,8 +118,8 @@ public class UserController {
         return expenseService.updateExpense(expenseId, expenseModelToUpdate, true);
     }
 
-    @PostMapping(path = "upload/{expense_id}", consumes="multipart/form-data")
-    public ResponseModel uploadReceiptImage(@PathVariable("expense_id") String expenseId, @RequestPart("receipt_image") MultipartFile receiptImage, @RequestHeader("user_id") String userId)
+    @PostMapping(path = "upload/{expense_id}", consumes = "multipart/form-data")
+    public ResponseModel uploadReceiptImage(@PathVariable("expense_id") String expenseId, @RequestParam("receipt_image") MultipartFile receiptImage, @RequestHeader("user_id") String userId)
     {
         //Check user validity
         Optional<UserModel> userById = expenseService.getUserById(userId);
