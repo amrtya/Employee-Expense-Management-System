@@ -37,6 +37,8 @@ public class AdminController {
         if(!adminById.get().getRole().equals(UserModel.ADMIN))
             return new ResponseModelListPayload<>(ResponseModel.ROLE_CHANGED, "Your role has changed. Please login again.", null);
 
+        if(!adminById.get().isActive())
+            return new ResponseModelListPayload<>(ResponseModel.INACTIVE, "Your account is currently suspended.", null);
         return adminService.getAllUsers();
     }
 
@@ -52,6 +54,8 @@ public class AdminController {
         if(!adminById.get().getRole().equals(UserModel.ADMIN))
             return new ResponseModelSinglePayload<>(ResponseModel.ROLE_CHANGED, "Your role has changed. Please login again.", null);
 
+        if(!adminById.get().isActive())
+            return new ResponseModelSinglePayload<>(ResponseModel.INACTIVE, "Your account is currently suspended.", null);
         return adminService.getUser(userId);
     }
 
@@ -67,6 +71,8 @@ public class AdminController {
         if(!adminById.get().getRole().equals(UserModel.ADMIN))
             return new ResponseModelSinglePayload<>(ResponseModel.ROLE_CHANGED, "Your role has changed. Please login again.", null);
 
+        if(!adminById.get().isActive())
+            return new ResponseModelSinglePayload<>(ResponseModel.INACTIVE, "Your account is currently suspended.", null);
         return adminService.updateUser(userId, userReceiver);
     }
 
@@ -82,6 +88,8 @@ public class AdminController {
         if(!adminById.get().getRole().equals(UserModel.ADMIN))
             return new ResponseModel(ResponseModel.ROLE_CHANGED, "Your role has changed. Please login again.");
 
+        if(!adminById.get().isActive())
+            return new ResponseModel(ResponseModel.INACTIVE, "Your account is currently suspended.");
         return adminService.deleteUserById(userId);
     }
 
@@ -97,6 +105,8 @@ public class AdminController {
         if(!adminById.get().getRole().equals(UserModel.ADMIN))
             return new ResponseModelSinglePayload<>(ResponseModel.ROLE_CHANGED, "Your role has changed. Please login again.", null);
 
+        if(!adminById.get().isActive())
+            return new ResponseModelSinglePayload<>(ResponseModel.INACTIVE, "Your account is currently suspended.", null);
         return signupService.saveUser(userReceiver);
     }
 }

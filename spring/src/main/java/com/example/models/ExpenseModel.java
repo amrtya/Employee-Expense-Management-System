@@ -24,6 +24,9 @@ public class ExpenseModel {
     private String expenseId;
     private Integer billNumber;
     private Integer billCost;
+
+    @Lob
+    private String receiptImage;
     private LocalDate datedOn;
     private String status = ExpenseModel.NOT_REIMBURSED;
     private String remark;
@@ -35,19 +38,21 @@ public class ExpenseModel {
     public ExpenseModel() {
     }
 
-    public ExpenseModel(Integer billNumber, Integer billCost, LocalDate datedOn, String status, String remark, UserModel claimedBy) {
+    public ExpenseModel(Integer billNumber, Integer billCost, String receiptImage, LocalDate datedOn, String status, String remark, UserModel claimedBy) {
         this.billNumber = billNumber;
         this.billCost = billCost;
+        this.receiptImage = receiptImage;
         this.datedOn = datedOn;
         this.status = status;
         this.remark = remark;
         this.claimedBy = claimedBy;
     }
 
-    public ExpenseModel(String expenseId, Integer billNumber, Integer billCost, LocalDate datedOn, String status, String remark, UserModel claimedBy) {
+    public ExpenseModel(String expenseId, Integer billNumber, Integer billCost, String receiptImage, LocalDate datedOn, String status, String remark, UserModel claimedBy) {
         this.expenseId = expenseId;
         this.billNumber = billNumber;
         this.billCost = billCost;
+        this.receiptImage = receiptImage;
         this.datedOn = datedOn;
         this.status = status;
         this.remark = remark;
@@ -68,6 +73,14 @@ public class ExpenseModel {
 
     public void setBillCost(Integer billCost) {
         this.billCost = billCost;
+    }
+
+    public String getReceiptImage() {
+        return receiptImage;
+    }
+
+    public void setReceiptImage(String receiptImage) {
+        this.receiptImage = receiptImage;
     }
 
     public LocalDate getDatedOn() {

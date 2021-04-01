@@ -4,7 +4,9 @@ import com.example.models.*;
 import com.example.services.ExpenseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.Optional;
 
 @RestController
@@ -32,6 +34,9 @@ public class ManagerController {
         if (!managerById.get().getRole().equals(UserModel.MANAGER))
             return new ResponseModelListPayload<ExpenseModel>(ResponseModel.ROLE_CHANGED, "Your role has changed. Please login again", null);
 
+        if(!managerById.get().isActive())
+            return new ResponseModelListPayload<>(ResponseModel.INACTIVE, "You account is currently suspended.", null);
+
         return expenseService.getAllExpenses();
     }
 
@@ -45,6 +50,9 @@ public class ManagerController {
         // Check role validity
         if (!managerById.get().getRole().equals(UserModel.MANAGER))
             return new ResponseModelSinglePayload<ExpenseModel>(ResponseModel.ROLE_CHANGED, "Your role has changed. Please login again", null);
+
+        if(!managerById.get().isActive())
+            return new ResponseModelSinglePayload<>(ResponseModel.INACTIVE, "You account is currently suspended.", null);
 
         // If everything is valid, get expense
         return expenseService.getExpense(expenseId);
@@ -65,6 +73,8 @@ public class ManagerController {
         if (!managerById.get().getRole().equals(UserModel.MANAGER))
             return new ResponseModelSinglePayload<ExpenseModel>(ResponseModel.ROLE_CHANGED, "Your role has changed. Please login again", null);
 
+        if(!managerById.get().isActive())
+            return new ResponseModelSinglePayload<>(ResponseModel.INACTIVE, "You account is currently suspended.", null);
         // If everything checks out, update the expense
         return expenseService.updateExpense(expenseId, expenseModelToUpdate, false);
     }
@@ -79,7 +89,32 @@ public class ManagerController {
         if (!managerById.get().getRole().equals(UserModel.MANAGER))
             return new ResponseModel(ResponseModel.ROLE_CHANGED, "Your role has changed. Please login again.");
 
+        if(!managerById.get().isActive())
+            return new ResponseModel(ResponseModel.INACTIVE, "You account is currently suspended.");
         // If everything is valid, delete expense
         return expenseService.deleteExpenseById(expenseId);
+    }
+
+    @PostMapping(path = "expense/upload/{expense_id}")
+    public ResponseModel uploadReceiptImage(@PathVariable("expense_id") String expenseId, @RequestParam("receipt_image") MultipartFile receiptImage, @RequestHeader("manager_id") String managerId)
+    {
+        //Check user validity
+        Optional<UserModel> managerById = expenseService.getUserById(managerId);
+        if (managerById.isEmpty())
+            return new ResponseModel(ResponseModel.FAILURE, "Manager not found");
+
+        // Check role validity
+        if(!managerById.get().getRole().equals(UserModel.MANAGER))
+            return new ResponseModel(ResponseModel.ROLE_CHANGED, "Your role has changed. Please login again");
+
+        if(!managerById.get().isActive())
+            return new ResponseModel(ResponseModel.INACTIVE, "You account is currently suspended.");
+        try {
+            expenseService.storeReceiptImage(receiptImage, expenseId);
+        } catch (IOException e) {
+            return new ResponseModel(ResponseModel.FAILURE, "Receipt Image Upload Failed");
+        }
+
+        return new ResponseModel(ResponseModel.SUCCESS, "Receipt Image Uploaded Successfully");
     }
 }

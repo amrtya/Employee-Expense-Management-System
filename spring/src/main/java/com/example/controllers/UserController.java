@@ -4,7 +4,8 @@ import com.example.models.*;
 import com.example.services.ExpenseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-
+import org.springframework.web.multipart.MultipartFile;
+import java.io.IOException;
 import java.util.Optional;
 
 @RestController
@@ -34,6 +35,8 @@ public class UserController {
         if(!userById.get().getRole().equals(UserModel.USER))
             return new ResponseModelListPayload<>(ResponseModel.ROLE_CHANGED, "Your role has changed. Please Login again.", null);
 
+        if(!userById.get().isActive())
+            return new ResponseModelListPayload<>(ResponseModel.INACTIVE, "Your account is currently suspended.", null);
         // If everything is valid, get expenses
         return expenseService.getAllExpenses(userById.get());
     }
@@ -50,6 +53,9 @@ public class UserController {
         if(!userById.get().getRole().equals(UserModel.USER))
             return new ResponseModelSinglePayload<>(ResponseModel.ROLE_CHANGED, "Your role has changed. Please Login again.", null);
 
+        if(!userById.get().isActive())
+            return new ResponseModelSinglePayload<>(ResponseModel.INACTIVE, "Your account is currently suspended.", null);
+
         return expenseService.getUserDashboardModel(month, userById.get());
     }
 
@@ -64,6 +70,9 @@ public class UserController {
         // Check role validity
         if(!userById.get().getRole().equals(UserModel.USER))
             return new ResponseModelSinglePayload<ExpenseModel>(ResponseModel.ROLE_CHANGED, "Your role has changed. Please login again", null);
+
+        if(!userById.get().isActive())
+            return new ResponseModelSinglePayload<>(ResponseModel.INACTIVE, "Your account is currently suspended.", null);
 
         // If everything is valid, get expense
         return expenseService.getExpense(expenseId);
@@ -81,6 +90,8 @@ public class UserController {
         if(!userById.get().getRole().equals(UserModel.USER))
             return new ResponseModelSinglePayload<>(ResponseModel.ROLE_CHANGED, "Your role has changed. Please login again.", null);
 
+        if(!userById.get().isActive())
+            return new ResponseModelSinglePayload<>(ResponseModel.INACTIVE, "Your account is currently suspended.", null);
         // If everything is valid, add expense
         return expenseService.addExpense(expenseModel, userById.get());
     }
@@ -101,7 +112,32 @@ public class UserController {
         if(!userById.get().getRole().equals(UserModel.USER))
             return new ResponseModelSinglePayload<ExpenseModel>(ResponseModel.ROLE_CHANGED, "Your role has changed. Please login again", null);
 
+        if(!userById.get().isActive())
+            return new ResponseModelSinglePayload<>(ResponseModel.INACTIVE, "Your account is currently suspended.", null);
 
         return expenseService.updateExpense(expenseId, expenseModelToUpdate, true);
+    }
+
+    @PostMapping(path = "upload/{expense_id}")
+    public ResponseModel uploadReceiptImage(@PathVariable("expense_id") String expenseId, @RequestParam("receipt_image") MultipartFile receiptImage, @RequestHeader("user_id") String userId)
+    {
+        //Check user validity
+        Optional<UserModel> userById = expenseService.getUserById(userId);
+        if (userById.isEmpty())
+            return new ResponseModel(ResponseModel.FAILURE, "User not found");
+
+        // Check role validity
+        if(!userById.get().getRole().equals(UserModel.USER))
+            return new ResponseModel(ResponseModel.ROLE_CHANGED, "Your role has changed. Please login again");
+
+        if(!userById.get().isActive())
+            return new ResponseModel(ResponseModel.INACTIVE, "Your account is currently suspended.");
+        try {
+            expenseService.storeReceiptImage(receiptImage, expenseId);
+        } catch (IOException e) {
+            return new ResponseModel(ResponseModel.FAILURE, "Receipt Image Upload Failed");
+        }
+
+        return new ResponseModel(ResponseModel.SUCCESS, "Receipt Image Uploaded Successfully");
     }
 }

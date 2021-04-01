@@ -6,8 +6,11 @@ import com.example.repositories.UserModelRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.time.LocalDate;
+import java.util.Base64;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -218,5 +221,20 @@ public class ExpenseService {
                 monthNumber = LocalDate.now().getMonth().getValue();
         }
         return monthNumber;
+    }
+
+    @Transactional
+    public ResponseModel storeReceiptImage(MultipartFile receiptImage, String expenseId) throws IOException
+    {
+        // Check if expense exists
+        Optional<ExpenseModel> expenseById = getExpenseById(expenseId);
+        if (expenseById.isEmpty())
+            return new ResponseModel(ResponseModel.FAILURE, "Expense Not found");
+
+        String base64EncodedImage = Base64.getEncoder().encodeToString(receiptImage.getBytes());
+
+        expenseById.get().setReceiptImage(base64EncodedImage);
+        return new ResponseModel(ResponseModel.SUCCESS, "Receipt Image uploaded");
+
     }
 }

@@ -12,7 +12,7 @@ public class ResponseModel {
      *      ROLE_CHANGED: Indicates that the user's role was changed by admin and he should logout now
      */
 
-    public static final String SUCCESS = "SUCCESS", FAILURE = "FAILURE", EMAIL_TAKEN = "EMAIL_TAKEN", ROLE_CHANGED="ROLE_CHANGED";
+    public static final String SUCCESS = "SUCCESS", FAILURE = "FAILURE", EMAIL_TAKEN = "EMAIL_TAKEN", ROLE_CHANGED="ROLE_CHANGED", INACTIVE="INACTIVE";
 
     private String responseType;
     private String message;
