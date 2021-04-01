@@ -10,6 +10,30 @@ const addVoucherSuccess = (id, voucherData) => {
     }
 }
 
+const getVoucherInStore = (vouchers) => {
+    return {
+        type: actionTypes.GET_VOUCHER,
+        vouchers: vouchers
+    }
+}
+
+export const getVoucher = (userID) => {
+    return dispatch => {
+        axios.get('/expense', {headers: {user_id: userID}})
+            .then(response => {
+                if(response.data.responseType === "SUCCESS"){
+                    dispatch(getVoucherInStore(response.data.results));
+                }else{
+                    toast.error(response.data.message);
+                }
+                
+            }).catch(err => {
+                console.log(err);                
+                toast.error("Unknown Error occured.")
+            })
+    }
+}
+
 export const uploadImage = (eid, uid, image, voucherData=null) => {
     return dispatch => {
         let data = new FormData();
@@ -20,12 +44,14 @@ export const uploadImage = (eid, uid, image, voucherData=null) => {
                 if(response.data.responseType === "SUCCESS"){
                     if(voucherData){
                         dispatch(addVoucherSuccess(eid, voucherData));
+                        dispatch(getVoucher(uid));
                     }else{
                         dispatch(getVoucher(uid));
                     }
                 }else{
                     if(voucherData){
                         dispatch(addVoucherSuccess(eid, voucherData));
+                        dispatch(getVoucher(uid));
                     }else{
                         dispatch(getVoucher(uid));
                     }
@@ -34,6 +60,7 @@ export const uploadImage = (eid, uid, image, voucherData=null) => {
             }).catch(err => {
                 if(voucherData){
                     dispatch(addVoucherSuccess(eid, voucherData));
+                    dispatch(getVoucher(uid));
                 }else{
                     dispatch(getVoucher(uid));
                 }
@@ -60,26 +87,3 @@ export const addVoucher = (voucherData, userID, image) => {
     }
 }
 
-const getVoucherInStore = (vouchers) => {
-    return {
-        type: actionTypes.GET_VOUCHER,
-        vouchers: vouchers
-    }
-}
-
-export const getVoucher = (userID) => {
-    return dispatch => {
-        axios.get('/expense', {headers: {user_id: userID}})
-            .then(response => {
-                if(response.data.responseType === "SUCCESS"){
-                    dispatch(getVoucherInStore(response.data.results));
-                }else{
-                    toast.error(response.data.message);
-                }
-                
-            }).catch(err => {
-                console.log(err);                
-                toast.error("Unknown Error occured.")
-            })
-    }
-}
