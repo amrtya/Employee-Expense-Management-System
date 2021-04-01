@@ -20,6 +20,7 @@ export const getUsers = (adminID) => {
                 }
             }).catch(err => {
                 console.log(err);
+                toast.error("Unknown Error occured.")
             })
     }
 }
@@ -43,6 +44,7 @@ export const deleteUser = (adminID, userID) => {
                 }
             }).catch(err => {
                 console.log(err);
+                toast.error("Unknown Error occured.")
             })
     }
 }
@@ -59,6 +61,7 @@ export const updateUser = (adminID, userID, userData) => {
                 }
             }).catch(err => {
                 console.log(err);
+                toast.error("Unknown Error occured.")
             })
     }
 }
@@ -86,6 +89,7 @@ export const addUser = (adminID, userData) => {
                 }
             }).catch(err => {
                 console.log(err);
+                toast.error("Unknown Error occured.")
             })
     }
 }
