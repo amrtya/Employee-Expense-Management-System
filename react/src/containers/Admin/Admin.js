@@ -18,7 +18,6 @@ class Admin extends Component {
             <div>
                 <AdminHeader />
                 <AdminDashboard />
-                <ToastContainer />
             </div>
         );
     }

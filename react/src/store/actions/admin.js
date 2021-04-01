@@ -15,7 +15,6 @@ export const getUsers = (adminID) => {
             .then(response => {
                 if(response.data.responseType==="SUCCESS"){
                     dispatch(storeUsers(response.data.results));
-                    toast.success(response.data.message);
                 }else{
                     toast.error(response.data.message);
                 }

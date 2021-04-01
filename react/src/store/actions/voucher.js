@@ -12,7 +12,19 @@ const addVoucherSuccess = (id, voucherData) => {
 
 export const uploadImage = (eid, uid, image) => {
     return dispatch => {
-        axios.post('http://localhost:8080/expense/upload/'+eid, image, {headers: {user_id: uid}})
+        let data = new FormData();
+        data.append("receipt_image", image);
+
+        axios.post('http://localhost:8080/expense/upload/'+eid, data, {
+                headers: {
+                    user_id: uid,
+                    'accept': 'application/json',
+                    'Accept-Language': 'en-US,en;q=0.8',
+                    'Content-Type': `multipart/form-data`
+                }
+            } 
+            // {headers: {user_id: uid, "Content-Type": "multipart/form-data"}}
+        )
             .then(response => {
                 if(response.data.responseType === "SUCCESS"){
                     //dispatch(addVoucherSuccess(response.data.result.expenseId, voucherData));
