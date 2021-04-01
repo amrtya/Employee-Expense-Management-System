@@ -9,7 +9,7 @@ const initialState = {
         email: "",
         mobileNumber: "",
         password: "",
-        role: "",
+        role: "USER",
         active: "yes"
     }
 };

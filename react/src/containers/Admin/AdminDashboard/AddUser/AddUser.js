@@ -48,6 +48,9 @@ class AddUser extends Component {
         isValid = isValid && this.props.user.username!=="";
         isValid = isValid && this.props.user.email!=="";
         isValid = isValid && this.props.user.role!=="";
+        if(this.props.formState){
+            isValid = isValid && this.props.user.password!=="";
+        }
         isValid = isValid && this.props.user.username!=="";
         return isValid;
     }
