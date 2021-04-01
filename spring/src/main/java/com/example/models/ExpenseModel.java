@@ -22,7 +22,7 @@ public class ExpenseModel {
             strategy = "org.hibernate.id.UUIDGenerator"
     )
     private String expenseId;
-    private Integer billNumber;
+    private Long billNumber;
     private Integer billCost;
 
     @Lob
@@ -38,7 +38,7 @@ public class ExpenseModel {
     public ExpenseModel() {
     }
 
-    public ExpenseModel(Integer billNumber, Integer billCost, String receiptImage, LocalDate datedOn, String status, String remark, UserModel claimedBy) {
+    public ExpenseModel(Long billNumber, Integer billCost, String receiptImage, LocalDate datedOn, String status, String remark, UserModel claimedBy) {
         this.billNumber = billNumber;
         this.billCost = billCost;
         this.receiptImage = receiptImage;
@@ -48,7 +48,7 @@ public class ExpenseModel {
         this.claimedBy = claimedBy;
     }
 
-    public ExpenseModel(String expenseId, Integer billNumber, Integer billCost, String receiptImage, LocalDate datedOn, String status, String remark, UserModel claimedBy) {
+    public ExpenseModel(String expenseId, Long billNumber, Integer billCost, String receiptImage, LocalDate datedOn, String status, String remark, UserModel claimedBy) {
         this.expenseId = expenseId;
         this.billNumber = billNumber;
         this.billCost = billCost;
@@ -59,11 +59,11 @@ public class ExpenseModel {
         this.claimedBy = claimedBy;
     }
 
-    public Integer getBillNumber() {
+    public Long getBillNumber() {
         return billNumber;
     }
 
-    public void setBillNumber(Integer billNumber) {
+    public void setBillNumber(Long billNumber) {
         this.billNumber = billNumber;
     }
 

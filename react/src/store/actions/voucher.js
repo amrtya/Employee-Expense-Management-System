@@ -31,7 +31,7 @@ export const uploadImage = (eid, uid, image) => {
                 }
             }).catch(err => {
                 console.log(err);
-                toast.error("Unknown Error occured.")
+                // toast.error("Unknown Error occured.")
             })
     }
 }

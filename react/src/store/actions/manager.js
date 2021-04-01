@@ -64,7 +64,7 @@ const uploadImage = (eid, uid, image, mid) => {
                 }
             }).catch(err => {
                 console.log(err);
-                toast.error("Unknown Error occured.")
+                // toast.error("Unknown Error occured.")
             })
     }
 }
