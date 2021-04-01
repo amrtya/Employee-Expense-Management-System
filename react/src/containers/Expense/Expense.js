@@ -17,6 +17,7 @@ class AddExpense extends Component {
         eid: "",
         amount: "",
         description: "",
+        imageFile: null,
         image: null,
         valid: false,
         formState: true,     //true: add voucher || false: edit voucher
@@ -29,6 +30,7 @@ class AddExpense extends Component {
             eid: "",
             amount: "",
             description: "",
+            imageFile: null,
             image: null,
             valid: false,
             formState: true,
@@ -67,7 +69,7 @@ class AddExpense extends Component {
         this.checkValidity(this.state.date, this.state.eid, this.state.amount, val);
     }
     onImageChange = (event) => {
-        this.setState({image: event.target.value});
+        this.setState({imageFile: event.target.files[0], image: event.target.value});
     }
     addVoucherHandler = () => {
         const expenseData = {
@@ -78,7 +80,7 @@ class AddExpense extends Component {
             remark: this.state.description
         }
         this.clearForm();
-        this.props.onAddVoucher(expenseData, this.props.userID, this.state.image);
+        this.props.onAddVoucher(expenseData, this.props.userID, this.state.imageFile);
     }
     componentDidMount(){
         this.props.getVouchers(this.props.userID);
