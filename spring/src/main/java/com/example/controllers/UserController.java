@@ -4,7 +4,8 @@ import com.example.models.*;
 import com.example.services.ExpenseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-
+import org.springframework.web.multipart.MultipartFile;
+import java.io.IOException;
 import java.util.Optional;
 
 @RestController
@@ -103,5 +104,26 @@ public class UserController {
 
 
         return expenseService.updateExpense(expenseId, expenseModelToUpdate, true);
+    }
+
+    @PostMapping(path = "upload/{expense_id}")
+    public ResponseModel uploadReceiptImage(@PathVariable("expense_id") String expenseId, @RequestParam("receipt_image") MultipartFile receiptImage, @RequestHeader("user_id") String userId)
+    {
+        //Check user validity
+        Optional<UserModel> userById = expenseService.getUserById(userId);
+        if (userById.isEmpty())
+            return new ResponseModel(ResponseModel.FAILURE, "User not found");
+
+        // Check role validity
+        if(!userById.get().getRole().equals(UserModel.USER))
+            return new ResponseModel(ResponseModel.ROLE_CHANGED, "Your role has changed. Please login again");
+
+        try {
+            expenseService.storeReceiptImage(receiptImage, expenseId);
+        } catch (IOException e) {
+            return new ResponseModel(ResponseModel.FAILURE, "Receipt Image Upload Failed");
+        }
+
+        return new ResponseModel(ResponseModel.SUCCESS, "Receipt Image Uploaded Successfully");
     }
 }
