@@ -89,9 +89,6 @@ public class AdminService {
             loginDetails.setEmail(userModelToUpdate.getEmail());
             userModelCurrent.setEmail(userModelToUpdate.getEmail());
         }
-        if (userModelToUpdate.getPassword() != null && !Objects.equals(loginDetails.getPassword(), userModelToUpdate.getPassword())) {
-            loginDetails.setPassword(userModelToUpdate.getPassword());
-        }
         if (userModelToUpdate.getUsername() != null && !Objects.equals(userModelCurrent.getUsername(), userModelToUpdate.getUsername())) {
             userModelCurrent.setUsername(userModelToUpdate.getUsername());
         }
