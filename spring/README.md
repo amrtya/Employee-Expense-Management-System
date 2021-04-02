@@ -377,6 +377,7 @@ Every Response body has two parmanent fields: `responseType` and `message`. Ever
 ```
     
     **Response**:
+    
     ```json
     {
         "responseType": "SUCCESS | FAILURE | ROLE_CHANGED | INACTIVE",
