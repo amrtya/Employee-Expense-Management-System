@@ -370,11 +370,12 @@ Every Response body has two parmanent fields: `responseType` and `message`. Ever
     user_id={user_id}
     
     **Request Body** (FormData):
-```json
-{
-    "receipt_image": {image_file}
-}    
-```
+    
+    ```json
+    {
+        "receipt_image": {image_file}  
+    }  
+    ```
     
     **Response**:
     
