@@ -48,6 +48,14 @@
     font-size: 18px;
     outline: none;
 }
+.red {
+    border: 1px solid red;
+    background-color: lightcoral;
+}
+.normal {
+    border: 1px solid black;
+    background-color: white;
+}
 
 @media (max-width: 450px) {
     .logincard {

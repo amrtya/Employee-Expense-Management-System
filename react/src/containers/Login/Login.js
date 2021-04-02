@@ -5,32 +5,40 @@ import { connect } from 'react-redux';
 import * as actions from '../../store/actions/index';
 import 'react-toastify/dist/ReactToastify.css';
 import md5 from 'crypto-js/md5';
+import { validateEmail } from '../../store/validators/validators';
 
 class Login extends Component {
     state = {
-        email: "",
+        email: {
+            value: "",
+            valid: true
+        },
         password: "",
         valid: false
     }
     checkValidity = (email, password) => {
         let isValid = true;
-        isValid = isValid && email!=="";
+        isValid = isValid && email;
         isValid = isValid && password!=="";
         this.setState({valid: isValid});
     }
     updateEmail = (event) => {
         const val = event.target.value;
-        this.setState({email: val});
-        this.checkValidity(val, this.state.password);
+        this.setState({email: {
+            ...this.state.email, 
+            value: val, valid: 
+            validateEmail(val)
+        }});
+        this.checkValidity(validateEmail(val), this.state.password);
     }
     updatePassword = (event) => {
         const val = event.target.value;
         this.setState({password: val});
-        this.checkValidity(this.state.email, val);
+        this.checkValidity(this.state.email.valid, val);
     }
     loginHandler = () => {
         const logindata = {
-            email: this.state.email,
+            email: this.state.email.value,
             password: md5(this.state.password).toString()
         }
         this.props.onLogin(logindata);
@@ -46,7 +54,8 @@ class Login extends Component {
                         <h1>LogIn</h1>
                         <input type="email" placeholder="Enter Email"
                                 onChange={this.updateEmail}
-                                value={this.state.email} />
+                                value={this.state.email.value}
+                                className={this.state.email.valid ? classes.normal : classes.red} />
                         <input type="password" placeholder="Enter Password"
                                 onChange={this.updatePassword}
                                 value={this.state.password} />

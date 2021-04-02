@@ -81,7 +81,7 @@ class Signup extends Component {
                         <input type="tel" placeholder="Enter Mobile Number"
                                 onChange={this.updateMobileNumber}
                                 value={this.state.mobileNumber} />
-                        <input type="password" placeholder="Password"
+                        <input type="password" placeholder="Password (min 8 characters)"
                                 onChange={this.updatePassword}
                                 value={this.state.password} />
                         <input type="password" placeholder="Confirm Password"
