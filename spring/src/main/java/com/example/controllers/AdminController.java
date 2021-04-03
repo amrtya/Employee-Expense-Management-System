@@ -26,7 +26,7 @@ public class AdminController {
     }
 
     @GetMapping
-    public ResponseModelListPayload<UserModel> getAllUsers(@RequestHeader("admin_id") String adminId)
+    public ResponseModelListPayload<UserModel> getAllUsers(@RequestHeader("adminId") String adminId)
     {
         // Check Admin Validity
         Optional<UserModel> adminById = adminService.getAdminById(adminId);
@@ -43,7 +43,7 @@ public class AdminController {
     }
 
     @GetMapping(path = "{user_id}")
-    public ResponseModelSinglePayload<UserReceiverWithId> getUser(@PathVariable("user_id") String userId, @RequestHeader("admin_id") String adminId)
+    public ResponseModelSinglePayload<UserReceiverWithId> getUser(@PathVariable("user_id") String userId, @RequestHeader("adminId") String adminId)
     {
         // Check admin validity
         Optional<UserModel> adminById = adminService.getAdminById(adminId);
@@ -60,7 +60,7 @@ public class AdminController {
     }
 
     @PutMapping(path = "user/{user_id}")
-    public ResponseModelSinglePayload<UserModel> updateUser(@PathVariable("user_id") String userId, @RequestBody UserReceiver userReceiver, @RequestHeader("admin_id") String adminId)
+    public ResponseModelSinglePayload<UserModel> updateUser(@PathVariable("user_id") String userId, @RequestBody UserReceiver userReceiver, @RequestHeader("adminId") String adminId)
     {
         // Check admin validity
         Optional<UserModel> adminById = adminService.getAdminById(adminId);
@@ -77,7 +77,7 @@ public class AdminController {
     }
 
     @DeleteMapping(path = "user/{user_id}")
-    public ResponseModel deleteUser(@PathVariable("user_id") String userId, @RequestHeader("admin_id") String adminId)
+    public ResponseModel deleteUser(@PathVariable("user_id") String userId, @RequestHeader("adminId") String adminId)
     {
         // Check admin validity
         Optional<UserModel> adminById = adminService.getAdminById(adminId);
@@ -94,7 +94,7 @@ public class AdminController {
     }
 
     @PostMapping("user")
-    public ResponseModelSinglePayload<UserModel> addUser(@RequestBody UserReceiver userReceiver, @RequestHeader("admin_id") String adminId)
+    public ResponseModelSinglePayload<UserModel> addUser(@RequestBody UserReceiver userReceiver, @RequestHeader("adminId") String adminId)
     {
         // Check admin validity
         Optional<UserModel> adminById = adminService.getAdminById(adminId);

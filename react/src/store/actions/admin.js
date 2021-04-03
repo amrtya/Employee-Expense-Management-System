@@ -11,7 +11,7 @@ const storeUsers = (users) => {
 
 export const getUsers = (adminID) => {
     return dispatch => {
-        axios.get("/admin", {headers: {admin_id: adminID}})
+        axios.get("/admin", {headers: {adminId: adminID}})
             .then(response => {
                 if(response.data.responseType==="SUCCESS"){
                     dispatch(storeUsers(response.data.results));
@@ -34,7 +34,7 @@ const delUser = (userID) => {
 
 export const deleteUser = (adminID, userID) => {
     return dispatch => {
-        axios.delete("/admin/user/"+userID, {headers: {admin_id: adminID}})
+        axios.delete("/admin/user/"+userID, {headers: {adminId: adminID}})
             .then(response => {
                 if(response.data.responseType === "SUCCESS"){
                     dispatch(delUser(userID));
@@ -51,7 +51,7 @@ export const deleteUser = (adminID, userID) => {
 
 export const updateUser = (adminID, userID, userData) => {
     return dispatch => {
-        axios.put("/admin/user/"+userID, userData, {headers: {admin_id: adminID}})
+        axios.put("/admin/user/"+userID, userData, {headers: {adminId: adminID}})
             .then(response => {
                 if(response.data.responseType === "SUCCESS"){
                     dispatch(getUsers(adminID));
@@ -75,7 +75,7 @@ const addUsertoStore = (userData) => {
 
 export const addUser = (adminID, userData) => {
     return dispatch => {
-        axios.post("/admin/user", userData, {headers: {admin_id: adminID}})
+        axios.post("/admin/user", userData, {headers: {adminId: adminID}})
             .then(response => {
                 if(response.data.responseType === "SUCCESS"){
                     const newUser = {

@@ -25,7 +25,7 @@ public class ManagerController {
     }
 
     @GetMapping
-    public ResponseModelListPayload<ExpenseModel> getAllExpenses(@RequestHeader("manager_id") String managerId) {
+    public ResponseModelListPayload<ExpenseModel> getAllExpenses(@RequestHeader("managerId") String managerId) {
 
         Optional<UserModel> managerById = expenseService.getUserById(managerId);
         if (managerById.isEmpty())
@@ -41,7 +41,7 @@ public class ManagerController {
     }
 
     @GetMapping("/expense/{id}")
-    public ResponseModelSinglePayload<ExpenseModel> getExpense(@PathVariable("id") String expenseId, @RequestHeader("manager_id") String managerId) {
+    public ResponseModelSinglePayload<ExpenseModel> getExpense(@PathVariable("id") String expenseId, @RequestHeader("managerId") String managerId) {
 
         Optional<UserModel> managerById = expenseService.getUserById(managerId);
         if (managerById.isEmpty())
@@ -62,7 +62,7 @@ public class ManagerController {
     public ResponseModelSinglePayload<ExpenseModel> updateExpenses(
             @PathVariable("expenseId") String expenseId,
             @RequestBody ExpenseModel expenseModelToUpdate,
-            @RequestHeader("manager_id") String managerId
+            @RequestHeader("managerId") String managerId
     ) {
 
         Optional<UserModel> managerById = expenseService.getUserById(managerId);
@@ -80,7 +80,7 @@ public class ManagerController {
     }
 
     @DeleteMapping(path = "/expense/{id}")
-    public ResponseModel deleteExpense(@PathVariable("id") String expenseId, @RequestHeader("manager_id") String managerId) {
+    public ResponseModel deleteExpense(@PathVariable("id") String expenseId, @RequestHeader("managerId") String managerId) {
 
         Optional<UserModel> managerById = expenseService.getUserById(managerId);
         if (managerById.isEmpty())
@@ -96,7 +96,7 @@ public class ManagerController {
     }
 
     @PostMapping(path = "expense/upload/{expense_id}")
-    public ResponseModel uploadReceiptImage(@PathVariable("expense_id") String expenseId, @RequestParam("receipt_image") MultipartFile receiptImage, @RequestHeader("manager_id") String managerId)
+    public ResponseModel uploadReceiptImage(@PathVariable("expense_id") String expenseId, @RequestParam("receipt_image") MultipartFile receiptImage, @RequestHeader("managerId") String managerId)
     {
         //Check user validity
         Optional<UserModel> managerById = expenseService.getUserById(managerId);

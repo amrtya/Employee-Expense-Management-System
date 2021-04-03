@@ -176,7 +176,7 @@ Every Response body has two parmanent fields: `responseType` and `message`. Ever
     month = `JANUARY` | `FEBRUARY` | `MARCH` | `APRIL` | `MAY` | `JUNE` | `JULY` | `AUGUST` | `SEPTEMBER` | `OCTOBER` | `NOVEMBER` | `DECEMBER`
     
     **Header**:
-    user_id={user_id}
+    userId={user_id}
 
     **Request Body**: Not Required
     
@@ -201,7 +201,7 @@ Every Response body has two parmanent fields: `responseType` and `message`. Ever
     **Description**: Endpoint to get All the expenses of a particular user.
     
     **Header**:
-    user_id={user_id}
+    userId={user_id}
 
     **Request Body**: Not Required
     
@@ -241,7 +241,7 @@ Every Response body has two parmanent fields: `responseType` and `message`. Ever
     **Description**: Endpoint to get the Details of a single expense by its ID.
     
     **Header**:
-    user_id={user_id}
+    userId={user_id}
     
     **Request Body**: Not Required
     
@@ -277,7 +277,7 @@ Every Response body has two parmanent fields: `responseType` and `message`. Ever
     **Description**: Endpoint to add a particular expense. The status of this expense should always be `NOT_REIMBURSED`. If the addition was successful, the expense object is returned back. It addition was a failure, null is returned in the `result` object.
     
     **Header**:
-    user_id={user_id}
+    userId={user_id}
 
     **Request Body**:
     ```json
@@ -322,7 +322,7 @@ Every Response body has two parmanent fields: `responseType` and `message`. Ever
     **Description**: Endpoint to update a particular expense. An USER should not be allowed to REIMBURSE an expense. ***The BillCost for an already `REIMBURSED` expense cannot be updated***. On successful updation, the user gets back the Updated Expense Object. If the updation was a failure, null is returned in the `result` parameter.
     
     **Header**:
-    user_id={user_id}
+    userId={user_id}
 
     **Request Body**:
     ```json
@@ -367,7 +367,7 @@ Every Response body has two parmanent fields: `responseType` and `message`. Ever
     **Description**: Endpoint to upload the Receipt image of a particular expense. If an image was already uploaded for an expense, it will get updated. The Image is converted to **Base64 String** and stored in the expense object itself.
     
     **Header**:
-    user_id={user_id}
+    userId={user_id}
     
     **Request Body** (FormData):
     
@@ -393,7 +393,7 @@ Every Response body has two parmanent fields: `responseType` and `message`. Ever
     **Description**: Endpoint to get all the expenses present in the system.
     
     **Header**:
-    manager_id={manager_id}
+    managerId={manager_id}
 
     **Request Body**: Not Required
     
@@ -432,7 +432,7 @@ Every Response body has two parmanent fields: `responseType` and `message`. Ever
     **Description**: Endpoint to get the details of a particular expense.
     
     **Header**:
-    manager_id={manager_id}
+    managerId={manager_id}
 
     **Request Body**: Not Required
     
@@ -468,7 +468,7 @@ Every Response body has two parmanent fields: `responseType` and `message`. Ever
     **Description**: Endpoint to update the details of a particular expense. On successful updation, the manager gets back the Updated Expense Object. If the updation was a failure, null is returned in the `result` parameter.
     
     **Header**:
-    manager_id={manager_id}
+    managerId={manager_id}
 
     **Request Body**: 
     
@@ -514,7 +514,7 @@ Every Response body has two parmanent fields: `responseType` and `message`. Ever
     **Description**: Endpoint to upload the Receipt image of a particular expense. If an image was already uploaded for an expense, it will get updated. The Image is converted to **Base64 String** and stored in the expense object itself.
     
     **Header**:
-    manager_id={manager_id}
+    managerId={manager_id}
     
     **Request Body** (FormData):
     
@@ -538,7 +538,7 @@ Every Response body has two parmanent fields: `responseType` and `message`. Ever
     **Description**: Endpoint to delete an expense.
     
     **Header**:
-    manager_id={manager_id}
+    managerId={manager_id}
     
     **Request Body**: Not Required
     
@@ -558,7 +558,7 @@ Every Response body has two parmanent fields: `responseType` and `message`. Ever
     **Description**: Endpoint to get all the users in the platform
     
     **Header**:
-    admin_id={admin_id}
+    adminId={admin_id}
        
     **Request Body**: Not required
     
@@ -588,7 +588,7 @@ Every Response body has two parmanent fields: `responseType` and `message`. Ever
     **Description**: Endpoint to get the details of a particular user.
     
     **Header**:
-    admin_id={admin_id}
+    adminId={admin_id}
 
     **Request Body**: Not Required
     
@@ -615,7 +615,7 @@ Every Response body has two parmanent fields: `responseType` and `message`. Ever
     **Description**: Endpoint to add an user to the system. There are two ways to add users in the system. First, if the user signs up. Second, the admin adds him. If the admins add him, then the admins can add him as an `USER` | `MANAGER` | `ADMIN`.
     
     **Header**:
-    admin_id={admin_id}
+    adminId={admin_id}
     
     **Request Body**:
     ```json
@@ -650,7 +650,7 @@ Every Response body has two parmanent fields: `responseType` and `message`. Ever
     **Description**: Endpoint to update the details of a user. Using this endpoint, the admin can change the `role` and the account `status` of an user.
     
     **Header**:
-    admin_id={admin_id}
+    adminId={admin_id}
 
     **Request Body**:
     ```json
@@ -685,7 +685,7 @@ Every Response body has two parmanent fields: `responseType` and `message`. Ever
     **Description**: Endpoint to delete an user. ***This will delete the user's details and all the expense related to this user.***
     
     **Header**:
-    admin_id={admin_id}
+    adminId={admin_id}
 
     **Request Body**: Not Required
     
