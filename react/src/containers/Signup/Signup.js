@@ -3,61 +3,89 @@ import classes from './Signup.module.css';
 import {Link} from 'react-router-dom';
 import { connect } from 'react-redux';
 import * as actions from '../../store/actions/index';
-import {ToastContainer} from 'react-toastify'
-import 'react-toastify/dist/ReactToastify.css';
 import md5 from 'crypto-js/md5';
+import { validateEmail, validateMobileNumber } from '../../store/validators/validators';
 
 class Signup extends Component {
     state = {
-        email: "",
+        email: {
+            value: "",
+            valid: true
+        },
         username: "",
-        mobileNumber: "",
+        mobileNumber: {
+            value: "",
+            valid: true
+        },
         password: "",
         conPassword: "",
         role: "USER",
         active: true,
         valid: false
     }
-    checkValidity = (email, username, mobileNumber, password, conPassword) => {
+    checkValidity = (currState) => {
         let isValid = true;
-        isValid = isValid && email!=="";
-        isValid = isValid && username!=="";
-        isValid = isValid && mobileNumber.length===10;
-        isValid = isValid && password!=="";
-        isValid = isValid && password===conPassword;
+        isValid = isValid && currState.email.valid;
+        isValid = isValid && currState.username!=="";
+        isValid = isValid && currState.mobileNumber.valid;
+        isValid = isValid && currState.password!=="";
+        isValid = isValid && currState.password===currState.conPassword;
         this.setState({valid: isValid});
     }
     updateEmail = (event) => {
-        const val = event.target.value;
-        this.setState({email: val});
-        this.checkValidity(val, this.state.username, this.state.mobileNumber, this.state.password, this.state.conPassword);
+        const newState = {
+            ...this.state,
+            email: {
+                ...this.state.email,
+                value: event.target.value,
+                valid: validateEmail(event.target.value)
+            }
+        }
+        this.setState(newState);
+        this.checkValidity(newState);
     }
     updateUsername = (event) => {
-        const val = event.target.value;
-        this.setState({username: val});
-        this.checkValidity(this.state.email, val, this.state.mobileNumber, this.state.password, this.state.conPassword);
+        const newState = {
+            ...this.state,
+            username: event.target.value
+        }
+        this.setState(newState);
+        this.checkValidity(newState);
     }
     updateMobileNumber = (event) => {
-        const val = event.target.value;
-        this.setState({mobileNumber: val});
-        this.checkValidity(this.state.email, this.state.username, val, this.state.password, this.state.conPassword);
+        const newState = {
+            ...this.state,
+            mobileNumber: {
+                ...this.state.mobileNumber,
+                value: event.target.value,
+                valid: validateMobileNumber(event.target.value)
+            }
+        }
+        this.setState(newState);
+        this.checkValidity(newState);
     }
     updatePassword = (event) => {
-        const val = event.target.value;
-        this.setState({password: val});
-        this.checkValidity(this.state.email, this.state.username, this.state.mobileNumber, val, this.state.conPassword);
+        const newState = {
+            ...this.state,
+            password: event.target.value
+        }
+        this.setState(newState);
+        this.checkValidity(newState);
     }
     updateConpassword = (event) => {
-        const val = event.target.value;
-        this.setState({conPassword: val});
-        this.checkValidity(this.state.email, this.state.username, this.state.mobileNumber, this.state.password, val);
+        const newState = {
+            ...this.state,
+            conPassword: event.target.value
+        }
+        this.setState(newState);
+        this.checkValidity(newState);
     }
     signUpHandler = () => {
         const signupdata = {
-            email: this.state.email,
+            email: this.state.email.value,
             password: md5(this.state.password).toString(),
             username: this.state.username,
-            mobileNumber: this.state.mobileNumber,
+            mobileNumber: this.state.mobileNumber.value,
             active: true,
             role: "USER"
         }
@@ -74,14 +102,16 @@ class Signup extends Component {
                         <h1>SignUp</h1>
                         <input type="email" placeholder="Enter Email"
                                 onChange={this.updateEmail}
-                                value={this.state.email} />
+                                value={this.state.email.value}
+                                className={this.state.email.valid ? classes.normal : classes.red} />
                         <input type="text" placeholder="Enter username"
                                 onChange={this.updateUsername}
                                 value={this.state.username} />
                         <input type="tel" placeholder="Enter Mobile Number"
                                 onChange={this.updateMobileNumber}
-                                value={this.state.mobileNumber} />
-                        <input type="password" placeholder="Password (min 8 characters)"
+                                value={this.state.mobileNumber.value}
+                                className={this.state.mobileNumber.valid ? classes.normal : classes.red} />
+                        <input type="password" placeholder="Password"
                                 onChange={this.updatePassword}
                                 value={this.state.password} />
                         <input type="password" placeholder="Confirm Password"
@@ -94,7 +124,6 @@ class Signup extends Component {
                         <p>Already a User?<Link to="/">Log In</Link></p>
                     </div>
                 </div>
-                <ToastContainer />
             </div>
         );
     }

@@ -6,6 +6,7 @@ import SingleExpense from './SingleExpense/SingleExpense';
 import Modal from '../UI/Modal/Modal';
 import BackDrop from '../UI/BackDrop/BackDrop';
 import  { Redirect } from 'react-router-dom';
+import { validateBillCost } from '../../store/validators/validators';
 
 class AddExpense extends Component {
     state = {
@@ -13,7 +14,10 @@ class AddExpense extends Component {
         status: null,
         date: "",
         eid: "",
-        amount: "",
+        amount: {
+            value: "",
+            valid: true
+        },
         description: "",
         image: null,
         imageName: "",
@@ -26,7 +30,10 @@ class AddExpense extends Component {
         this.setState({
             date: "",
             eid: "",
-            amount: "",
+            amount: {
+                value: "",
+                valid: true
+            },
             description: "",
             image: null,
             imageName: "",
@@ -42,7 +49,7 @@ class AddExpense extends Component {
         let isValid = true;
         isValid = isValid && date!=="";
         isValid = isValid && eid!=="";
-        isValid = isValid && amount!=="";
+        isValid = isValid && amount.valid;
         isValid = isValid && desc!=="";
         this.setState({valid: isValid});
     }
@@ -58,8 +65,18 @@ class AddExpense extends Component {
     }
     onAmountChange = (event) => {
         const val = event.target.value;
-        this.setState({amount: val});
-        this.checkValidity(this.state.date, this.state.eid, val, this.state.description);
+        this.setState({
+            ...this.state,
+            amount: {
+                ...this.state.amount,
+                value: val,
+                valid: validateBillCost(val)
+            }
+        });
+        this.checkValidity(this.state.date, this.state.eid, {
+            value: val,
+            valid: validateBillCost(val)
+        }, this.state.description);
     }
     onDescChange = (event) => {
         const val = event.target.value;
@@ -72,7 +89,7 @@ class AddExpense extends Component {
     addVoucherHandler = () => {
         const expenseData = {
             billNumber: this.state.eid,
-            billCost: this.state.amount,
+            billCost: this.state.amount.value,
             datedOn: this.state.date,
             status: "NOT_REIMBURSED",
             remark: this.state.description
@@ -159,7 +176,8 @@ class AddExpense extends Component {
                                 value={this.state.eid} />
                         <input type="text" placeholder="Bill Cost"
                                 onChange={this.onAmountChange}
-                                value={this.state.amount} />
+                                value={this.state.amount.value}
+                                className={this.state.amount.valid ? classes.normal : classes.red} />
                         <input type="text" placeholder="Remarks"
                                 onChange={this.onDescChange}
                                 value={this.state.description} />

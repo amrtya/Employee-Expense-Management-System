@@ -47,14 +47,18 @@
     padding: 10px;
     font-size: 18px;
     outline: none;
+    border-width: 1px;
+    border-style: inset;
+    border-color: -internal-light-dark(rgb(118, 118, 118), rgb(133, 133, 133));
 }
 .red {
     border: 1px solid red;
     background-color: lightcoral;
 }
 .normal {
-    border: 1px solid black;
-    background-color: white;
+    border-width: 1px;
+    border-style: inset;
+    border-color: -internal-light-dark(rgb(118, 118, 118), rgb(133, 133, 133));
 }
 
 @media (max-width: 450px) {

@@ -8,6 +8,7 @@
     vertical-align: center;
     color: white;
     position: fixed;
+    z-index: 100;
 }
 
 .HeaderLeft {
