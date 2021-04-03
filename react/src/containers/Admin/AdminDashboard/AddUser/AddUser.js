@@ -9,35 +9,8 @@ import md5 from 'crypto-js/md5';
 
 class AddUser extends Component {
     state = {
-        // username: "",
-        // email: "",
-        // mobileNumber: "",
-        // password: "",
-        // role: "",
-        // active: ""
         addState: true      //false denotes updateState
-        // valid: false
     }
-    // updateEmail = (event) => {
-    //     const val = event.target.value;
-    //     this.setState({email: val});
-    // }
-    // updateUsername = (event) => {
-    //     const val = event.target.value;
-    //     this.setState({username: val});
-    // }
-    // updateMobileNumber = (event) => {
-    //     const val = event.target.value;
-    //     this.setState({mobileNumber: val});
-    // }
-    // updatePassword = (event) => {
-    //     const val = event.target.value;
-    //     this.setState({password: val});
-    // }
-    // updateRole = (event) => {
-    //     const val = event.target.value;
-    //     this.props.user.role = val;
-    // }
     clearForm = () => {
         this.props.updateEmail("");
         this.props.updateMobileNumber("");
