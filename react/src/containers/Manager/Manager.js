@@ -6,7 +6,6 @@ import {connect} from 'react-redux';
 
 class Admin extends Component {
     componentDidMount(){
-        // this.props.getUsers(this.props.id);
         this.props.getAllVouchers(this.props.id);
     }
     render() { 

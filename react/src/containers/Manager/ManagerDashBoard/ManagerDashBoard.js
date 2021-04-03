@@ -5,12 +5,17 @@ import classes from './ManagerDashBoard.module.css';
 import * as actions from '../../../store/actions/index';
 import Modal from '../../UI/Modal/Modal';
 import BackDrop from '../../UI/BackDrop/BackDrop';
+import { validateBillCost } from '../../../store/validators/validators';
+import * as actionTypes from '../../../store/actions/actionTypes';
 
 class ManagerDashBoard extends Component {
     state = {
         // date: "",
         billNumber: "",
-        billCost: "",
+        billCost: {
+            value: "",
+            valid: true
+        },
         remarks: "",
         status: "",
         modal: false,
@@ -25,7 +30,13 @@ class ManagerDashBoard extends Component {
         this.setState({billNumber: event.target.value});
     }
     onCostChange = (event) => {
-        this.setState({billCost: event.target.value});
+        this.setState({
+            ...this.state,
+            billCost: {
+                value: event.target.value,
+                valid: validateBillCost(event.target.value)
+            }
+        });
     }
     onRemarksChange = (event) => {
         this.setState({remarks: event.target.value});
@@ -37,7 +48,10 @@ class ManagerDashBoard extends Component {
         this.setState({
             // date: data.datedOn,
             billNumber: data.billNumber,
-            billCost: data.billCost,
+            billCost: {
+                value: data.billCost,
+                valid: true
+            },
             remarks: data.remark,
             status: data.status,
             image: data.receiptImage,
@@ -47,7 +61,7 @@ class ManagerDashBoard extends Component {
     updateExpense = () => {
         const newVoucher = {
             ...this.props.singleVoucher,
-            billCost: this.state.billCost,
+            billCost: this.state.billCost.value,
             billNumber: this.state.billNumber,
             remark: this.state.remarks,
             status: this.state.status
@@ -98,7 +112,8 @@ class ManagerDashBoard extends Component {
                         <input type="text" placeholder="Bill Cost"
                                 title="Bill Cost"
                                 onChange={this.onCostChange}
-                                value={this.state.billCost} />
+                                value={this.state.billCost.value}
+                                className={this.state.billCost.valid ? classes.normal : classes.red} />
                         <select name="status" 
                             value={this.state.status}
                             onChange={this.onStatusChange} >
@@ -112,7 +127,10 @@ class ManagerDashBoard extends Component {
                         <input type="file" style={{border: "none"}}
                                 onChange={this.onImageChange}
                                 value={this.state.imageName} />
-                        <button type="button" onClick={this.updateExpense}>Update</button>
+                        <div>
+                            <button type="button" className={classes.update} onClick={this.updateExpense}>Update</button>
+                            <button type="button" className={classes.cancel} onClick={this.props.closeForm}>Cancel</button>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -132,7 +150,8 @@ const mapStatetoProps = state => {
 
 const mapDispatchtoProps = dispatch => {
     return {
-        updateVoucher: (mid, data, img) => dispatch(actions.managerUpdateVoucher(mid, data, img))
+        updateVoucher: (mid, data, img) => dispatch(actions.managerUpdateVoucher(mid, data, img)),
+        closeForm: () => dispatch({type: actionTypes.CLOSE_EDIT})
     }
 }
  

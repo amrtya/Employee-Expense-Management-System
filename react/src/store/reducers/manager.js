@@ -23,6 +23,10 @@ const reducer = (state=initialState, action) => {
             return updateObject(state, {
                 editValid: "block"
             })
+        case actionTypes.CLOSE_EDIT:
+            return updateObject(state, {
+                editValid: "none"
+            })
         case actionTypes.MANAGER_UPDATE_VOUCHER:
             return updateObject(state, {
                 singleVoucher: action.data

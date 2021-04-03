@@ -14,13 +14,13 @@
     justify-content: stretch;
 }
 .expenseRight {
-    position: fixed;
+    position: absolute;
     right: 0;
     width: 30%;
-    height: 630px;
+    height: 90vh;
 }
 .addExpense {
-    height: 540px;
+    height: 80vh;
     background-color: white;
     margin: 20px auto;
     width: 80%;
@@ -53,17 +53,58 @@
     border: 1px solid black;
 }
 .expenseRight button {
-    width: 50%;
-    margin: 15px auto;
+    width: 40%;
+    margin: 15px 5px;
     padding: 10px;
     font-size: 18px;
     border-radius: 10px;
     outline: none;
     border: 1px solid black;
     cursor: pointer;
-    background-color: aquamarine;
     color: black;
 }
+.update {
+    background-color: aquamarine;
+}
+.cancel {
+    background-color: rgb(241, 85, 85);
+}
 .expenseRight button:hover {
-    background-color: rgb(57, 243, 181);
+    background-color: rgb(193, 243, 57);
+}
+
+.red {
+    border: 1px solid red;
+    background-color: lightcoral;
+}
+.normal {
+    border-width: 1px;
+    border-style: inset;
+    border-color: -internal-light-dark(rgb(118, 118, 118), rgb(133, 133, 133));
+}
+@media (max-width: 500px) {
+    .Expense {
+        flex-direction: column;
+        height: 100%;
+        padding-top: 70px;
+    }
+    .expenseLeft {
+        width: 45%;
+        height: 100%;
+        flex-direction: row;
+        flex-wrap: wrap;
+    }
+    .expenseRight {
+        width: 55%;
+        height: 90vh;
+        padding: 0;
+    }
+}
+@media (max-height: 600px) {
+    .expenseRight {
+        height: 600px;
+    }
+    .addExpense {
+        height: 560px;
+    }
 }
