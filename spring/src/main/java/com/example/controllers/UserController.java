@@ -132,11 +132,10 @@ public class UserController {
         if (!userById.get().isActive())
             return new ResponseModel(ResponseModel.INACTIVE, "Your account is currently suspended.");
         try {
-            expenseService.storeReceiptImage(receiptImage, expenseId);
+            return expenseService.storeReceiptImage(receiptImage, expenseId);
         } catch (IOException e) {
             return new ResponseModel(ResponseModel.FAILURE, "Receipt Image Upload Failed");
         }
 
-        return new ResponseModel(ResponseModel.SUCCESS, "Receipt Image Uploaded Successfully");
     }
 }
