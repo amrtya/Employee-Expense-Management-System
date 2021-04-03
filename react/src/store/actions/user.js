@@ -91,7 +91,7 @@ export const onLogin = (logindata) => {
 
 export const userUpdateVoucher = (uid, eid, data, image) => {
     return dispatch => {
-        axios.put("/expense/"+eid, data, {headers: {user_id: uid}})
+        axios.put("/expense/"+eid, data, {headers: {userId: uid}})
             .then(response => {
                 if(response.data.responseType === "SUCCESS"){
                     dispatch(actions.uploadImage(eid, uid, image));

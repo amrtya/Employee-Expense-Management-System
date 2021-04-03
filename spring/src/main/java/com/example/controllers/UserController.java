@@ -24,7 +24,7 @@ public class UserController {
     }
 
     @GetMapping
-    public ResponseModelListPayload<ExpenseModel> getAllExpenses(@RequestHeader("user_id") String userId) {
+    public ResponseModelListPayload<ExpenseModel> getAllExpenses(@RequestHeader("userId") String userId) {
 
         //Check user validity
         Optional<UserModel> userById = expenseService.getUserById(userId);
@@ -42,7 +42,7 @@ public class UserController {
     }
 
     @GetMapping(path = "dashboard/{month}")
-    public ResponseModelSinglePayload<UserDashboardModel> getUserDashboard(@PathVariable("month") String month, @RequestHeader("user_id") String userId)
+    public ResponseModelSinglePayload<UserDashboardModel> getUserDashboard(@PathVariable("month") String month, @RequestHeader("userId") String userId)
     {
         //Check user validity
         Optional<UserModel> userById = expenseService.getUserById(userId);
@@ -60,7 +60,7 @@ public class UserController {
     }
 
     @GetMapping(path = "{expense_id}")
-    public ResponseModelSinglePayload<ExpenseModel> getExpense(@PathVariable("expense_id") String expenseId, @RequestHeader("user_id") String userId) {
+    public ResponseModelSinglePayload<ExpenseModel> getExpense(@PathVariable("expense_id") String expenseId, @RequestHeader("userId") String userId) {
 
         //Check user validity
         Optional<UserModel> userById = expenseService.getUserById(userId);
@@ -79,7 +79,7 @@ public class UserController {
     }
 
     @PostMapping
-    public ResponseModelSinglePayload<ExpenseModel> addExpense(@RequestBody ExpenseModel expenseModel, @RequestHeader("user_id") String userId) {
+    public ResponseModelSinglePayload<ExpenseModel> addExpense(@RequestBody ExpenseModel expenseModel, @RequestHeader("userId") String userId) {
 
         //Check user validity
         Optional<UserModel> userById = expenseService.getUserById(userId);
@@ -100,7 +100,7 @@ public class UserController {
     public ResponseModelSinglePayload<ExpenseModel> updateExpense(
             @PathVariable("expense_id") String expenseId,
             @RequestBody ExpenseModel expenseModelToUpdate,
-            @RequestHeader("user_id") String userId
+            @RequestHeader("userId") String userId
     ) {
 
         //Check user validity
@@ -119,7 +119,7 @@ public class UserController {
     }
 
     @PostMapping(path = "upload/{expense_id}", consumes = "multipart/form-data")
-    public ResponseModel uploadReceiptImage(@PathVariable("expense_id") String expenseId, @RequestParam("receipt_image") MultipartFile receiptImage, @RequestHeader("user_id") String userId)
+    public ResponseModel uploadReceiptImage(@PathVariable("expense_id") String expenseId, @RequestParam("receipt_image") MultipartFile receiptImage, @RequestHeader("userId") String userId)
     {
         //Check user validity
         Optional<UserModel> userById = expenseService.getUserById(userId);

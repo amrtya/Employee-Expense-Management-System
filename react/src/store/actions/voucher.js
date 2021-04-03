@@ -19,7 +19,7 @@ const getVoucherInStore = (vouchers) => {
 
 export const getVoucher = (userID) => {
     return dispatch => {
-        axios.get('/expense', {headers: {user_id: userID}})
+        axios.get('/expense', {headers: {userId: userID}})
             .then(response => {
                 if(response.data.responseType === "SUCCESS"){
                     dispatch(getVoucherInStore(response.data.results));
@@ -39,7 +39,7 @@ export const uploadImage = (eid, uid, image, voucherData=null) => {
         let data = new FormData();
         data.append("receipt_image", image);
 
-        axios.post('/expense/upload/'+eid, data, {headers: {user_id: uid}})
+        axios.post('/expense/upload/'+eid, data, {headers: {userId: uid}})
             .then(response => {
                 if(response.data.responseType === "SUCCESS"){
                     if(voucherData){
@@ -72,7 +72,7 @@ export const uploadImage = (eid, uid, image, voucherData=null) => {
 
 export const addVoucher = (voucherData, userID, image) => {
     return dispatch => {
-        axios.post('/expense', voucherData, {headers: {user_id: userID}})
+        axios.post('/expense', voucherData, {headers: {userId: userID}})
             .then(response => {
                 if(response.data.responseType === "SUCCESS"){
                     dispatch(uploadImage(response.data.result.expenseId, userID, image, voucherData));
