@@ -32,10 +32,10 @@ public class ManagerController {
             return new ResponseModelListPayload<ExpenseModel>(ResponseModel.FAILURE, "Manager not found", null);
 
         if (!managerById.get().getRole().equals(UserModel.MANAGER))
-            return new ResponseModelListPayload<ExpenseModel>(ResponseModel.ROLE_CHANGED, "Your role has changed. Please login again", null);
+            return new ResponseModelListPayload<ExpenseModel>(ResponseModel.ROLE_CHANGED, "Your role has changed. Please Login again.", null);
 
         if(!managerById.get().isActive())
-            return new ResponseModelListPayload<>(ResponseModel.INACTIVE, "You account is currently suspended.", null);
+            return new ResponseModelListPayload<>(ResponseModel.INACTIVE, "Your account is currently suspended.", null);
 
         return expenseService.getAllExpenses();
     }
@@ -49,10 +49,10 @@ public class ManagerController {
 
         // Check role validity
         if (!managerById.get().getRole().equals(UserModel.MANAGER))
-            return new ResponseModelSinglePayload<ExpenseModel>(ResponseModel.ROLE_CHANGED, "Your role has changed. Please login again", null);
+            return new ResponseModelSinglePayload<ExpenseModel>(ResponseModel.ROLE_CHANGED, "Your role has changed. Please Login again.", null);
 
         if(!managerById.get().isActive())
-            return new ResponseModelSinglePayload<>(ResponseModel.INACTIVE, "You account is currently suspended.", null);
+            return new ResponseModelSinglePayload<>(ResponseModel.INACTIVE, "Your account is currently suspended.", null);
 
         // If everything is valid, get expense
         return expenseService.getExpense(expenseId);
@@ -67,14 +67,14 @@ public class ManagerController {
 
         Optional<UserModel> managerById = expenseService.getUserById(managerId);
         if (managerById.isEmpty())
-            return new ResponseModelSinglePayload<ExpenseModel>(ResponseModel.FAILURE, "Manager not found.", null);
+            return new ResponseModelSinglePayload<ExpenseModel>(ResponseModel.FAILURE, "Manager not found", null);
 
         // Check role validity
         if (!managerById.get().getRole().equals(UserModel.MANAGER))
-            return new ResponseModelSinglePayload<ExpenseModel>(ResponseModel.ROLE_CHANGED, "Your role has changed. Please login again", null);
+            return new ResponseModelSinglePayload<ExpenseModel>(ResponseModel.ROLE_CHANGED, "Your role has changed. Please Login again.", null);
 
         if(!managerById.get().isActive())
-            return new ResponseModelSinglePayload<>(ResponseModel.INACTIVE, "You account is currently suspended.", null);
+            return new ResponseModelSinglePayload<>(ResponseModel.INACTIVE, "Your account is currently suspended.", null);
         // If everything checks out, update the expense
         return expenseService.updateExpense(expenseId, expenseModelToUpdate, false);
     }
@@ -84,13 +84,13 @@ public class ManagerController {
 
         Optional<UserModel> managerById = expenseService.getUserById(managerId);
         if (managerById.isEmpty())
-            return new ResponseModel(ResponseModel.FAILURE, "Manager not found.");
+            return new ResponseModel(ResponseModel.FAILURE, "Manager not found");
 
         if (!managerById.get().getRole().equals(UserModel.MANAGER))
-            return new ResponseModel(ResponseModel.ROLE_CHANGED, "Your role has changed. Please login again.");
+            return new ResponseModel(ResponseModel.ROLE_CHANGED, "Your role has changed. Please Login again.");
 
         if(!managerById.get().isActive())
-            return new ResponseModel(ResponseModel.INACTIVE, "You account is currently suspended.");
+            return new ResponseModel(ResponseModel.INACTIVE, "Your account is currently suspended.");
         // If everything is valid, delete expense
         return expenseService.deleteExpenseById(expenseId);
     }
@@ -105,16 +105,15 @@ public class ManagerController {
 
         // Check role validity
         if(!managerById.get().getRole().equals(UserModel.MANAGER))
-            return new ResponseModel(ResponseModel.ROLE_CHANGED, "Your role has changed. Please login again");
+            return new ResponseModel(ResponseModel.ROLE_CHANGED, "Your role has changed. Please Login again.");
 
         if(!managerById.get().isActive())
-            return new ResponseModel(ResponseModel.INACTIVE, "You account is currently suspended.");
+            return new ResponseModel(ResponseModel.INACTIVE, "Your account is currently suspended.");
         try {
-            expenseService.storeReceiptImage(receiptImage, expenseId);
+            return expenseService.storeReceiptImage(receiptImage, expenseId);
         } catch (IOException e) {
             return new ResponseModel(ResponseModel.FAILURE, "Receipt Image Upload Failed");
         }
 
-        return new ResponseModel(ResponseModel.SUCCESS, "Receipt Image Uploaded Successfully");
     }
 }

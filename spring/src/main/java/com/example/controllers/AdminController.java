@@ -35,7 +35,7 @@ public class AdminController {
 
         // Check Role validity
         if(!adminById.get().getRole().equals(UserModel.ADMIN))
-            return new ResponseModelListPayload<>(ResponseModel.ROLE_CHANGED, "Your role has changed. Please login again.", null);
+            return new ResponseModelListPayload<>(ResponseModel.ROLE_CHANGED, "Your role has changed. Please Login again.", null);
 
         if(!adminById.get().isActive())
             return new ResponseModelListPayload<>(ResponseModel.INACTIVE, "Your account is currently suspended.", null);
@@ -52,7 +52,7 @@ public class AdminController {
 
         // Check role validity
         if(!adminById.get().getRole().equals(UserModel.ADMIN))
-            return new ResponseModelSinglePayload<>(ResponseModel.ROLE_CHANGED, "Your role has changed. Please login again.", null);
+            return new ResponseModelSinglePayload<>(ResponseModel.ROLE_CHANGED, "Your role has changed. Please Login again.", null);
 
         if(!adminById.get().isActive())
             return new ResponseModelSinglePayload<>(ResponseModel.INACTIVE, "Your account is currently suspended.", null);
@@ -69,7 +69,7 @@ public class AdminController {
 
         // Check role validity
         if(!adminById.get().getRole().equals(UserModel.ADMIN))
-            return new ResponseModelSinglePayload<>(ResponseModel.ROLE_CHANGED, "Your role has changed. Please login again.", null);
+            return new ResponseModelSinglePayload<>(ResponseModel.ROLE_CHANGED, "Your role has changed. Please Login again.", null);
 
         if(!adminById.get().isActive())
             return new ResponseModelSinglePayload<>(ResponseModel.INACTIVE, "Your account is currently suspended.", null);
@@ -86,7 +86,7 @@ public class AdminController {
 
         // Check role validity
         if(!adminById.get().getRole().equals(UserModel.ADMIN))
-            return new ResponseModel(ResponseModel.ROLE_CHANGED, "Your role has changed. Please login again.");
+            return new ResponseModel(ResponseModel.ROLE_CHANGED, "Your role has changed. Please Login again.");
 
         if(!adminById.get().isActive())
             return new ResponseModel(ResponseModel.INACTIVE, "Your account is currently suspended.");
@@ -103,7 +103,7 @@ public class AdminController {
 
         // Check role validity
         if(!adminById.get().getRole().equals(UserModel.ADMIN))
-            return new ResponseModelSinglePayload<>(ResponseModel.ROLE_CHANGED, "Your role has changed. Please login again.", null);
+            return new ResponseModelSinglePayload<>(ResponseModel.ROLE_CHANGED, "Your role has changed. Please Login again.", null);
 
         if(!adminById.get().isActive())
             return new ResponseModelSinglePayload<>(ResponseModel.INACTIVE, "Your account is currently suspended.", null);
