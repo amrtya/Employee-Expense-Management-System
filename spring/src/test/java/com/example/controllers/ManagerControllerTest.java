@@ -36,7 +36,7 @@ public class ManagerControllerTest {
         String userIdHeader = "managerId";
 
         //<------------ User not found test ---------------->
-        UserModel userModel = new UserModel("someuser", "myemail@mail.com", "myname", "13241", true, "MANAGER");
+        UserModel userModel = new UserModel("someuser", "myemail@mail.com", "myname", "13241", true, UserModel.MANAGER);
 
         Mockito
                 .when(expenseService.getUserById("someuser"))
@@ -51,7 +51,7 @@ public class ManagerControllerTest {
         JSONAssert.assertEquals(expected, mvcResult.getResponse().getContentAsString(), false);
 
         //<-------------------- Role Changed Test --------------->
-        userModel = new UserModel("someuser", "myemail@mail.com", "myname", "13241", true, "USER");
+        userModel = new UserModel("someuser", "myemail@mail.com", "myname", "13241", true, UserModel.USER);
 
         Mockito
                 .when(expenseService.getUserById("someuser"))
@@ -67,7 +67,7 @@ public class ManagerControllerTest {
 
         //<--------------------- Suspension Test ----------------->
 
-        userModel = new UserModel("someuser", "myemail@mail.com", "myname", "13241", false, "MANAGER");
+        userModel = new UserModel("someuser", "myemail@mail.com", "myname", "13241", false, UserModel.MANAGER);
 
         Mockito
                 .when(expenseService.getUserById("someuser"))
@@ -82,8 +82,8 @@ public class ManagerControllerTest {
         JSONAssert.assertEquals(expected, mvcResult.getResponse().getContentAsString(), false);
 
         //<----------------------- Success Test --------------->
-        userModel = new UserModel("someuser", "myemail@mail.com", "myname", "13241", true, "MANAGER");
-        List<ExpenseModel> expenseModelList = List.of(new ExpenseModel("someexpense", 123456L, 10, "image", LocalDate.now(), "REIMBURSED", "someremark", userModel));
+        userModel = new UserModel("someuser", "myemail@mail.com", "myname", "13241", true, UserModel.MANAGER);
+        List<ExpenseModel> expenseModelList = List.of(new ExpenseModel("someexpense", 123456L, 10, "image", LocalDate.of(2021, 4, 3), ExpenseModel.REIMBURSED, "someremark", userModel));
         ResponseModelListPayload<ExpenseModel> response = new ResponseModelListPayload<>(ResponseModel.SUCCESS, expenseModelList);
         Mockito
                 .when(expenseService.getUserById("someuser"))
@@ -108,7 +108,7 @@ public class ManagerControllerTest {
         String userIdHeader = "managerId";
 
         //<------------ User not found test ---------------->
-        UserModel userModel = new UserModel("someuser", "myemail@mail.com", "myname", "13241", true, "MANAGER");
+        UserModel userModel = new UserModel("someuser", "myemail@mail.com", "myname", "13241", true, UserModel.MANAGER);
 
         Mockito
                 .when(expenseService.getUserById("someuser"))
@@ -122,7 +122,7 @@ public class ManagerControllerTest {
         JSONAssert.assertEquals(expected, mvcResult.getResponse().getContentAsString(), false);
 
         //<-------------------- Role Changed Test --------------->
-        userModel = new UserModel("someuser", "myemail@mail.com", "myname", "13241", true, "USER");
+        userModel = new UserModel("someuser", "myemail@mail.com", "myname", "13241", true, UserModel.USER);
 
         Mockito
                 .when(expenseService.getUserById("someuser"))
@@ -137,7 +137,7 @@ public class ManagerControllerTest {
 
         //<--------------------- Suspension Test ----------------->
 
-        userModel = new UserModel("someuser", "myemail@mail.com", "myname", "13241", false, "MANAGER");
+        userModel = new UserModel("someuser", "myemail@mail.com", "myname", "13241", false, UserModel.MANAGER);
 
         Mockito
                 .when(expenseService.getUserById("someuser"))
@@ -151,8 +151,8 @@ public class ManagerControllerTest {
         JSONAssert.assertEquals(expected, mvcResult.getResponse().getContentAsString(), false);
 
         //<----------------------- Success Test --------------->
-        userModel = new UserModel("someuser", "myemail@mail.com", "myname", "13241", true, "MANAGER");
-        ExpenseModel expenseModel = new ExpenseModel("someexpense", 123456L, 10, "image", LocalDate.now(), "REIMBURSED", "someremark", userModel);
+        userModel = new UserModel("someuser", "myemail@mail.com", "myname", "13241", true, UserModel.MANAGER);
+        ExpenseModel expenseModel = new ExpenseModel("someexpense", 123456L, 10, "image", LocalDate.of(2021, 4, 3), ExpenseModel.REIMBURSED, "someremark", userModel);
         ResponseModelSinglePayload<ExpenseModel> response = new ResponseModelSinglePayload<>(ResponseModel.SUCCESS, expenseModel);
         Mockito
                 .when(expenseService.getUserById("someuser"))
@@ -184,7 +184,7 @@ public class ManagerControllerTest {
                 "    \"remark\": \"of course\"\n" +
                 "}";
         //<------------ User not found test ---------------->
-        UserModel userModel = new UserModel("someuser", "myemail@mail.com", "myname", "13241", true, "MANAGER");
+        UserModel userModel = new UserModel("someuser", "myemail@mail.com", "myname", "13241", true, UserModel.MANAGER);
         Mockito
                 .when(expenseService.getUserById("someuser"))
                 .thenReturn(Optional.of(userModel));
@@ -198,7 +198,7 @@ public class ManagerControllerTest {
         JSONAssert.assertEquals(expected, mvcResult.getResponse().getContentAsString(), false);
 
         //<-------------------- Role Changed Test --------------->
-        userModel = new UserModel("someuser", "myemail@mail.com", "myname", "13241", true, "USER");
+        userModel = new UserModel("someuser", "myemail@mail.com", "myname", "13241", true, UserModel.USER);
 
         Mockito
                 .when(expenseService.getUserById("someuser"))
@@ -214,7 +214,7 @@ public class ManagerControllerTest {
 
         //<--------------------- Suspension Test ----------------->
 
-        userModel = new UserModel("someuser", "myemail@mail.com", "myname", "13241", false, "MANAGER");
+        userModel = new UserModel("someuser", "myemail@mail.com", "myname", "13241", false, UserModel.MANAGER);
 
         Mockito
                 .when(expenseService.getUserById("someuser"))
@@ -229,8 +229,8 @@ public class ManagerControllerTest {
         JSONAssert.assertEquals(expected, mvcResult.getResponse().getContentAsString(), false);
 
         //<----------------------- Success Test --------------->
-        userModel = new UserModel("someuser", "myemail@mail.com", "myname", "13241", true, "MANAGER");
-        ExpenseModel expenseModel = new ExpenseModel("someexpense", 123456L, 10, "image", LocalDate.now(), "REIMBURSED", "someremark", userModel);
+        userModel = new UserModel("someuser", "myemail@mail.com", "myname", "13241", true, UserModel.MANAGER);
+        ExpenseModel expenseModel = new ExpenseModel("someexpense", 123456L, 10, "image", LocalDate.of(2021, 4, 3), ExpenseModel.REIMBURSED, "someremark", userModel);
         ResponseModelSinglePayload<ExpenseModel> response = new ResponseModelSinglePayload<>(ResponseModel.SUCCESS, expenseModel);
         Mockito
                 .when(expenseService.getUserById("someuser"))
@@ -255,7 +255,7 @@ public class ManagerControllerTest {
         String userIdHeader = "managerId";
 
         //<------------ User not found test ---------------->
-        UserModel userModel = new UserModel("someuser", "myemail@mail.com", "myname", "13241", true, "MANAGER");
+        UserModel userModel = new UserModel("someuser", "myemail@mail.com", "myname", "13241", true, UserModel.MANAGER);
         Mockito
                 .when(expenseService.getUserById("someuser"))
                 .thenReturn(Optional.of(userModel));
@@ -269,7 +269,7 @@ public class ManagerControllerTest {
         JSONAssert.assertEquals(expected, mvcResult.getResponse().getContentAsString(), false);
 
         //<-------------------- Role Changed Test --------------->
-        userModel = new UserModel("someuser", "myemail@mail.com", "myname", "13241", true, "USER");
+        userModel = new UserModel("someuser", "myemail@mail.com", "myname", "13241", true, UserModel.USER);
 
         Mockito
                 .when(expenseService.getUserById("someuser"))
@@ -285,7 +285,7 @@ public class ManagerControllerTest {
 
         //<--------------------- Suspension Test ----------------->
 
-        userModel = new UserModel("someuser", "myemail@mail.com", "myname", "13241", false, "MANAGER");
+        userModel = new UserModel("someuser", "myemail@mail.com", "myname", "13241", false, UserModel.MANAGER);
 
         Mockito
                 .when(expenseService.getUserById("someuser"))
@@ -300,7 +300,7 @@ public class ManagerControllerTest {
         JSONAssert.assertEquals(expected, mvcResult.getResponse().getContentAsString(), false);
 
         //<----------------------- Success Test --------------->
-        userModel = new UserModel("someuser", "myemail@mail.com", "myname", "13241", true, "MANAGER");
+        userModel = new UserModel("someuser", "myemail@mail.com", "myname", "13241", true, UserModel.MANAGER);
         ResponseModel response = new ResponseModel(ResponseModel.SUCCESS, "Deleted Successfully");
         Mockito
                 .when(expenseService.getUserById("someuser"))
