@@ -14,8 +14,9 @@ class AddUser extends Component {
     clearForm = () => {
         this.props.updateEmail("");
         this.props.updateMobileNumber("");
-        this.props.updateRole("");
+        this.props.updateRole("USER");
         this.props.updateUserName("");
+        this.props.updatePassword("");
         this.props.updateActive("yes");
         this.props.clicked();
     }
@@ -23,11 +24,9 @@ class AddUser extends Component {
         let isValid = true;
         isValid = isValid && this.props.user.username!=="";
         isValid = isValid && this.props.user.email!=="";
-        isValid = isValid && this.props.user.role!=="";
         if(this.props.formState){
             isValid = isValid && this.props.user.password!=="";
         }
-        isValid = isValid && this.props.user.username!=="";
         return isValid;
     }
     updateUser = () => {
@@ -46,6 +45,7 @@ class AddUser extends Component {
             });
             this.clearForm();
         }else{
+            console.log(this.props.user);
             toast.error("One of more fields are empty. Fill them and try again")
         }
     }
