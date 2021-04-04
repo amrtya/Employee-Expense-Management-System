@@ -78,7 +78,7 @@ class AddUser extends Component {
     render() {
         return (
             <div className={classes.AddUser}>
-                <h2>Add/Edit Details</h2>
+                <h2>{this.props.formState ? "Add" : "Update"} Details</h2>
                 <input className={classes.AddUserInput} 
                     type="text" placeholder="Name"
                     value={this.props.user.username}
