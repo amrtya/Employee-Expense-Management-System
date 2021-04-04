@@ -45,19 +45,18 @@
     border: 1px solid black;
 }
 .expenseRight button {
-    width: 50%;
-    margin: 15px auto;
+    width: 40%;
+    margin: 15px 5px;
     padding: 10px;
     font-size: 18px;
     border-radius: 10px;
     outline: none;
     border: 1px solid black;
     cursor: pointer;
-    background-color: aquamarine;
     color: black;
 }
 .expenseRight button:hover {
-    background-color: rgb(57, 243, 181);
+    background-color: rgb(193, 243, 57);
 }
 .red {
     border: 1px solid red;
@@ -67,6 +66,12 @@
     border-width: 1px;
     border-style: inset;
     border-color: -internal-light-dark(rgb(118, 118, 118), rgb(133, 133, 133));
+}
+.update {
+    background-color: aquamarine;
+}
+.cancel {
+    background-color: rgb(241, 85, 85);
 }
 
 @media (max-width: 500px) {

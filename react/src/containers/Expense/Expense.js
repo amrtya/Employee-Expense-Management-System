@@ -109,7 +109,10 @@ class AddExpense extends Component {
             status: newVoucher.status,
             date: newVoucher.datedOn,
             eid: newVoucher.billNumber,
-            amount: newVoucher.billCost,
+            amount: {
+                value: newVoucher.billCost,
+                valid: true
+            },
             description: newVoucher.remark,
             image: newVoucher.receiptImage,
             valid: true,
@@ -184,8 +187,14 @@ class AddExpense extends Component {
                         <input type="file" style={{border: "none"}}
                                 onChange={this.onImageChange}
                                 value={this.state.imageName} />
-                        <button type="button" disabled={!this.state.valid}
-                                onClick={this.clickHandler}>Submit</button>
+                        <div>
+                            <button type="button" disabled={!this.state.valid}
+                                className={classes.update} 
+                                onClick={this.clickHandler}>{this.state.formState? "Add": "Update"}
+                            </button>
+                            <button type="button" className={classes.cancel} 
+                                onClick={this.clearForm}>Cancel</button>
+                        </div>
                     </div>
                 </div>
             </div>
