@@ -10,10 +10,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.time.LocalDate;
-import java.util.Base64;
-import java.util.List;
-import java.util.Objects;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 public class ExpenseService {
@@ -51,14 +48,37 @@ public class ExpenseService {
     }
 
     public ResponseModelListPayload<ExpenseModel> getAllExpenses() {
-        return new ResponseModelListPayload<ExpenseModel>(ResponseModel.SUCCESS, expenseModelRepository.findAll());
+        List<ExpenseModel> allExpenses = expenseModelRepository.findAll();
+        allExpenses.sort(new Comparator<ExpenseModel>() {
+            @Override
+            public int compare(ExpenseModel o1, ExpenseModel o2) {
+                if(o1.getDatedOn().isAfter(o2.getDatedOn()))
+                    return -1;
+                else if(o1.getDatedOn().isBefore(o2.getDatedOn()))
+                    return 1;
+                return 0;
+            }
+        });
+        return new ResponseModelListPayload<ExpenseModel>(ResponseModel.SUCCESS, allExpenses);
     }
 
     public ResponseModelListPayload<ExpenseModel> getAllExpenses(UserModel userModel) {
 
+        List<ExpenseModel> allExpenses = expenseModelRepository.findAllExpensesByUser(userModel);
+        allExpenses.sort(new Comparator<ExpenseModel>() {
+            @Override
+            public int compare(ExpenseModel o1, ExpenseModel o2) {
+                if(o1.getDatedOn().isAfter(o2.getDatedOn()))
+                    return -1;
+                else if(o1.getDatedOn().isBefore(o2.getDatedOn()))
+                    return 1;
+                return 0;
+            }
+        });
+
         return new ResponseModelListPayload<ExpenseModel>(
                 ResponseModel.SUCCESS,
-                expenseModelRepository.findAllExpensesByUser(userModel)
+                allExpenses
         );
     }
 
