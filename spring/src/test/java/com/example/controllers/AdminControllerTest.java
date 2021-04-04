@@ -42,7 +42,7 @@ public class AdminControllerTest {
         String userIdHeader = "adminId";
 
         //<------------ User not found test ---------------->
-        UserModel userModel = new UserModel("someuser", "myemail@mail.com", "myname", "13241", true, "ADMIN");
+        UserModel userModel = new UserModel("someuser", "myemail@mail.com", "myname", "13241", true, UserModel.ADMIN);
 
         Mockito
                 .when(adminService.getAdminById("someuser"))
@@ -57,7 +57,7 @@ public class AdminControllerTest {
         JSONAssert.assertEquals(expected, mvcResult.getResponse().getContentAsString(), false);
 
         //<-------------------- Role Changed Test --------------->
-        userModel = new UserModel("someuser", "myemail@mail.com", "myname", "13241", true, "USER");
+        userModel = new UserModel("someuser", "myemail@mail.com", "myname", "13241", true, UserModel.USER);
 
         Mockito
                 .when(adminService.getAdminById("someuser"))
@@ -73,7 +73,7 @@ public class AdminControllerTest {
 
         //<--------------------- Suspension Test ----------------->
 
-        userModel = new UserModel("someuser", "myemail@mail.com", "myname", "13241", false, "ADMIN");
+        userModel = new UserModel("someuser", "myemail@mail.com", "myname", "13241", false, UserModel.ADMIN);
 
         Mockito
                 .when(adminService.getAdminById("someuser"))
@@ -88,8 +88,8 @@ public class AdminControllerTest {
         JSONAssert.assertEquals(expected, mvcResult.getResponse().getContentAsString(), false);
 
         //<----------------------- Success Test --------------->
-        userModel = new UserModel("someuser", "myemail@mail.com", "myname", "13241", true, "ADMIN");
-        List<UserModel> userModelList = List.of(new UserModel("someotheruserid", "some@mail.com","some","1234567890", true,"USER"));
+        userModel = new UserModel("someuser", "myemail@mail.com", "myname", "13241", true, UserModel.ADMIN);
+        List<UserModel> userModelList = List.of(new UserModel("someotheruserid", "some@mail.com","some","1234567890", true,UserModel.USER));
         ResponseModelListPayload<UserModel> response = new ResponseModelListPayload<>(ResponseModel.SUCCESS, userModelList);
         Mockito
                 .when(adminService.getAdminById("someuser"))
@@ -114,7 +114,7 @@ public class AdminControllerTest {
         String userIdHeader = "adminId";
 
         //<------------ User not found test ---------------->
-        UserModel userModel = new UserModel("someuser", "myemail@mail.com", "myname", "13241", true, "ADMIN");
+        UserModel userModel = new UserModel("someuser", "myemail@mail.com", "myname", "13241", true, UserModel.ADMIN);
 
         Mockito
                 .when(adminService.getAdminById("someuser"))
@@ -129,7 +129,7 @@ public class AdminControllerTest {
         JSONAssert.assertEquals(expected, mvcResult.getResponse().getContentAsString(), false);
 
         //<-------------------- Role Changed Test --------------->
-        userModel = new UserModel("someuser", "myemail@mail.com", "myname", "13241", true, "USER");
+        userModel = new UserModel("someuser", "myemail@mail.com", "myname", "13241", true, UserModel.USER);
 
         Mockito
                 .when(adminService.getAdminById("someuser"))
@@ -145,7 +145,7 @@ public class AdminControllerTest {
 
         //<--------------------- Suspension Test ----------------->
 
-        userModel = new UserModel("someuser", "myemail@mail.com", "myname", "13241", false, "ADMIN");
+        userModel = new UserModel("someuser", "myemail@mail.com", "myname", "13241", false, UserModel.ADMIN);
 
         Mockito
                 .when(adminService.getAdminById("someuser"))
@@ -160,8 +160,8 @@ public class AdminControllerTest {
         JSONAssert.assertEquals(expected, mvcResult.getResponse().getContentAsString(), false);
 
         //<----------------------- Success Test --------------->
-        userModel = new UserModel("someuser", "myemail@mail.com", "myname", "13241", true, "ADMIN");
-        UserReceiverWithId userReceiverWithId = new UserReceiverWithId("someotheruserid", "some@mail.com","some","1234567890", true,"USER", "somepassword");
+        userModel = new UserModel("someuser", "myemail@mail.com", "myname", "13241", true, UserModel.ADMIN);
+        UserReceiverWithId userReceiverWithId = new UserReceiverWithId("someotheruserid", "some@mail.com","some","1234567890", true,UserModel.USER, "somepassword");
         ResponseModelSinglePayload<UserReceiverWithId> response = new ResponseModelSinglePayload<>(ResponseModel.SUCCESS, userReceiverWithId);
         Mockito
                 .when(adminService.getAdminById("someuser"))
@@ -194,7 +194,7 @@ public class AdminControllerTest {
                 "    \"role\": \"USER\"\n" +
                 "}";
         //<------------ User not found test ---------------->
-        UserModel userModel = new UserModel("someuser", "myemail@mail.com", "myname", "13241", true, "ADMIN");
+        UserModel userModel = new UserModel("someuser", "myemail@mail.com", "myname", "13241", true, UserModel.ADMIN);
 
         Mockito
                 .when(adminService.getAdminById("someuser"))
@@ -209,7 +209,7 @@ public class AdminControllerTest {
         JSONAssert.assertEquals(expected, mvcResult.getResponse().getContentAsString(), false);
 
         //<-------------------- Role Changed Test --------------->
-        userModel = new UserModel("someuser", "myemail@mail.com", "myname", "13241", true, "USER");
+        userModel = new UserModel("someuser", "myemail@mail.com", "myname", "13241", true, UserModel.USER);
 
         Mockito
                 .when(adminService.getAdminById("someuser"))
@@ -225,7 +225,7 @@ public class AdminControllerTest {
 
         //<--------------------- Suspension Test ----------------->
 
-        userModel = new UserModel("someuser", "myemail@mail.com", "myname", "13241", false, "ADMIN");
+        userModel = new UserModel("someuser", "myemail@mail.com", "myname", "13241", false, UserModel.ADMIN);
 
         Mockito
                 .when(adminService.getAdminById("someuser"))
@@ -240,8 +240,8 @@ public class AdminControllerTest {
         JSONAssert.assertEquals(expected, mvcResult.getResponse().getContentAsString(), false);
 
         //<----------------------- Success Test --------------->
-        userModel = new UserModel("someuser", "myemail@mail.com", "myname", "13241", true, "ADMIN");
-        UserModel userModelResponse = new UserModel("raj", "rajtilak@mail.com","rajtilak","6466666546", true,"USER");
+        userModel = new UserModel("someuser", "myemail@mail.com", "myname", "13241", true, UserModel.ADMIN);
+        UserModel userModelResponse = new UserModel("raj", "rajtilak@mail.com","rajtilak","6466666546", true,UserModel.USER);
         ResponseModelSinglePayload<UserModel> response = new ResponseModelSinglePayload<>(ResponseModel.SUCCESS, userModelResponse);
         Mockito
                 .when(adminService.getAdminById("someuser"))
@@ -274,7 +274,7 @@ public class AdminControllerTest {
                 "    \"role\": \"USER\"\n" +
                 "}";
         //<------------ User not found test ---------------->
-        UserModel userModel = new UserModel("someuser", "myemail@mail.com", "myname", "13241", true, "ADMIN");
+        UserModel userModel = new UserModel("someuser", "myemail@mail.com", "myname", "13241", true, UserModel.ADMIN);
 
         Mockito
                 .when(adminService.getAdminById("someuser"))
@@ -289,7 +289,7 @@ public class AdminControllerTest {
         JSONAssert.assertEquals(expected, mvcResult.getResponse().getContentAsString(), false);
 
         //<-------------------- Role Changed Test --------------->
-        userModel = new UserModel("someuser", "myemail@mail.com", "myname", "13241", true, "USER");
+        userModel = new UserModel("someuser", "myemail@mail.com", "myname", "13241", true, UserModel.USER);
 
         Mockito
                 .when(adminService.getAdminById("someuser"))
@@ -305,7 +305,7 @@ public class AdminControllerTest {
 
         //<--------------------- Suspension Test ----------------->
 
-        userModel = new UserModel("someuser", "myemail@mail.com", "myname", "13241", false, "ADMIN");
+        userModel = new UserModel("someuser", "myemail@mail.com", "myname", "13241", false, UserModel.ADMIN);
 
         Mockito
                 .when(adminService.getAdminById("someuser"))
@@ -320,8 +320,8 @@ public class AdminControllerTest {
         JSONAssert.assertEquals(expected, mvcResult.getResponse().getContentAsString(), false);
 
         //<----------------------- Success Test --------------->
-        userModel = new UserModel("someuser", "myemail@mail.com", "myname", "13241", true, "ADMIN");
-        UserModel userModelResponse = new UserModel("raj", "rajtilak@mail.com","rajtilak","6466666546", true,"USER");
+        userModel = new UserModel("someuser", "myemail@mail.com", "myname", "13241", true, UserModel.ADMIN);
+        UserModel userModelResponse = new UserModel("raj", "rajtilak@mail.com","rajtilak","6466666546", true,UserModel.USER);
         ResponseModelSinglePayload<UserModel> response = new ResponseModelSinglePayload<>(ResponseModel.SUCCESS, userModelResponse);
         Mockito
                 .when(adminService.getAdminById("someuser"))
@@ -346,7 +346,7 @@ public class AdminControllerTest {
         String userIdHeader = "adminId";
 
         //<------------ User not found test ---------------->
-        UserModel userModel = new UserModel("someuser", "myemail@mail.com", "myname", "13241", true, "ADMIN");
+        UserModel userModel = new UserModel("someuser", "myemail@mail.com", "myname", "13241", true, UserModel.ADMIN);
 
         Mockito
                 .when(adminService.getAdminById("someuser"))
@@ -361,7 +361,7 @@ public class AdminControllerTest {
         JSONAssert.assertEquals(expected, mvcResult.getResponse().getContentAsString(), false);
 
         //<-------------------- Role Changed Test --------------->
-        userModel = new UserModel("someuser", "myemail@mail.com", "myname", "13241", true, "USER");
+        userModel = new UserModel("someuser", "myemail@mail.com", "myname", "13241", true, UserModel.USER);
 
         Mockito
                 .when(adminService.getAdminById("someuser"))
@@ -377,7 +377,7 @@ public class AdminControllerTest {
 
         //<--------------------- Suspension Test ----------------->
 
-        userModel = new UserModel("someuser", "myemail@mail.com", "myname", "13241", false, "ADMIN");
+        userModel = new UserModel("someuser", "myemail@mail.com", "myname", "13241", false, UserModel.ADMIN);
 
         Mockito
                 .when(adminService.getAdminById("someuser"))
@@ -392,7 +392,7 @@ public class AdminControllerTest {
         JSONAssert.assertEquals(expected, mvcResult.getResponse().getContentAsString(), false);
 
         //<----------------------- Success Test --------------->
-        userModel = new UserModel("someuser", "myemail@mail.com", "myname", "13241", true, "ADMIN");
+        userModel = new UserModel("someuser", "myemail@mail.com", "myname", "13241", true, UserModel.ADMIN);
         ResponseModel response = new ResponseModel(ResponseModel.SUCCESS, "Deleted Successfully");
         Mockito
                 .when(adminService.getAdminById("someuser"))

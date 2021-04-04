@@ -32,7 +32,7 @@ public class LoginControllerTest {
                 "    \"email\": \"sample@mail.com\",\n" +
                 "    \"password\": \"password\"\n" +
                 "}";
-        UserModel userModelResponse = new UserModel("raj", "some@mail.com","someusername","6466666546", true,"USER");
+        UserModel userModelResponse = new UserModel("raj", "some@mail.com","someusername","6466666546", true,UserModel.USER);
         ResponseModelSinglePayload<UserModel> response = new ResponseModelSinglePayload<>(ResponseModel.SUCCESS, userModelResponse);
 
         Mockito

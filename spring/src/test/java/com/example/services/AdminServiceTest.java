@@ -30,7 +30,7 @@ public class AdminServiceTest {
 
     @Test
     public void getUser() {
-        UserModel userModel = new UserModel("raj", "rajtilak@mail.com", "rajtilak", "1234567890", true, "USER");
+        UserModel userModel = new UserModel("raj", "rajtilak@mail.com", "rajtilak", "1234567890", true, UserModel.USER);
         LoginModel loginModel = new LoginModel("someloginid", "rajtilak@mail.com", "somepassword");
 
         ResponseModelSinglePayload<UserReceiverWithId> expected = new ResponseModelSinglePayload<>(ResponseModel.FAILURE, "User not found.", null);
@@ -70,7 +70,7 @@ public class AdminServiceTest {
 
     @Test
     void deleteUserById() {
-        UserModel userModel = new UserModel("raj", "rajtilak@mail.com", "rajtilak", "1234567890", true, "USER");
+        UserModel userModel = new UserModel("raj", "rajtilak@mail.com", "rajtilak", "1234567890", true, UserModel.USER);
 
         ResponseModel expected = new ResponseModel(ResponseModel.FAILURE, "User not found.");
 
@@ -96,8 +96,8 @@ public class AdminServiceTest {
 
     @Test
     void updateUser() {
-        UserModel userModel = new UserModel("raj", "rajtilak@mail.com", "rajtilak", "1234567890", true, "USER");
-        UserReceiver userModelToUpdate = new UserReceiver( "rajtilak2@mail.com", "rajtilak2", "1234567890", true, "MANAGER", "somepassword");
+        UserModel userModel = new UserModel("raj", "rajtilak@mail.com", "rajtilak", "1234567890", true, UserModel.USER);
+        UserReceiver userModelToUpdate = new UserReceiver( "rajtilak2@mail.com", "rajtilak2", "1234567890", true, UserModel.MANAGER, "somepassword");
 
         ResponseModelSinglePayload<UserModel> expected = new ResponseModelSinglePayload<>(ResponseModel.FAILURE, "User not found.", null);
 
@@ -125,7 +125,7 @@ public class AdminServiceTest {
         Assertions.assertEquals(expected.getResult(), response.getResult());
 
 
-        UserModel userModelUpdated = new UserModel("raj", "rajtilak2@mail.com", "rajtilak2", "1234567890", true, "MANAGER");
+        UserModel userModelUpdated = new UserModel("raj", "rajtilak2@mail.com", "rajtilak2", "1234567890", true, UserModel.MANAGER);
 
         expected = new ResponseModelSinglePayload<>(ResponseModel.SUCCESS, "User Updated Successfully", userModelUpdated);
 

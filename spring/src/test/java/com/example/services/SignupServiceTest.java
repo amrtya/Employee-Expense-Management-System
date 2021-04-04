@@ -26,7 +26,7 @@ public class SignupServiceTest {
 
     @Test
     public void saveUser() {
-        UserReceiver userReceiver = new UserReceiver("raj@mail.com", "raj", "1234567890", true, "USER", "somepassword");
+        UserReceiver userReceiver = new UserReceiver("raj@mail.com", "raj", "1234567890", true, UserModel.USER, "somepassword");
         UserModel userModel = new UserModel();
 
         ResponseModelSinglePayload<UserModel> expected = new ResponseModelSinglePayload<>(ResponseModel.EMAIL_TAKEN, "This email is already taken. Try another one.", null);

@@ -29,9 +29,9 @@ public class ExpenseServiceTest {
 
     @Test
     public void addExpense() {
-        UserModel userModel = new UserModel("raj", "rajtilak@mail.com", "rajtilak", "1234567890", true, "USER");
-        ExpenseModel expenseModel = new ExpenseModel("someexpenseid", 123L, 123, "image", LocalDate.now(), "REIMBURSED", "someremark", userModel);
-        List<ExpenseModel> expenseModelList = List.of(new ExpenseModel("someexpenseid", 123L, 123, "image", LocalDate.now(), "REIMBURSED", "someremark", userModel));
+        UserModel userModel = new UserModel("raj", "rajtilak@mail.com", "rajtilak", "1234567890", true, UserModel.USER);
+        ExpenseModel expenseModel = new ExpenseModel("someexpenseid", 123L, 123, "image", LocalDate.now(), ExpenseModel.REIMBURSED, "someremark", userModel);
+        List<ExpenseModel> expenseModelList = List.of(new ExpenseModel("someexpenseid", 123L, 123, "image", LocalDate.now(), ExpenseModel.REIMBURSED, "someremark", userModel));
 
         ResponseModelSinglePayload<ExpenseModel> expected = new ResponseModelSinglePayload<>(ResponseModel.SUCCESS, expenseModel);
 
@@ -43,7 +43,7 @@ public class ExpenseServiceTest {
         Assertions.assertEquals(expected.getResponseType(), response.getResponseType());
         Assertions.assertEquals(expected.getResult(), response.getResult());
 
-        expenseModelList = List.of(new ExpenseModel("someexpenseid", 123L, 4900, "image", LocalDate.now(), "REIMBURSED", "someremark", userModel));
+        expenseModelList = List.of(new ExpenseModel("someexpenseid", 123L, 4900, "image", LocalDate.now(), ExpenseModel.REIMBURSED, "someremark", userModel));
 
         expected = new ResponseModelSinglePayload<>(ResponseModel.FAILURE, "Expense Not added as it is exceeding limit: Rs. 5000", null);
 
@@ -59,8 +59,8 @@ public class ExpenseServiceTest {
 
     @Test
     void getExpense() {
-        UserModel userModel = new UserModel("raj", "rajtilak@mail.com", "rajtilak", "1234567890", true, "USER");
-        ExpenseModel expenseModel = new ExpenseModel("someexpenseid", 123L, 123, "image", LocalDate.now(), "REIMBURSED", "someremark", userModel);
+        UserModel userModel = new UserModel("raj", "rajtilak@mail.com", "rajtilak", "1234567890", true, UserModel.USER);
+        ExpenseModel expenseModel = new ExpenseModel("someexpenseid", 123L, 123, "image", LocalDate.now(), ExpenseModel.REIMBURSED, "someremark", userModel);
 
         ResponseModelSinglePayload<ExpenseModel> expected = new ResponseModelSinglePayload<>(ResponseModel.FAILURE, "Expense not found", null);
 
@@ -85,10 +85,10 @@ public class ExpenseServiceTest {
 
     @Test
     void updateExpense() {
-        UserModel userModel = new UserModel("raj", "rajtilak@mail.com", "rajtilak", "1234567890", true, "USER");
-        ExpenseModel expenseModel = new ExpenseModel("someexpenseid", 123L, 123, "image", LocalDate.now(), "REIMBURSED", "someremark", userModel);
-        ExpenseModel expenseModelToUpdate = new ExpenseModel("someexpenseid", 123L, 123, "image", LocalDate.now(), "REIMBURSED", "someremark", userModel);
-        List<ExpenseModel> expenseModelList = List.of(new ExpenseModel("someexpenseid1", 123L, 123, "image", LocalDate.now(), "REIMBURSED", "someremark", userModel));
+        UserModel userModel = new UserModel("raj", "rajtilak@mail.com", "rajtilak", "1234567890", true, UserModel.USER);
+        ExpenseModel expenseModel = new ExpenseModel("someexpenseid", 123L, 123, "image", LocalDate.now(), ExpenseModel.REIMBURSED, "someremark", userModel);
+        ExpenseModel expenseModelToUpdate = new ExpenseModel("someexpenseid", 123L, 123, "image", LocalDate.now(), ExpenseModel.REIMBURSED, "someremark", userModel);
+        List<ExpenseModel> expenseModelList = List.of(new ExpenseModel("someexpenseid1", 123L, 123, "image", LocalDate.now(), ExpenseModel.REIMBURSED, "someremark", userModel));
 
         ResponseModelSinglePayload<ExpenseModel> expected = new ResponseModelSinglePayload<>(ResponseModel.FAILURE, "Expense Not found", null);
 
@@ -102,7 +102,7 @@ public class ExpenseServiceTest {
 
 
 
-        expenseModelToUpdate = new ExpenseModel("someexpenseid", 123L, 4900, "image", LocalDate.now(), "REIMBURSED", "someremark", userModel);
+        expenseModelToUpdate = new ExpenseModel("someexpenseid", 123L, 4900, "image", LocalDate.now(), ExpenseModel.REIMBURSED, "someremark", userModel);
 
         expected = new ResponseModelSinglePayload<>(ResponseModel.FAILURE, "Expense Not added as it is exceeding limit: Rs. 5000", null);
 
@@ -116,7 +116,7 @@ public class ExpenseServiceTest {
         Assertions.assertEquals(expected.getResult(), response.getResult());
 
 
-        expenseModelToUpdate = new ExpenseModel("someexpenseid", 123L, 1320, "image", LocalDate.now(), "REIMBURSED", "someremark", userModel);
+        expenseModelToUpdate = new ExpenseModel("someexpenseid", 123L, 1320, "image", LocalDate.now(), ExpenseModel.REIMBURSED, "someremark", userModel);
 
         expected = new ResponseModelSinglePayload<>(ResponseModel.FAILURE, "This expense has already been Reimbursed. You cannot change the cost.", null);
 
@@ -132,8 +132,8 @@ public class ExpenseServiceTest {
 
     @Test
     void deleteExpenseById() {
-        UserModel userModel = new UserModel("raj", "rajtilak@mail.com", "rajtilak", "1234567890", true, "USER");
-        ExpenseModel expenseModel = new ExpenseModel("someexpenseid", 123L, 123, "image", LocalDate.now(), "REIMBURSED", "someremark", userModel);
+        UserModel userModel = new UserModel("raj", "rajtilak@mail.com", "rajtilak", "1234567890", true, UserModel.USER);
+        ExpenseModel expenseModel = new ExpenseModel("someexpenseid", 123L, 123, "image", LocalDate.now(), ExpenseModel.REIMBURSED, "someremark", userModel);
 
         ResponseModel expected = new ResponseModel(ResponseModel.FAILURE, "Expense Not found");
 

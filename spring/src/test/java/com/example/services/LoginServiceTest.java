@@ -55,7 +55,7 @@ public class LoginServiceTest {
 
 
         loginModelFromUser = new LoginModel("someloginid", "raj@mail.com", "password");
-        UserModel userModel = new UserModel("raj", "raj@mail.com", "rajtilak", "1234567890", true, "USER");
+        UserModel userModel = new UserModel("raj", "raj@mail.com", "rajtilak", "1234567890", true, UserModel.USER);
 
         expected = new ResponseModelSinglePayload<>(ResponseModel.SUCCESS, "Logged In Successfully", userModel);
 
