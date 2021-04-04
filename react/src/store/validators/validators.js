@@ -18,3 +18,9 @@ export const validateMobileNumber = (mobileNumber) => {
     const pattern = /^\d+$/;
     return pattern.test(number) && number.length>=10 && number.length<=12;
 }
+
+export const validateBillNumber = (billNumber) => {
+    const number = billNumber.trim();
+    const pattern = /^\d+$/;
+    return pattern.test(number);
+}

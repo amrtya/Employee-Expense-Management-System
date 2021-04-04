@@ -5,13 +5,16 @@ import classes from './ManagerDashBoard.module.css';
 import * as actions from '../../../store/actions/index';
 import Modal from '../../UI/Modal/Modal';
 import BackDrop from '../../UI/BackDrop/BackDrop';
-import { validateBillCost } from '../../../store/validators/validators';
+import { validateBillCost, validateBillNumber } from '../../../store/validators/validators';
 import * as actionTypes from '../../../store/actions/actionTypes';
 
 class ManagerDashBoard extends Component {
     state = {
         // date: "",
-        billNumber: "",
+        billNumber: {
+            value: "",
+            valid: true
+        },
         billCost: {
             value: "",
             valid: true
@@ -27,7 +30,13 @@ class ManagerDashBoard extends Component {
     //     this.setState({date: event.target.value});
     // }
     onBillChange = (event) => {
-        this.setState({billNumber: event.target.value});
+        this.setState({
+            ...this.state,
+            billNumber: {
+                value: event.target.value,
+                valid: validateBillNumber(event.target.value)
+            }
+        });
     }
     onCostChange = (event) => {
         this.setState({
@@ -47,7 +56,10 @@ class ManagerDashBoard extends Component {
     updateState = (data) => {
         this.setState({
             // date: data.datedOn,
-            billNumber: data.billNumber,
+            billNumber: {
+                value: data.billNumber,
+                valid: true
+            },
             billCost: {
                 value: data.billCost,
                 valid: true
@@ -62,7 +74,7 @@ class ManagerDashBoard extends Component {
         const newVoucher = {
             ...this.props.singleVoucher,
             billCost: this.state.billCost.value,
-            billNumber: this.state.billNumber,
+            billNumber: this.state.billNumber.value,
             remark: this.state.remarks,
             status: this.state.status
         }
@@ -108,7 +120,8 @@ class ManagerDashBoard extends Component {
                         <input type="text" placeholder="Bill Number"
                                 title="Bill Number"
                                 onChange={this.onBillChange}
-                                value={this.state.billNumber} />
+                                value={this.state.billNumber.value}
+                                className={this.state.billNumber.valid ? classes.normal : classes.red} />
                         <input type="text" placeholder="Bill Cost"
                                 title="Bill Cost"
                                 onChange={this.onCostChange}
