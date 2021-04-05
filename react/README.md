@@ -5,14 +5,6 @@
 <p align="center">The aim is to build an Expense Management System that simplifies the employee expense-reimbursement process by automating it through a web app. The web app targets to reduce the manual work behind the process and making the process as error prone as possible.
 </p>
 
-<h1 align="center">Technology Stack</h1>
-<p align="center">
-  <img src="https://img.shields.io/badge/react%20-%2300D9FF.svg?&style=for-the-badge&logo=react&logoColor=white" />&nbsp;&nbsp;&nbsp;
-  <img src="https://img.shields.io/badge/javascript%20-%231572B6.svg?&style=for-the-badge&logo=javascript&logoColor=yellow" />&nbsp;&nbsp;
-  <img src="https://img.shields.io/badge/mysql%20-%231572B6.svg?&style=for-the-badge&logo=mysql&logoColor=white" />&nbsp;&nbsp;
-  <img src="https://img.shields.io/badge/git%20-%231572B6.svg?&style=for-the-badge&logo=git&logoColor=white" />&nbsp;&nbsp;
-  <img src="https://img.shields.io/badge/spring%20-%231572B6.svg?&style=for-the-badge&logo=spring&logoColor=white" />&nbsp;&nbsp;
-</p>
 
 <h1 align="center">FrontEnd Docs</h1>
 <h2>Elements: </h2>
