@@ -6,6 +6,15 @@
 
 An Expense Management System is a web app through which a company can automate the process of the employee expense reimbursement process. This web app reduces the need for paper, lowers the amount of time spent handling expenses and minimizes errors.
 
+<h1 align="center">Technology Stack</h1>
+<p align="center">
+  <img src="https://img.shields.io/badge/react%20-%2300D9FF.svg?&style=for-the-badge&logo=react&logoColor=white" />&nbsp;&nbsp;&nbsp;
+  <img src="https://img.shields.io/badge/javascript%20-%231572B6.svg?&style=for-the-badge&logo=javascript&logoColor=yellow" />&nbsp;&nbsp;
+  <img src="https://img.shields.io/badge/mysql%20-%231572B6.svg?&style=for-the-badge&logo=mysql&logoColor=white" />&nbsp;&nbsp;
+  <img src="https://img.shields.io/badge/git%20-%231572B6.svg?&style=for-the-badge&logo=git&logoColor=white" />&nbsp;&nbsp;
+  <img src="https://img.shields.io/badge/spring%20-%231572B6.svg?&style=for-the-badge&logo=spring&logoColor=white" />&nbsp;&nbsp;
+</p>
+
 There are three main users to the system: 
 - Employee
 - Manager
