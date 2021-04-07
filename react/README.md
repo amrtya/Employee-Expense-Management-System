@@ -11,10 +11,10 @@
 <h3><strong>DashBoard:</strong> Only accessible to user(not for manager or admin)</h3>
 <ul>
   <li><strong>Month Input: </strong>User can change the input of the month, the expense details of which they need.</li>
-  <li><strong>Total Expense: </strong>Shows the summation of all the expenses done in the selected month for the corresponsding user</li>
-  <li><strong>Approved Expense: </strong>Shows the summation of all the approved/reimbursed expenses from the selected month for the corresponsding user</li>
-  <li><strong>Pending Expense: </strong>Shows the summation of all the non-reimbursed expenses from the selected month for the corresponsding user</li>
-  <li><strong>Number of Expenses: </strong>Shows the total number of expenses from the selected month for the corresponsding user</li>
+  <li><strong>Total Expense: </strong>Shows the summation of all the expenses done in the selected month for the corresponding user</li>
+  <li><strong>Approved Expense: </strong>Shows the summation of all the approved/reimbursed expenses from the selected month for the corresponding user</li>
+  <li><strong>Pending Expense: </strong>Shows the summation of all the non-reimbursed expenses from the selected month for the corresponding user</li>
+  <li><strong>Number of Expenses: </strong>Shows the total number of expenses from the selected month for the corresponding user</li>
 </ul>
 
 <h3><strong>Add Expense: [User: /add-expense][Manager: /]</strong></h3>
